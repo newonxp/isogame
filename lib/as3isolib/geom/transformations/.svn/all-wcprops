@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/geom/transformations
+END
+IsometricTransformation.as
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/246/trunk/fp10/src/as3isolib/geom/transformations/IsometricTransformation.as
+END
+DimetricTransformation.as
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/246/trunk/fp10/src/as3isolib/geom/transformations/DimetricTransformation.as
+END
+IAxonometricTransformation.as
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/geom/transformations/IAxonometricTransformation.as
+END
+DefaultIsometricTransformation.as
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/geom/transformations/DefaultIsometricTransformation.as
+END

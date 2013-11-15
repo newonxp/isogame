@@ -1,0 +1,58 @@
+10
+
+dir
+327
+http://as3isolib.googlecode.com/svn/trunk/fp10/src/as3isolib
+http://as3isolib.googlecode.com/svn
+
+
+
+2011-04-08T05:23:45.186752Z
+318
+jwopitz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5166c99a-b142-0410-9571-f50be27af959
+
+graphics
+dir
+
+utils
+dir
+
+enum
+dir
+
+events
+dir
+
+display
+dir
+
+geom
+dir
+
+core
+dir
+
+data
+dir
+
+bounds
+dir
+
+errors
+dir
+

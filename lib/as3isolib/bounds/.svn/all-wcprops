@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/bounds
+END
+PrimitiveBounds.as
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/bounds/PrimitiveBounds.as
+END
+IBounds.as
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/bounds/IBounds.as
+END
+SceneBounds.as
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/257/trunk/fp10/src/as3isolib/bounds/SceneBounds.as
+END
