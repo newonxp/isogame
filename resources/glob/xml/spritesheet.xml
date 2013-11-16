@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="spriteSheet.png">
+    <!-- Created with TexturePacker -->
+    <!-- http://texturepacker.com -->
+    <!--  -->
+    <SubTexture name="baseGuide" x="0" y="0" height="150" width="122"/>
+    <SubTexture name="grass00" x="122" y="0" height="150" width="122"/>
+    <SubTexture name="grass01" x="0" y="150" height="150" width="122"/>
+    <SubTexture name="grass02" x="122" y="150" height="150" width="122"/>
+    <SubTexture name="grass03" x="0" y="300" height="150" width="122"/>
+    <SubTexture name="grass04" x="122" y="300" height="150" width="122"/>
+</TextureAtlas>
