@@ -6,9 +6,9 @@ package entities
 
 	public class Floor extends BasicStaticObject
 	{
-		public function Floor(scene:IsoScene=null, sprite:Image=null)
+		public function Floor(scene:IsoScene=null, spriteImg:BasicImage=null, spriteImgOver:BasicImage=null)
 		{
-			super(scene, sprite)
+			super(scene, spriteImg, spriteImgOver)
 		}
 
 	}

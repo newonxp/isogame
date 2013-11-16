@@ -16,6 +16,9 @@ package
 		public static const locale_ru:String="ru"
 		public static const locale_eng:String="eng"
 
+		//gameplay
+		public static const cell_size:Number=40
+
 		public function Config()
 		{
 		}

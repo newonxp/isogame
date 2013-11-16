@@ -6,9 +6,9 @@ package entities
 
 	public class Wall extends BasicStaticObject
 	{
-		public function Wall(scene:IsoScene=null, sprite:Image=null)
+		public function Wall(scene:IsoScene=null, spriteImg:BasicImage=null, spriteImgOver:BasicImage=null)
 		{
-			super(scene, sprite);
+			super(scene, spriteImg, spriteImgOver)
 		}
 	}
 }
