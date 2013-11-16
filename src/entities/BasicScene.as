@@ -28,13 +28,7 @@ package entities
 
 	public class BasicScene extends Sprite
 	{
-		private var _spritesheet_src:String="img/spritesheet.png"
-		private var _spritesheetXml_src:String="xml/spritesheet.xml"
 
-		private var _spritesheet:Bitmap
-		private var _spritesheetXml:XML
-		private var _atlas:TextureAtlas
-		private var _tilemap:XML
 		public var _levelName:String
 
 		private var _scene:IsoScene
@@ -50,6 +44,9 @@ package entities
 
 		private var _mouseOverElement:*
 
+		private var _cells:Vector.<Cell>
+		private var _spritesManager:SpritesManager
+		private var _tilemap:XML
 
 		public function BasicScene()
 		{
@@ -63,17 +60,13 @@ package entities
 
 		private function init():void
 		{
+			_tilemap=new XML(Game.resources.get_xml(Config.level_specs + _levelName + ".tmx").data)
+			_spritesManager=new SpritesManager()
+			_cells=new Vector.<Cell>
 			Starling.current.root.addEventListener(TouchEvent.TOUCH, _onTouch);
 
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
-
-			_tilemap=new XML(Game.resources.get_xml(Config.level_specs + _levelName + ".tmx").data)
-			_spritesheet=new Bitmap()
-			_spritesheet=Game.resources.get_img(_spritesheet_src).data
-			var texture:Texture=Texture.fromBitmap(_spritesheet)
-			var xml:XML=Game.resources.get_xml(_spritesheetXml_src).data
-			_atlas=new TextureAtlas(texture, xml)
 
 			var grid:IsoGrid=new IsoGrid();
 			grid.showOrigin=true;
@@ -125,12 +118,11 @@ package entities
 			}
 		}
 
-		private function addFloor(textureName:String="", x:Number=0, y:Number=0):void
+		private function addStaticObject(textureName:String="", cell:Cell=null):void
 		{
-			var img:BasicImage=new BasicImage(_atlas.getTexture(textureName));
-			var imgOver:BasicImage=new BasicImage(_atlas.getTexture(textureName + "_over"));
-			var floorSegment:Floor=new Floor(_scene, img, imgOver)
-			floorSegment.moveTo(Config.cell_size * x, Config.cell_size * y, 0)
+			var spritesPack:SpritesPack=_spritesManager.getPack(textureName)
+			var floorSegment:StaticObject=new StaticObject(_scene, false, spritesPack, cell)
+			floorSegment.moveTo(Config.cell_size * cell.x, Config.cell_size * cell.y, 0)
 		}
 
 		private function fillLevel(xml:XML=null):void
@@ -139,9 +131,12 @@ package entities
 			_mapHeight=int(xml.@height)
 			var yShift:int=0
 			var xShift:int=0
+
 			for (var i:int=0; i < (_mapHeight * _mapWidth); i++)
 			{
-				addObject(xml.layer[0].data.tile[i].@gid, xShift, yShift)
+				var cell:Cell=new Cell(xShift, yShift, 0)
+				_cells.push(cell)
+				addObject(xml.layer[0].data.tile[i].@gid, cell)
 				if (xShift == _mapWidth)
 				{
 					xShift=0
@@ -151,23 +146,31 @@ package entities
 			}
 		}
 
-		private function addObject(id:String="", x:int=0, y:int=0):void
+		private function addObject(id:String="", cell:Cell=null):void
 		{
 			switch (id)
 			{
 				case "1":
 				{
-					addFloor("wall", x, y)
+					if (Math.round(1 * Math.random()) == 1)
+					{
+						addStaticObject("block", cell)
+					}
+					else
+					{
+						addStaticObject("wall", cell)
+					}
+
 					break;
 				}
 				case "2":
 				{
-					addFloor("floor", x, y)
+					addStaticObject("floor", cell)
 					break;
 				}
 				case "3":
 				{
-					addFloor("floor", x, y)
+					addStaticObject("wall", cell)
 					break;
 				}
 				case "0":

@@ -2,7 +2,7 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>0</int>
+        <int>1</int>
         <key>variation</key>
         <string>main</string>
         <key>verbose</key>
@@ -74,7 +74,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
             <false/>
             <key>forceWordAligned</key>
@@ -141,17 +141,37 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>floor.png</filename>
             <filename>floor_blocked.png</filename>
-            <filename>wall.png</filename>
-            <filename>floor.png</filename>
             <filename>floor_blocked.png</filename>
-            <filename>wall.png</filename>
-            <filename>floor.png</filename>
             <filename>floor_blocked.png</filename>
-            <filename>wall.png</filename>
-            <filename>floor_over.png</filename>
-            <filename>wall_over.png</filename>
+            <filename>floor_e.png</filename>
+            <filename>floor_n.png</filename>
+            <filename>floor_s.png</filename>
+            <filename>floor_w.png</filename>
+            <filename>wall_e.png</filename>
+            <filename>wall_n.png</filename>
+            <filename>wall_s.png</filename>
+            <filename>wall_w.png</filename>
+            <filename>block_e_0.png</filename>
+            <filename>block_e_1.png</filename>
+            <filename>block_e_2.png</filename>
+            <filename>block_e_3.png</filename>
+            <filename>block_e_4.png</filename>
+            <filename>block_n_0.png</filename>
+            <filename>block_n_1.png</filename>
+            <filename>block_n_2.png</filename>
+            <filename>block_n_3.png</filename>
+            <filename>block_n_4.png</filename>
+            <filename>block_s_0.png</filename>
+            <filename>block_s_1.png</filename>
+            <filename>block_s_2.png</filename>
+            <filename>block_s_3.png</filename>
+            <filename>block_s_4.png</filename>
+            <filename>block_w_0.png</filename>
+            <filename>block_w_1.png</filename>
+            <filename>block_w_2.png</filename>
+            <filename>block_w_3.png</filename>
+            <filename>block_w_4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

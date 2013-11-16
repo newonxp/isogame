@@ -30,7 +30,6 @@ package utils
 		{
 			var xml:XML=res.data
 			var pack:ResourcePack=new ResourcePack()
-			trace(xml)
 			for each (var i:XML in xml.children())
 			{
 				_resourcesLoading++
@@ -48,7 +47,7 @@ package utils
 		private function resourceLoaded(res:Resource):void
 		{
 			_resourcesLoaded++
-			//Game.windowsManager.preloader.setPercents(100)
+			//Game.windowsManager.preloader.setPercents(Math.round(_resourcesLoaded / (_resourcesLoading / 100)))
 			if (_resourcesLoaded == _resourcesLoading)
 			{
 				_onLoad()
