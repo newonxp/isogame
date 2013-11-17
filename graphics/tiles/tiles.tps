@@ -70,11 +70,11 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">NPOT</enum>
             <key>forceSquared</key>
             <false/>
             <key>forceWordAligned</key>
@@ -172,6 +172,14 @@
             <filename>block_w_2.png</filename>
             <filename>block_w_3.png</filename>
             <filename>block_w_4.png</filename>
+            <filename>player_e.png</filename>
+            <filename>player_n.png</filename>
+            <filename>player_s.png</filename>
+            <filename>player_w.png</filename>
+            <filename>enemy_e.png</filename>
+            <filename>enemy_n.png</filename>
+            <filename>enemy_s.png</filename>
+            <filename>enemy_w.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

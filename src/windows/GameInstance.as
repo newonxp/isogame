@@ -3,6 +3,8 @@ package windows
 	import entities.BasicScene;
 	import entities.Level;
 
+	import flash.events.MouseEvent;
+
 	import starling.core.Starling;
 	import starling.events.Event;
 
@@ -10,6 +12,7 @@ package windows
 	{
 		private var _level:String
 		private static var _starling:Starling;
+		private var _scene:Level
 
 		public function GameInstance(level:String="")
 		{
@@ -23,10 +26,20 @@ package windows
 			_starling.start();
 			_starling.addEventListener(Event.ROOT_CREATED, function():void
 			{
-				var scene:Level=Starling.current.root as Level
-				scene.setLevel(_level)
+				Starling.current.showStats=true
+				_scene=Starling.current.root as Level
+				_scene.setLevel(_level)
+				stage.addEventListener(MouseEvent.RIGHT_CLICK, function(e:MouseEvent):void
+				{
+					_scene.rightClick(e)
+				})
 			})
 
+		}
+
+		public function get scene():Level
+		{
+			return _scene
 		}
 	}
 }

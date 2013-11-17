@@ -139,10 +139,8 @@ package as3isolib.display
 		{
 			//remove all previous skins	
 			actualSpriteObjects=[];
-
 			while (mainContainer.numChildren > 0)
 				mainContainer.removeChildAt(0);
-
 			var spriteObj:Object;
 
 			for each (spriteObj in spritesArray)

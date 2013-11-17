@@ -19,6 +19,13 @@ package
 		//gameplay
 		public static const cell_size:Number=40
 
+//objects
+		public static const enemy:String="enemy"
+		public static const player:String="player"
+		public static const floor:String="floor"
+		public static const wall:String="wall"
+		public static const block:String="block"
+
 		public function Config()
 		{
 		}

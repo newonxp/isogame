@@ -6,7 +6,13 @@ package entities
 	{
 		public function Level()
 		{
-			trace(Starling.current.stage.numChildren)
+
 		}
+
+		public function floorClicked(floor:BasicObject):void
+		{
+			_player.walkTo(floor.cell)
+		}
+
 	}
 }

@@ -34,5 +34,10 @@ package windows
 			return _preloader
 		}
 
+		public function get gameInstance():GameInstance
+		{
+			return _gameInstance
+		}
+
 	}
 }
