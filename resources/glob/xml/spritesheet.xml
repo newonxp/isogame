@@ -1,42 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://texturepacker.com-->
-<!-- $TexturePacker:SmartUpdate:9689d35b099cd0668fb30087b57be741$ -->
+<!-- $TexturePacker:SmartUpdate:6b265519c47b769124ff9cd83b5e6406$ -->
 <TextureAtlas imagePath="spritesheet.png">
-    <SubTexture name="block_e_0" x="2" y="2" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_e_1" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_e_2" x="2" y="176" width="80" height="100"/>
-    <SubTexture name="block_e_3" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_e_4" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_0" x="2" y="2" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_1" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_2" x="2" y="176" width="80" height="100"/>
-    <SubTexture name="block_n_3" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_4" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_0" x="2" y="2" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_1" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_2" x="2" y="176" width="80" height="100"/>
-    <SubTexture name="block_s_3" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_4" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_0" x="2" y="2" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_1" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_2" x="2" y="176" width="80" height="100"/>
-    <SubTexture name="block_w_3" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_4" x="2" y="84" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="enemy_e" x="2" y="278" width="80" height="49"/>
-    <SubTexture name="enemy_n" x="2" y="278" width="80" height="49"/>
-    <SubTexture name="enemy_s" x="2" y="278" width="80" height="49"/>
-    <SubTexture name="enemy_w" x="2" y="278" width="80" height="49"/>
-    <SubTexture name="floor_blocked" x="2" y="329" width="80" height="52"/>
-    <SubTexture name="floor_e" x="2" y="383" width="80" height="52"/>
-    <SubTexture name="floor_n" x="2" y="437" width="80" height="52"/>
-    <SubTexture name="floor_s" x="2" y="491" width="80" height="52"/>
-    <SubTexture name="floor_w" x="2" y="545" width="80" height="52"/>
-    <SubTexture name="player_e" x="2" y="599" width="80" height="52"/>
-    <SubTexture name="player_n" x="2" y="653" width="80" height="52"/>
-    <SubTexture name="player_s" x="2" y="707" width="80" height="52"/>
-    <SubTexture name="player_w" x="2" y="761" width="80" height="52"/>
-    <SubTexture name="wall_e" x="2" y="815" width="80" height="100"/>
-    <SubTexture name="wall_n" x="2" y="815" width="80" height="100"/>
-    <SubTexture name="wall_s" x="2" y="815" width="80" height="100"/>
-    <SubTexture name="wall_w" x="2" y="815" width="80" height="100"/>
+    <SubTexture name="block_e_0" x="2" y="609" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_e_1" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_e_2" x="2" y="939" width="80" height="100"/>
+    <SubTexture name="block_e_3" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_e_4" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_0" x="2" y="609" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_1" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_2" x="2" y="939" width="80" height="100"/>
+    <SubTexture name="block_n_3" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_4" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_0" x="2" y="609" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_1" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_2" x="2" y="939" width="80" height="100"/>
+    <SubTexture name="block_s_3" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_4" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_0" x="2" y="609" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_1" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_2" x="2" y="939" width="80" height="100"/>
+    <SubTexture name="block_w_3" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_4" x="2" y="847" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="cannon_e" x="2" y="745" width="80" height="100"/>
+    <SubTexture name="cannon_n" x="2" y="1041" width="80" height="100"/>
+    <SubTexture name="cannon_s" x="2" y="1143" width="80" height="100"/>
+    <SubTexture name="cannon_w" x="2" y="1347" width="80" height="100"/>
+    <SubTexture name="enemy_e" x="2" y="1449" width="80" height="49"/>
+    <SubTexture name="enemy_n" x="2" y="1449" width="80" height="49"/>
+    <SubTexture name="enemy_s" x="2" y="1449" width="80" height="49"/>
+    <SubTexture name="enemy_w" x="2" y="1449" width="80" height="49"/>
+    <SubTexture name="explosion1" x="2" y="2" width="12" height="12" frameX="-18" frameY="-19" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion2" x="36" y="27" width="34" height="36" frameX="-9" frameY="-8" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion3" x="48" y="73" width="44" height="46" frameX="-3" frameY="-2" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion4" x="2" y="125" width="48" height="50" frameX="0" frameY="0" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion5" x="52" y="125" width="50" height="50"/>
+    <SubTexture name="explosion6" x="2" y="73" width="44" height="50" frameX="-3" frameY="0" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion7" x="72" y="27" width="38" height="44" frameX="-6" frameY="-1" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion8" x="2" y="27" width="32" height="26" frameX="-9" frameY="-12" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="fireball_e_1" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_e_2" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_e_3" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_e_4" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_1" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_2" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_3" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_4" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_1" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_2" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_3" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_4" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_1" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_2" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_3" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_4" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="floor_blocked" x="2" y="691" width="80" height="52"/>
+    <SubTexture name="floor_e" x="2" y="393" width="80" height="52"/>
+    <SubTexture name="floor_n" x="2" y="447" width="80" height="52"/>
+    <SubTexture name="floor_s" x="2" y="339" width="80" height="52"/>
+    <SubTexture name="floor_w" x="2" y="501" width="80" height="52"/>
+    <SubTexture name="player_e" x="2" y="555" width="80" height="52"/>
+    <SubTexture name="player_n" x="2" y="177" width="80" height="52"/>
+    <SubTexture name="player_s" x="2" y="285" width="80" height="52"/>
+    <SubTexture name="player_w" x="2" y="231" width="80" height="52"/>
+    <SubTexture name="wall_e" x="2" y="1245" width="80" height="100"/>
+    <SubTexture name="wall_n" x="2" y="1245" width="80" height="100"/>
+    <SubTexture name="wall_s" x="2" y="1245" width="80" height="100"/>
+    <SubTexture name="wall_w" x="2" y="1245" width="80" height="100"/>
 </TextureAtlas>

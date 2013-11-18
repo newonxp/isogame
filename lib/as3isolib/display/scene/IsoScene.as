@@ -385,7 +385,7 @@ package as3isolib.display.scene
 		 */
 		protected function sceneRendered():void
 		{
-			Game.windowsManager.gameInstance.scene.sceneRendered()
+
 		}
 
 		///////////////////////////////////////////////////////////////////////////////

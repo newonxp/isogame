@@ -12,7 +12,7 @@ package windows
 
 	public class Preloader extends BasicWindow
 	{
-		[Embed(source="../resources/glob/ui/loading_screen.swf", symbol="loading_screen")]
+		[Embed(source="/../resources/glob/ui/loading_screen.swf", symbol="loading_screen")]
 		private var loading_screen_graphics:Class
 		private var _loading_screen:DisplayObjectContainer
 		private var _preloader:DisplayObjectContainer

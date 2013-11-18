@@ -3,13 +3,14 @@ package entities
 	import as3isolib.display.scene.IsoScene;
 
 	import com.greensock.TweenLite;
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Linear;
+	import com.greensock.motionPaths.LinePath2D;
 
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
-
-	import org.osmf.events.TimeEvent;
 
 	import sprites.SpritesPack;
 
@@ -22,7 +23,7 @@ package entities
 		private var _endPoint:Cell
 		private var _there:Boolean=true
 		private var _pathStage:int=0
-		private var _path:Vector.<Point>
+		private var _path:Object
 
 		public function Enemy(scene:IsoScene=null, spritesPack:SpritesPack=null, cell:Cell=null, endPoint:Cell=null, delay:Number=0)
 		{
@@ -31,9 +32,8 @@ package entities
 			_startPoint=cell
 			_endPoint=endPoint
 			var bounds:Bounds=new Bounds(Config.cell_size, Config.cell_size, 10)
-			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 10, bounds, cell, scene, spritesPack);
+			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 0, 0, bounds, cell, scene, spritesPack, false, true, true, true);
 			startWait()
-			Game.windowsManager.gameInstance.scene.collisionDetector.registerRect(new Rectangle(x, y, Config.cell_size, Config.cell_size), this)
 			type=Config.enemy
 		}
 
@@ -50,35 +50,32 @@ package entities
 		public function walkTo():void
 		{
 			_path=Game.windowsManager.gameInstance.scene.getPath(new Point(_startPoint.x, _startPoint.y), new Point(_endPoint.x, _endPoint.y), false)
-			checkPath()
+			if (_path != null)
+			{
+				cell.blocked=false
+				var path:LinePath2D=new LinePath2D(_path.path);
+				path.addFollower(this);
+				TweenMax.to(path, _path.length * Config.playerSpeed, {progress: 1, ease: com.greensock.easing.Linear.easeNone, onComplete: checkPath});
+			}
 		}
 
-		private function gotoToNextStep(x:Number, y:Number):void
+		override public function collide(target:BasicObject):void
 		{
-			TweenLite.to(this, 0.5, {x: x, y: y, z: this.z, onComplete: checkPath})
+			if (target.type == Config.fireball)
+			{
+				remove()
+			}
 		}
 
 		private function checkPath():void
 		{
-			if (_pathStage < _path.length)
-			{
-				gotoToNextStep(_path[_pathStage].x * Config.cell_size, _path[_pathStage].y * Config.cell_size)
-				_pathStage++
-			}
-			else
-			{
-				cell=_endPoint
-				_endPoint=_startPoint
-				_startPoint=cell
-				_pathStage=0
-				startWait()
-			}
-		}
+			cell.blocked=false
+			cell=_endPoint
+			_endPoint=_startPoint
+			_startPoint=cell
+			_pathStage=0
+			startWait()
 
-		override public function moveTo(x:Number=0, y:Number=0, z:Number=0):void
-		{
-			Game.windowsManager.gameInstance.scene.collisionDetector.updateRect(new Rectangle(x, y, Config.cell_size, Config.cell_size), this)
-			super.moveTo(x, y, z)
 		}
 	}
 }

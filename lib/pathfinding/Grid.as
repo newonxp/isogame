@@ -53,9 +53,13 @@ package pathfinding
 			// Considering invalid cell as blocked
 			var invalid:Boolean=x < 0 || x >= _cellsX || y < 0 || y >= _cellsY;
 			if (invalid)
+			{
 				return true;
+			}
 			else
+			{
 				return _cells[y * _cellsX + x] > 0;
+			}
 		}
 
 		public function get cellsX():int

@@ -46,6 +46,14 @@ package sprites
 
 		}
 
+		public function getEffectPack(name:String=""):SpritesPack
+		{
+			var pack:SpritesPack=new SpritesPack(name)
+			createEffectPack(name, pack)
+			return pack
+
+		}
+
 		private function createPack(name:String, pack:SpritesPack):void
 		{
 			for (var i:int=0; i < _sides.length; i++)
@@ -83,6 +91,19 @@ package sprites
 				}
 				pack[_sides[i]]=statesPack
 			}
+		}
+
+		private function createEffectPack(name:String, pack:SpritesPack):void
+		{
+
+			var normalTexture:Vector.<Texture>=_atlas.getTextures(name)
+			if (normalTexture.length != 0)
+			{
+				pack.effect=new BasicMovieClip(normalTexture, 5)
+			}
+
+
+
 		}
 
 	}

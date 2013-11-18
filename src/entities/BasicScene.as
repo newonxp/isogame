@@ -4,6 +4,7 @@ package entities
 	import as3isolib.display.IsoSprite;
 	import as3isolib.display.IsoView;
 	import as3isolib.display.primitive.IsoBox;
+	import as3isolib.display.renderers.SimpleSceneLayoutRenderer;
 	import as3isolib.display.scene.IsoGrid;
 	import as3isolib.display.scene.IsoScene;
 	import as3isolib.events.IsoEvent;
@@ -32,6 +33,7 @@ package entities
 
 	import utils.CollisionDetector;
 	import utils.Pathfinder;
+	import utils.ShotsManager;
 
 	import windows.Game;
 
@@ -40,7 +42,8 @@ package entities
 
 		public var _levelName:String
 
-		private var _scene:IsoScene
+		private var _sceneStatic:IsoScene
+		private var _sceneMain:IsoScene
 		private var _view:IsoView
 
 		private var _mapWidth:int
@@ -61,8 +64,10 @@ package entities
 		private var _collisionMap:Array
 		private var _pathfinder:utils.Pathfinder
 		private var _render:Boolean=false
+		private var _simpleRenderer:SimpleSceneLayoutRenderer
 
 		private var _collisionDetector:CollisionDetector
+		private var _shotsManager:ShotsManager
 
 		public function BasicScene()
 		{
@@ -76,7 +81,9 @@ package entities
 
 		private function init():void
 		{
+
 			_collisionDetector=new CollisionDetector()
+			_shotsManager=new ShotsManager()
 			_pathfinder=new utils.Pathfinder
 			_map=new Array()
 			_collisionMap=new Array()
@@ -86,41 +93,58 @@ package entities
 
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
-
-			var grid:IsoGrid=new IsoGrid();
-			grid.showOrigin=false;
-			grid.setGridSize(20, 20, 0);
-			grid.cellSize=Config.cell_size
-			_scene=new IsoScene();
-			_scene.addChild(grid);
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame)
+			_sceneStatic=new IsoScene();
+			_sceneMain=new IsoScene();
 			_view=new IsoView();
 			_view.setSize(1024, 768);
-			_view.addScene(_scene);
+			_view.addScene(_sceneStatic);
+			_view.addScene(_sceneMain);
 			_view.clipContent=false;
 			_view.autoUpdate=true
 			addChild(_view)
-			renderScene()
 			_view.render(new RenderSupport, 100)
-			_view.addEventListener(IsoEvent.RENDER_COMPLETE, function():void
-			{
-				trace("complete")
-			})
 			fillLevel(_tilemap)
 		}
 
-		public function renderScene():void
-		{
-			if (_render == false)
-			{
-				_render=true
-				_scene.render()
-			}
-		}
-
-		public function sceneRendered():void
+		private function onEnterFrame(e:Event):void
 		{
 			_render=false
 		}
+
+		public function renderScene(scene:IsoScene):void
+		{
+			if (_render == false)
+			{
+				scene.render()
+				_render=true
+			}
+		}
+
+		public function updateNearestSprites(sprite:IsoSprite, scene:IsoScene):void
+		{
+			var nearest:Vector.<IsoSprite>=new Vector.<IsoSprite>
+			var minDist:Number=3000
+			var delta:Number=sprite.x + sprite.y
+			for (var i:int=0; i < scene.children.length; i++)
+			{
+				if (scene.children[i] != sprite)
+				{
+					var tDelta:Number=scene.children[i].x + scene.children[i].y
+					if (Math.abs(tDelta - delta) < minDist)
+					{
+						nearest.unshift(scene.children[i])
+					}
+				}
+			}
+			nearest=nearest.slice(0, 10)
+			for (var a:int=0; a < nearest.length; a++)
+			{
+				nearest[a].render()
+			}
+		}
+
+
 
 		public function rightClick(e:MouseEvent):void
 		{
@@ -177,34 +201,61 @@ package entities
 
 		public function getCellAt(x:Number, y:Number):Cell
 		{
-			return _map[y - 1][x - 1]
+			return _map[y][x]
+		}
+
+		public function getCellAtCoords(x:Number, y:Number):Cell
+		{
+			var _x:int=Math.round(x / Config.cell_size)
+			var _y:int=Math.round(y / Config.cell_size)
+			if (_x >= _mapWidth)
+			{
+				return null
+			}
+			if (_y >= _mapHeight)
+			{
+				return null
+			}
+			return _map[_y][_x]
 		}
 
 		public function addFloor(cell:Cell=null):void
 		{
+
 			var spritesPack:SpritesPack=_spritesManager.getPack("floor")
-			var floor:Floor=new Floor(_scene, spritesPack, cell)
+			var floor:Floor=new Floor(_sceneStatic, spritesPack, cell)
 			addObject(floor, cell)
 		}
 
 		public function addWall(cell:Cell=null):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("wall")
-			var wall:Wall=new Wall(_scene, spritesPack, cell)
+			var wall:Wall=new Wall(_sceneMain, spritesPack, cell)
 			addObject(wall, cell)
 		}
 
+		public function addCannon(cell:Cell=null, delay:Number=0):void
+		{
+			var spritesPack:SpritesPack=_spritesManager.getPack("cannon")
+			var cannon:Cannon=new Cannon(_sceneMain, spritesPack, cell, delay)
+			addObject(cannon, cell)
+		}
+
+
 		public function addBlock(cell:Cell=null):void
 		{
-			var spritesPack:SpritesPack=_spritesManager.getPack("block")
-			var block:Block=new Block(_scene, spritesPack, cell)
-			addObject(block, cell)
+			if (cell.blocked == false)
+			{
+				var spritesPack:SpritesPack=_spritesManager.getPack("block")
+				var block:Block=new Block(_sceneMain, spritesPack, cell)
+				addObject(block, cell)
+			}
 		}
 
 		public function addPlayer(cell:Cell):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("player")
-			_player=new Player(_scene, spritesPack, cell)
+			_player=new Player(_sceneMain, spritesPack, cell)
 			addObject(_player, cell)
 		}
 
@@ -212,11 +263,24 @@ package entities
 		{
 
 			var spritesPack:SpritesPack=_spritesManager.getPack("enemy")
-			var enemy:Enemy=new Enemy(_scene, spritesPack, cell, endPoint, delay)
+			var enemy:Enemy=new Enemy(_sceneMain, spritesPack, cell, endPoint, delay)
 			addObject(enemy, cell)
 		}
 
-		public function removeObject(object:BasicObject):void
+		public function addFireball(cell:Cell=null, shiftX:Number=0, shiftY:Number=0):void
+		{
+			var spritesPack:SpritesPack=_spritesManager.getPack("fireball")
+			var fireball:Fireball=new Fireball(shiftX, shiftY, _sceneMain, spritesPack, cell)
+			addObject(fireball, cell)
+		}
+
+		public function addExplosion(x:Number, y:Number):void
+		{
+			var spritesPack:SpritesPack=_spritesManager.getEffectPack("explosion")
+			var explosion:Explosion=new Explosion(x, y, 0, _sceneMain, spritesPack)
+		}
+
+		public function removeObject(object:*):void
 		{
 			if (_mouseOverElement == object)
 			{
@@ -235,8 +299,6 @@ package entities
 			for (var i:int=0; i < (_mapHeight * _mapWidth); i++)
 			{
 				var cell:Cell=new Cell(xShift, yShift, 0)
-				//cell.blocked=true
-				initObject(xml.layer[0].data.tile[i].@gid, cell)
 				row.push(cell)
 				xShift++
 				if (xShift == _mapWidth)
@@ -247,10 +309,26 @@ package entities
 					yShift++
 				}
 			}
+			xShift=0
+			yShift=0
+			for (var a:int=0; a < (_mapHeight * _mapWidth); a++)
+			{
+				initObject(xml.layer[0].data.tile[a].@gid, getCellAt(xShift, yShift))
+				xShift++
+				if (xShift == _mapWidth)
+				{
+					xShift=0
+					yShift++
+				}
+			}
 			updateCollisionMap()
-			addPlayer(getCellAt(3, 3))
-			//addEnemy(getCellAt(6, 7), getCellAt(6, 3), 1000)
+			//	addWall(getCellAt(3, 3))
+			//addBlock(getCellAt(4, 4))
+			addPlayer(getCellAt(4, 4))
+			addEnemy(getCellAt(6, 7), getCellAt(6, 3), 1000)
 			addEnemy(getCellAt(2, 2), getCellAt(10, 2), 1000)
+			//addFireball(getCellAt(4, 6))
+			addCannon(getCellAt(6, 10), 1000)
 			//addEnemy(getCellAt(3, 10), getCellAt(3, 5), 1000)
 		}
 
@@ -278,11 +356,9 @@ package entities
 
 		}
 
-		public function getPath(start:Point, end:Point, diag:Boolean):Vector.<Point>
+		public function getPath(start:Point, end:Point, diag:Boolean):Object
 		{
-
-			var path:Vector.<Point>=_pathfinder.findPath(_collisionMap, start, end)
-			return path
+			return _pathfinder.findPath(_collisionMap, start, end)
 		}
 
 
@@ -315,7 +391,7 @@ package entities
 				}
 				case "0":
 				{
-
+					addFloor(cell)
 					break;
 				}
 
@@ -366,6 +442,11 @@ package entities
 		public function get collisionDetector():CollisionDetector
 		{
 			return _collisionDetector
+		}
+
+		public function get shotsManager():ShotsManager
+		{
+			return _shotsManager
 		}
 
 

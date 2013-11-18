@@ -1,5 +1,6 @@
 package sprites
 {
+	import entities.BasicMovieClip;
 
 	public class SpritesPack
 	{
@@ -12,6 +13,7 @@ package sprites
 		private var _sw:StatesPack
 		private var _w:StatesPack
 		private var _nw:StatesPack
+		private var _effect:BasicMovieClip
 		private var _name:String
 
 		public function SpritesPack(name:String)
@@ -66,6 +68,11 @@ package sprites
 			_nw=val
 		}
 
+		public function set effect(val:BasicMovieClip):void
+		{
+			_effect=val
+		}
+
 
 		public function get name():String
 		{
@@ -116,5 +123,11 @@ package sprites
 		{
 			return _nw
 		}
+
+		public function get effect():BasicMovieClip
+		{
+			return _effect
+		}
+
 	}
 }

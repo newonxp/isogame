@@ -419,7 +419,6 @@ package as3isolib.data
 
 				var evt:IsoEvent=new IsoEvent(IsoEvent.CHILD_REMOVED);
 				evt.newValue=child;
-				//trace("test! " + evt.newValue)
 				dispatchEvent(evt);
 			}
 

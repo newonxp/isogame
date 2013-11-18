@@ -13,9 +13,6 @@ package utils
 
 		public function CollisionDetector()
 		{
-			var rect:Rectangle=new Rectangle(0, 0, 20, 20)
-			var rect2:Rectangle=new Rectangle(10, 10, 20, 20)
-			trace(rect.intersects(rect2))
 			_objects=new Vector.<Object>
 			Game.windowsManager.addEventListener(Event.ENTER_FRAME, checkCollisions)
 		}
@@ -26,17 +23,28 @@ package utils
 			obj.rect=rect
 			obj.target=object
 			_objects.push(obj)
-			trace(_objects.length)
 		}
 
-		public function updateRect(rect:Rectangle, object:BasicObject):void
+		public function removeRect(object:BasicObject):void
 		{
-
 			for (var i:int=0; i < _objects.length; i++)
 			{
 				if (_objects[i].target == object)
 				{
-					_objects[i].rect=rect
+					_objects.splice(i, 1)
+					break
+				}
+			}
+		}
+
+		public function updateRect(x:Number, y:Number, object:BasicObject):void
+		{
+			for (var i:int=0; i < _objects.length; i++)
+			{
+				if (_objects[i].target == object)
+				{
+					_objects[i].rect.x=x
+					_objects[i].rect.y=y
 					break
 				}
 			}
@@ -44,9 +52,10 @@ package utils
 
 		private function checkCollisions(e:Event):void
 		{
+			var collideObjects:Vector.<BasicObject>=new Vector.<BasicObject>
 			for (var i:int=0; i < _objects.length; i++)
 			{
-				var collideObjects:Vector.<BasicObject>=new Vector.<BasicObject>
+
 				var cObj:Object=_objects[i]
 				var cRect:Rectangle=_objects[i].rect
 				for (var a:int=0; a < _objects.length; a++)
@@ -57,14 +66,12 @@ package utils
 						{
 							collideObjects.push(_objects[a].target)
 						}
-							//trace(cRect.intersects(_objects[a].rect))
 					}
 				}
-				for (var b:int=0; b < collideObjects.length; b++)
-				{
-					collideObjects[b].collide(cObj.target)
-				}
-
+			}
+			for (var b:int=0; b < collideObjects.length; b++)
+			{
+				collideObjects[b].collide(cObj.target)
 			}
 
 		}

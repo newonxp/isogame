@@ -180,6 +180,34 @@
             <filename>enemy_n.png</filename>
             <filename>enemy_s.png</filename>
             <filename>enemy_w.png</filename>
+            <filename>cannon_w.png</filename>
+            <filename>cannon_e.png</filename>
+            <filename>cannon_n.png</filename>
+            <filename>cannon_s.png</filename>
+            <filename>fireball_e_1.png</filename>
+            <filename>fireball_e_2.png</filename>
+            <filename>fireball_e_3.png</filename>
+            <filename>fireball_e_4.png</filename>
+            <filename>fireball_n_1.png</filename>
+            <filename>fireball_n_2.png</filename>
+            <filename>fireball_n_3.png</filename>
+            <filename>fireball_n_4.png</filename>
+            <filename>fireball_s_1.png</filename>
+            <filename>fireball_s_2.png</filename>
+            <filename>fireball_s_3.png</filename>
+            <filename>fireball_s_4.png</filename>
+            <filename>fireball_w_1.png</filename>
+            <filename>fireball_w_2.png</filename>
+            <filename>fireball_w_3.png</filename>
+            <filename>fireball_w_4.png</filename>
+            <filename>explosion8.png</filename>
+            <filename>explosion1.png</filename>
+            <filename>explosion2.png</filename>
+            <filename>explosion3.png</filename>
+            <filename>explosion4.png</filename>
+            <filename>explosion5.png</filename>
+            <filename>explosion6.png</filename>
+            <filename>explosion7.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
