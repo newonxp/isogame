@@ -7,6 +7,11 @@ package objects
 	import com.greensock.easing.Linear;
 	import com.greensock.motionPaths.LinePath2D;
 
+	import entities.BasicObject;
+	import entities.Bounds;
+	import entities.Cell;
+	import entities.Level;
+
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -15,9 +20,6 @@ package objects
 	import starling.core.Starling;
 
 	import windows.Game;
-	import entities.BasicObject;
-	import entities.Bounds;
-	import entities.Cell;
 
 	public class Player extends BasicObject
 	{
@@ -50,21 +52,19 @@ package objects
 		override public function collide(target:BasicObject):void
 		{
 			trace("collide")
-			if (target.type == Config.enemy)
+			if (target.type == Config.enemy||target.type == Config.fireball)
 			{
 				trace("enemy")
+				var level:Level = Starling.current.root as Level
+				level.death()
 				remove()
 			}
-			else if (target.type == Config.fireball)
-			{
-				trace("fireball")
-				remove()
-			}
+
+
 		}
 
 		override public function remove():void
 		{
-			Game.windowsManager.addGameoverMenu()
 			Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
 			super.remove()
 		}
