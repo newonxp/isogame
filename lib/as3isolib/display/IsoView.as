@@ -35,21 +35,21 @@ package as3isolib.display
 	import as3isolib.display.scene.IIsoScene;
 	import as3isolib.events.IsoEvent;
 	import as3isolib.geom.IsoMath;
-	import as3isolib.geom.Pt;	
-	
+	import as3isolib.geom.Pt;
+
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import starling.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	
+
 	import mx.core.IFactory;
-	
+
 	use namespace as3isolib_internal;
-	
-	[Event( name="as3isolib_move", type="as3isolib.events.IsoEvent" )]
-	
+
+	[Event(name="as3isolib_move", type="as3isolib.events.IsoEvent")]
+
 	/**
 	 * IsoView is a default view port that provides basic panning and zooming functionality on a given IIsoScene.
 	 */
@@ -58,40 +58,40 @@ package as3isolib.display
 		///////////////////////////////////////////////////////////////////////////////
 		//	PRECISION
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Flag indicating if coordinate values are rounded to the nearest whole number or not.
 		 */
-		public var usePreciseValues:Boolean = false;
-		
+		public var usePreciseValues:Boolean=false;
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	CURRENT PT
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 *
 		 * The targeted point to perform calculations on.
 		 */
-		protected var targetScreenPt:Pt = new Pt();
-		
+		protected var targetScreenPt:Pt=new Pt();
+
 		/**
 		 * @private
 		 */
-		protected var currentScreenPt:Pt = new Pt();
-		
+		protected var currentScreenPt:Pt=new Pt();
+
 		/**
 		 * @inheritDoc
 		 */
-		[Bindable( "as3isolib_move" )]
+		[Bindable("as3isolib_move")]
 		public function get currentPt():Pt
 		{
 			return currentScreenPt.clone() as Pt;
 		}
-		
+
 		//	CURRENT X
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
@@ -99,29 +99,29 @@ package as3isolib.display
 		{
 			return currentScreenPt.x;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function set currentX( value:Number ):void
+		public function set currentX(value:Number):void
 		{
-			if ( currentScreenPt.x != value )
+			if (currentScreenPt.x != value)
 			{
-				if ( !targetScreenPt )
-					targetScreenPt = currentScreenPt.clone() as Pt;
-				
-				targetScreenPt.x = usePreciseValues ? value : Math.round( value );
-				
-				bPositionInvalidated = true;
-				
-				if ( autoUpdate )
+				if (!targetScreenPt)
+					targetScreenPt=currentScreenPt.clone() as Pt;
+
+				targetScreenPt.x=usePreciseValues ? value : Math.round(value);
+
+				bPositionInvalidated=true;
+
+				if (autoUpdate)
 					renderISO();
 			}
 		}
-		
+
 		//	CURRENT Y
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
@@ -129,52 +129,52 @@ package as3isolib.display
 		{
 			return currentScreenPt.y;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function set currentY( value:Number ):void
+		public function set currentY(value:Number):void
 		{
-			if ( currentScreenPt.y != value )
+			if (currentScreenPt.y != value)
 			{
-				if ( !targetScreenPt )
-					targetScreenPt = currentScreenPt.clone() as Pt;
-				
-				targetScreenPt.y = usePreciseValues ? value : Math.round( value );
-				
-				bPositionInvalidated = true;
-				
-				if ( autoUpdate )
+				if (!targetScreenPt)
+					targetScreenPt=currentScreenPt.clone() as Pt;
+
+				targetScreenPt.y=usePreciseValues ? value : Math.round(value);
+
+				bPositionInvalidated=true;
+
+				if (autoUpdate)
 					renderISO();
 			}
 		}
-		
-		public function localToIso( localPt:Point ):Pt
+
+		public function localToIso(localPt:Point):Pt
 		{
-			localPt = localToGlobal( localPt );
-			localPt = mainContainer.globalToLocal( localPt );
-			
-			return IsoMath.screenToIso( new Pt( localPt.x, localPt.y, 0 ));
+			localPt=localToGlobal(localPt);
+			localPt=mainContainer.globalToLocal(localPt);
+
+			return IsoMath.screenToIso(new Pt(localPt.x, localPt.y, 0));
 		}
-		
-		public function isoToLocal( isoPt:Pt ):Point
+
+		public function isoToLocal(isoPt:Pt):Point
 		{
-			isoPt = IsoMath.isoToScreen( isoPt );
-			
-			var temp:Point = new Point( isoPt.x, isoPt.y );
-			temp = mainContainer.localToGlobal( temp );
-			return globalToLocal( temp );
+			isoPt=IsoMath.isoToScreen(isoPt);
+
+			var temp:Point=new Point(isoPt.x, isoPt.y);
+			temp=mainContainer.localToGlobal(temp);
+			return globalToLocal(temp);
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	INVALIDATION
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
-		private var bPositionInvalidated:Boolean = false;
-		
+		private var bPositionInvalidated:Boolean=false;
+
 		/**
 		 * Flag indicating if the view is invalidated.  If true, validation will when explicity called.
 		 */
@@ -182,230 +182,230 @@ package as3isolib.display
 		{
 			return bPositionInvalidated;
 		}
-		
+
 		/**
 		 * Flags the view as needing validation.
 		 */
 		public function invalidatePosition():void
 		{
-			bPositionInvalidated = true;
+			bPositionInvalidated=true;
 		}
-		
+
 		/**
 		 * Convenience method for determining which scenes are invalidated.
 		 */
 		public function getInvalidatedScenes():Array
 		{
-			var a:Array = [];
+			var a:Array=[];
 			var scene:IIsoScene;
-			
-			for each ( scene in scenesArray )
+
+			for each (scene in scenesArray)
 			{
-				if ( scene.isInvalidated )
-					a.push( scene );
+				if (scene.isInvalidated)
+					a.push(scene);
 			}
-			
+
 			return a;
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	VALIDATION
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function renderISO( recursive:Boolean = false ):void
+		public function renderISO(recursive:Boolean=false):void
 		{
 			preRenderLogic();
-			renderLogic( recursive );
+			renderLogic(recursive);
 			postRenderLogic();
 		}
-		
+
 		/**
 		 * Performs any logic prior to executing actual rendering logic on the view.
 		 */
 		protected function preRenderLogic():void
 		{
-			dispatchEvent( new IsoEvent( IsoEvent.RENDER ));
+			dispatchEvent(new IsoEvent(IsoEvent.RENDER));
 		}
-		
+
 		/**
 		 * Performs actual rendering logic on the view.
 		 *
 		 * @param recursive Flag indicating if child scenes render on the view's validation.  Default value is <code>false</code>.
 		 */
-		protected function renderLogic( recursive:Boolean = false ):void
+		protected function renderLogic(recursive:Boolean=false):void
 		{
-			if ( bPositionInvalidated )
+			if (bPositionInvalidated)
 			{
 				validatePosition();
-				bPositionInvalidated = false;
+				bPositionInvalidated=false;
 			}
-			
-			if ( recursive )
+
+			if (recursive)
 			{
 				var scene:IIsoScene;
-				
-				for each ( scene in scenesArray )
-					scene.render( recursive );
+
+				for each (scene in scenesArray)
+					scene.render(recursive);
 			}
-			
-			if ( viewRenderers && numScenes > 0 )
+
+			if (viewRenderers && numScenes > 0)
 			{
 				var viewRenderer:IViewRenderer;
 				var factory:IFactory;
-				
-				for each ( factory in viewRendererFactories )
+
+				for each (factory in viewRendererFactories)
 				{
-					viewRenderer = factory.newInstance();
-					viewRenderer.renderView( this as IIsoView);
+					viewRenderer=factory.newInstance();
+					viewRenderer.renderView(this as IIsoView);
 				}
 			}
 		}
-		
+
 		/**
 		 * Performs any logic after executing actual rendering logic on the view.
 		 */
 		protected function postRenderLogic():void
 		{
-			dispatchEvent( new IsoEvent( IsoEvent.RENDER_COMPLETE ));
+			dispatchEvent(new IsoEvent(IsoEvent.RENDER_COMPLETE));
 		}
-		
+
 		/**
 		 * Calculates the positional changes and repositions the <code>container</code>.
 		 */
 		protected function validatePosition():void
 		{
-			var dx:Number = currentScreenPt.x - targetScreenPt.x;
-			var dy:Number = currentScreenPt.y - targetScreenPt.y;
-			
-			if ( limitRangeOfMotion && romTarget )
+			var dx:Number=currentScreenPt.x - targetScreenPt.x;
+			var dy:Number=currentScreenPt.y - targetScreenPt.y;
+
+			if (limitRangeOfMotion && romTarget)
 			{
-				var ndx:Number = 0;
-				var ndy:Number = 0;
-				
+				var ndx:Number=0;
+				var ndy:Number=0;
+
 				//var rect:Rectangle = romTarget.getBounds( this );
-				var rect:Rectangle = new Rectangle(x, y, width, height);
-				var isROMBigger:Boolean = !romBoundsRect.containsRect( rect );
-				
-				if ( isROMBigger )
+				var rect:Rectangle=new Rectangle(x, y, width, height);
+				var isROMBigger:Boolean=!romBoundsRect.containsRect(rect);
+
+				if (isROMBigger)
 				{
-					if ( dx > 0 )
-						ndx = Math.min( dx, Math.abs( rect.left ));
-					
+					if (dx > 0)
+						ndx=Math.min(dx, Math.abs(rect.left));
+
 					else
-						ndx = -1 * Math.min( Math.abs( dx ), Math.abs( rect.right - romBoundsRect.right ));
-					
-					if ( dy > 0 )
-						ndy = Math.min( dy, Math.abs( rect.top ));
-					
+						ndx=-1 * Math.min(Math.abs(dx), Math.abs(rect.right - romBoundsRect.right));
+
+					if (dy > 0)
+						ndy=Math.min(dy, Math.abs(rect.top));
+
 					else
-						ndy = -1 * Math.min( Math.abs( dy ), Math.abs( rect.bottom - romBoundsRect.bottom ));
+						ndy=-1 * Math.min(Math.abs(dy), Math.abs(rect.bottom - romBoundsRect.bottom));
 				}
-				
-				targetScreenPt.x = targetScreenPt.x + dx - ndx;
-				targetScreenPt.y = targetScreenPt.y + dy - ndy;
-				
-				dx = ndx;
-				dy = ndy;
+
+				targetScreenPt.x=targetScreenPt.x + dx - ndx;
+				targetScreenPt.y=targetScreenPt.y + dy - ndy;
+
+				dx=ndx;
+				dy=ndy;
 			}
-			
-			mContainer.x += dx;
-			mContainer.y += dy;
-			
-			var evt:IsoEvent = new IsoEvent( IsoEvent.MOVE );
-			evt.propName = "currentPt";
-			evt.oldValue = currentScreenPt;
-			
+
+			mContainer.x+=dx;
+			mContainer.y+=dy;
+
+			var evt:IsoEvent=new IsoEvent(IsoEvent.MOVE);
+			evt.propName="currentPt";
+			evt.oldValue=currentScreenPt;
+
 			//store the new value now
-			currentScreenPt = targetScreenPt.clone() as Pt;
-			
-			evt.newValue = currentScreenPt;
-			dispatchEvent( evt );
+			currentScreenPt=targetScreenPt.clone() as Pt;
+
+			evt.newValue=currentScreenPt;
+			dispatchEvent(evt);
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	CENTER
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Flag indicating if property changes immediately trigger validation.
 		 */
-		public var autoUpdate:Boolean = false;
-		
+		public var autoUpdate:Boolean=false;
+
 		/**
 		 * @inheritDoc
 		 */
-		public function centerOnPt( pt:Pt, isIsometrc:Boolean = true ):void
+		public function centerOnPt(pt:Pt, isIsometrc:Boolean=true):void
 		{
-			var target:Pt = Pt( pt.clone());
-			
-			if ( isIsometrc )
-				IsoMath.isoToScreen( target );
-			
-			if ( !usePreciseValues )
+			var target:Pt=Pt(pt.clone());
+
+			if (isIsometrc)
+				IsoMath.isoToScreen(target);
+
+			if (!usePreciseValues)
 			{
-				target.x = Math.round( target.x );
-				target.y = Math.round( target.y );
-				target.z = Math.round( target.z );
+				target.x=Math.round(target.x);
+				target.y=Math.round(target.y);
+				target.z=Math.round(target.z);
 			}
-			
-			targetScreenPt = target;
-			
-			bPositionInvalidated = true;
+
+			targetScreenPt=target;
+
+			bPositionInvalidated=true;
 			renderISO();
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function centerOnIso( iso:IIsoDisplayObject ):void
+		public function centerOnIso(iso:IIsoDisplayObject):void
 		{
-			centerOnPt( iso.isoBounds.centerPt );
+			centerOnPt(iso.isoBounds.centerPt);
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	PAN
 		///////////////////////////////////////////////////////////////////////////////
-		
-		[Deprecated( "please use panBy and panTo APIs" )]
+
+		[Deprecated("please use panBy and panTo APIs")]
 		/**
 		 * @inheritDoc
 		 */
-		public function pan( px:Number, py:Number ):void
+		public function pan(px:Number, py:Number):void
 		{
-			panBy( px, py );
+			panBy(px, py);
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function panBy( xBy:Number, yBy:Number ):void
+		public function panBy(xBy:Number, yBy:Number):void
 		{
-			targetScreenPt = currentScreenPt.clone() as Pt;
-			targetScreenPt.x += xBy;
-			targetScreenPt.y += yBy;
-			
-			bPositionInvalidated = true;
+			targetScreenPt=currentScreenPt.clone() as Pt;
+			targetScreenPt.x+=xBy;
+			targetScreenPt.y+=yBy;
+
+			bPositionInvalidated=true;
 			renderISO();
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function panTo( xTo:Number, yTo:Number ):void
+		public function panTo(xTo:Number, yTo:Number):void
 		{
-			targetScreenPt = new Pt( xTo, yTo );
-			
-			bPositionInvalidated = true;
+			targetScreenPt=new Pt(xTo, yTo);
+
+			bPositionInvalidated=true;
 			renderISO();
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	ZOOM
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -413,47 +413,47 @@ package as3isolib.display
 		{
 			return zoomContainer.scaleX;
 		}
-		
+
 		/**
 		 * @private
 		 */
-		public function set currentZoom( value:Number ):void
+		public function set currentZoom(value:Number):void
 		{
-			zoomContainer.scaleX = zoomContainer.scaleY = value;
+			zoomContainer.scaleX=zoomContainer.scaleY=value;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function zoom( zFactor:Number ):void
+		public function zoom(zFactor:Number):void
 		{
-			zoomContainer.scaleX = zoomContainer.scaleY = zFactor;
+			zoomContainer.scaleX=zoomContainer.scaleY=zFactor;
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	RESET
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
 		public function reset():void
 		{
-			zoomContainer.scaleX = zoomContainer.scaleY = 1;
-			setSize( _w, _h );
-			
-			mContainer.x = 0;
-			mContainer.y = 0;
-			
-			currentScreenPt = new Pt();
+			zoomContainer.scaleX=zoomContainer.scaleY=1;
+			setSize(_w, _h);
+
+			mContainer.x=0;
+			mContainer.y=0;
+
+			currentScreenPt=new Pt();
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	VIEW RENDERER
 		///////////////////////////////////////////////////////////////////////////////
-		
-		private var viewRendererFactories:Array = [];
-		
+
+		private var viewRendererFactories:Array=[];
+
 		/**
 		 * An array of view renderers to affect each scene during the render phase.
 		 */
@@ -461,44 +461,44 @@ package as3isolib.display
 		{
 			return viewRendererFactories;
 		}
-		
+
 		/**
 		 * @private
 		 */
-		public function set viewRenderers( value:Array ):void
+		public function set viewRenderers(value:Array):void
 		{
-			if ( value )
+			if (value)
 			{
-				var temp:Array = [];
+				var temp:Array=[];
 				var obj:Object;
-				
-				for each ( obj in value )
+
+				for each (obj in value)
 				{
-					if ( obj is IFactory )
-						temp.push( obj );
+					if (obj is IFactory)
+						temp.push(obj);
 				}
-				
-				viewRendererFactories = temp;
-				
-				bPositionInvalidated = true;
-				
-				if ( autoUpdate )
+
+				viewRendererFactories=temp;
+
+				bPositionInvalidated=true;
+
+				if (autoUpdate)
 					renderISO();
 			}
-			
+
 			else
-				viewRendererFactories = [];
+				viewRendererFactories=[];
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	SCENE METHODS
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
-		protected var scenesArray:Array = [];
-		
+		protected var scenesArray:Array=[];
+
 		/**
 		 * @inheritDoc
 		 */
@@ -506,7 +506,7 @@ package as3isolib.display
 		{
 			return scenesArray;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -514,37 +514,37 @@ package as3isolib.display
 		{
 			return scenesArray.length;
 		}
-		
+
 		/**
 		 * Adds a scene to the scene container.
 		 *
 		 * @param scene The scene to add.
 		 */
-		public function addScene( scene:IIsoScene ):void
+		public function addScene(scene:IIsoScene):void
 		{
-			addSceneAt( scene, scenesArray.length );
+			addSceneAt(scene, scenesArray.length);
 		}
-		
+
 		/**
 		 * Adds a scene to the scene container at the given index.
 		 *
 		 * @param scene The scene to add.
 		 * @param index The index which is assigned to the scene in the scene container.
 		 */
-		public function addSceneAt( scene:IIsoScene, index:int ):void
+		public function addSceneAt(scene:IIsoScene, index:int):void
 		{
-			if ( !containsScene( scene ))
+			if (!containsScene(scene))
 			{
-				scenesArray.splice( index, 0, scene );
-				
-				scene.hostContainer = null;
-				sceneContainer.addChildAt( scene.container, index );
+				scenesArray.splice(index, 0, scene);
+
+				scene.hostContainer=null;
+				sceneContainer.addChildAt(scene.container, index);
 			}
-			
+
 			else
-				throw new Error( "IsoView instance already contains parameter scene" );
+				throw new Error("IsoView instance already contains parameter scene");
 		}
-		
+
 		/**
 		 * Determines if a scene is contained within the scene container.
 		 *
@@ -552,19 +552,19 @@ package as3isolib.display
 		 *
 		 * @return Boolean returns true if the scene is contained within the scene container, false otherwise.
 		 */
-		public function containsScene( scene:IIsoScene ):Boolean
+		public function containsScene(scene:IIsoScene):Boolean
 		{
 			var childScene:IIsoScene;
-			
-			for each ( childScene in scenesArray )
+
+			for each (childScene in scenesArray)
 			{
-				if ( scene == childScene )
+				if (scene == childScene)
 					return true;
 			}
-			
+
 			return false;
 		}
-		
+
 		/**
 		 * Finds a scene by the target's id.
 		 *
@@ -572,66 +572,66 @@ package as3isolib.display
 		 *
 		 * @return IIsoScene If the target scene is found it will be returned.
 		 */
-		public function getSceneByID( id:String ):IIsoScene
+		public function getSceneByID(id:String):IIsoScene
 		{
 			var scene:IIsoScene;
-			
-			for each ( scene in scenesArray )
+
+			for each (scene in scenesArray)
 			{
-				if ( scene.id == id )
+				if (scene.id == id)
 					return scene;
 			}
-			
+
 			return null;
 		}
-		
+
 		/**
 		 * Removes a target scene from the scenes container.
 		 *
 		 * @param scene The target scene to remove.
 		 * @return IIsoScene If the target scene is successfully removed, it will be returned, otherwise null is returned.
 		 */
-		public function removeScene( scene:IIsoScene ):IIsoScene
+		public function removeScene(scene:IIsoScene):IIsoScene
 		{
-			if ( containsScene( scene ))
+			if (containsScene(scene))
 			{
-				var i:int = scenesArray.indexOf( scene );
-				scenesArray.splice( i, 1 );
-				sceneContainer.removeChild( scene.container );
-				
+				var i:int=scenesArray.indexOf(scene);
+				scenesArray.splice(i, 1);
+				sceneContainer.removeChild(scene.container);
+
 				return scene;
 			}
-			
+
 			else
 				return null;
 		}
-		
+
 		/**
 		 * Removes all scenes from the scenes container.
 		 */
 		public function removeAllScenes():void
 		{
 			var scene:IIsoScene;
-			
-			for each ( scene in scenesArray )
+
+			for each (scene in scenesArray)
 			{
-				if ( sceneContainer.contains( scene.container ))
+				if (sceneContainer.contains(scene.container))
 				{
-					sceneContainer.removeChild( scene.container );
-					scene.hostContainer = null;
+					sceneContainer.removeChild(scene.container);
+					scene.hostContainer=null;
 				}
 			}
-			
-			scenesArray = [];
+
+			scenesArray=[];
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	SIZE
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		private var _w:Number;
 		private var _h:Number;
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -639,7 +639,7 @@ package as3isolib.display
 		{
 			return _w;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -647,34 +647,34 @@ package as3isolib.display
 		{
 			return _h;
 		}
-		
+
 		/**
 		 * The current size of the IsoView.
 		 * Returns a Point whose x corresponds to the width and y corresponds to the height.
 		 */
 		public function get size():Point
 		{
-			return new Point( _w, _h );
+			return new Point(_w, _h);
 		}
-		
+
 		/**
 		 * Set the size of the IsoView and repositions child scene objects, masks and borders (where applicable).
 		 *
 		 * @param w The width to resize to.
 		 * @param h The height to resize to.
 		 */
-		public function setSize( w:Number, h:Number ):void
+		public function setSize(w:Number, h:Number):void
 		{
-			_w = Math.round( w );
-			_h = Math.round( h );
-			
-			romBoundsRect = new Rectangle( 0, 0, _w + 1, _h + 1 );			
+			_w=Math.round(w);
+			_h=Math.round(h);
+
+			romBoundsRect=new Rectangle(0, 0, _w + 1, _h + 1);
 			//this.scrollRect = _clipContent ? romBoundsRect : null;			
-			
-			zoomContainer.x = _w / 2;
-			zoomContainer.y = _h / 2;
+
+			zoomContainer.x=_w / 2;
+			zoomContainer.y=_h / 2;
 			//_zoomContainer.mask = _clipContent ? _mask : null;
-			
+
 			/* _mask.graphics.clear();
 			   if (_clipContent)
 			   {
@@ -682,22 +682,22 @@ package as3isolib.display
 			   _mask.graphics.drawRect(0, 0, _w, _h);
 			   _mask.graphics.endFill();
 			 } */
-			
+
 			drawBorder();
-		
+
 			//for testing only - adds crosshairs to view border
 		/* _border.graphics.moveTo(0, 0);
 		   _border.graphics.lineTo(_w, _h);
 		   _border.graphics.moveTo(_w, 0);
 		 _border.graphics.lineTo(0, _h); */
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	CLIP CONTENT
 		///////////////////////////////////////////////////////////////////////////////
-		
-		private var _clipContent:Boolean = true;
-		
+
+		private var _clipContent:Boolean=true;
+
 		/**
 		 * @private
 		 */
@@ -705,33 +705,33 @@ package as3isolib.display
 		{
 			return _clipContent;
 		}
-		
+
 		/**
 		 * Flag indicating where to allow content to visibly extend beyond the boundries of this IsoView.
 		 */
-		public function set clipContent( value:Boolean ):void
+		public function set clipContent(value:Boolean):void
 		{
-			if ( _clipContent != value )
+			if (_clipContent != value)
 			{
-				_clipContent = value;
+				_clipContent=value;
 				reset();
 			}
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	RANGE OF MOTION
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
 		protected var romTarget:DisplayObject;
-		
+
 		/**
 		 * @private
 		 */
 		protected var romBoundsRect:Rectangle;
-		
+
 		/**
 		 * @private
 		 */
@@ -739,39 +739,39 @@ package as3isolib.display
 		{
 			return romTarget;
 		}
-		
+
 		/**
 		 * The target used to determine the range of motion when moving the <code>container</code>.
 		 *
 		 * @see #limitRangeOfMotion
 		 */
-		public function set rangeOfMotionTarget( value:DisplayObject ):void
+		public function set rangeOfMotionTarget(value:DisplayObject):void
 		{
-			romTarget = value;
-			limitRangeOfMotion = romTarget ? true : false;
+			romTarget=value;
+			limitRangeOfMotion=romTarget ? true : false;
 		}
-		
+
 		/**
 		 * Flag to limit the range of motion.
 		 *
 		 * @see #rangeOfMotionTarget
 		 */
-		public var limitRangeOfMotion:Boolean = true;
-		
+		public var limitRangeOfMotion:Boolean=true;
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	CONTAINER STRUCTURE
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		private var zoomContainer:Sprite;
-		
+
 		//	MAIN CONTAINER
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
 		protected var mContainer:Sprite;
-		
+
 		/**
 		 * The main container whose children include the background container, the iso object container and the foreground container.
 		 *
@@ -787,81 +787,81 @@ package as3isolib.display
 		{
 			return mContainer;
 		}
-		
+
 		//	BACKGROUND CONTAINER
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		private var bgContainer:Sprite;
-		
+
 		/**
 		 * The container for background elements.
 		 */
 		public function get backgroundContainer():Sprite
 		{
-			if ( !bgContainer )
+			if (!bgContainer)
 			{
-				bgContainer = new Sprite();
-				mContainer.addChildAt( bgContainer, 0 );
+				bgContainer=new Sprite();
+				mContainer.addChildAt(bgContainer, 0);
 			}
-			
+
 			return bgContainer;
 		}
-		
+
 		//	FOREGROUND CONTAINER
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		private var fgContainer:Sprite;
-		
+
 		/**
 		 * The container for foreground elements.
 		 */
 		public function get foregroundContainer():Sprite
 		{
-			if ( !fgContainer )
+			if (!fgContainer)
 			{
-				fgContainer = new Sprite();
-				mContainer.addChild( fgContainer );
+				fgContainer=new Sprite();
+				mContainer.addChild(fgContainer);
 			}
-			
+
 			return fgContainer;
 		}
-		
+
 		//	BOUNDS & SCENE CONTAINER
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		private var sceneContainer:Sprite;
-		
+
 		//private var maskShape:Shape;
 		private var maskShape:Sprite;
 		//private var borderShape:Shape;
-		
+
 		/////////////////////////////////////////////////////////////////
 		//	SHOW BORDER
 		/////////////////////////////////////////////////////////////////
-		
-		private var _showBorder:Boolean = true;
-		
+
+		private var _showBorder:Boolean=true;
+
 		/**
 		 * @private
 		 */
-		[Bindable( "showBorderChanged" )]
+		[Bindable("showBorderChanged")]
 		public function get showBorder():Boolean
 		{
 			return _showBorder;
 		}
-		
+
 		/**
 		 * Flag indicating if the view's border is visible.
 		 */
-		public function set showBorder( value:Boolean ):void
+		public function set showBorder(value:Boolean):void
 		{
-			if ( _showBorder != value )
+			if (_showBorder != value)
 			{
-				_showBorder = value;
+				_showBorder=value;
 				drawBorder();
 			}
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -869,46 +869,46 @@ package as3isolib.display
 		{
 			//log("draw border");
 			//TODO : convert to starling
-			/*var g:Graphics = borderShape.graphics;
-			g.clear();
-			
-			if ( showBorder )
-			{
-				g.lineStyle( 0 );
-				g.drawRect( 0, 0, _w, _h );
-			}*/
+		/*var g:Graphics = borderShape.graphics;
+		g.clear();
+
+		if ( showBorder )
+		{
+			g.lineStyle( 0 );
+			g.drawRect( 0, 0, _w, _h );
+		}*/
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		//	CONSTRUCTOR
 		///////////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Constructor
 		 */
 		public function IsoView()
 		{
 			super();
-			
-			sceneContainer = new Sprite();
-			
-			mContainer = new Sprite();
-			mContainer.addChild( sceneContainer );
-			
-			zoomContainer = new Sprite();
-			zoomContainer.addChild( mContainer );
-			addChild( zoomContainer );
-			
+
+			sceneContainer=new Sprite();
+
+			mContainer=new Sprite();
+			mContainer.addChild(sceneContainer);
+
+			zoomContainer=new Sprite();
+			zoomContainer.addChild(mContainer);
+			addChild(zoomContainer);
+
 			//maskShape = new Shape();
-			maskShape = new Sprite();
-			addChild( maskShape );
-			
+			maskShape=new Sprite();
+			addChild(maskShape);
+
 			//TODO : convert to starling
 			//borderShape = new Shape();
 			//addChild( borderShape );
-			
-			setSize( 400, 250 );
-		
+
+			setSize(400, 250);
+
 			//viewRenderer = new ClassFactory(DefaultViewRenderer);
 		}
 	}

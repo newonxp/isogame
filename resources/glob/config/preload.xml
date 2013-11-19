@@ -1,4 +1,6 @@
 <preload>
 	<img id="img/1384351140111.jpg"/>
-	<xmk id="xml/levels.xml"/>
+	<img id="img/spritesheet.png"/>
+	<xml id="xml/levels/level1.tmx"/>
+	<xml id="xml/spritesheet.xml"/>
 </preload>

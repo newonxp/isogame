@@ -29,15 +29,15 @@
  */
 package as3isolib.data
 {
-	import __AS3__.vec.Vector;	
-	
+	import __AS3__.vec.Vector;
+
 	import as3isolib.core.as3isolib_internal;
 	import as3isolib.events.IsoEvent;
-	
+
 	import eDpLib.events.EventDispatcherProxy;
-	
+
 	use namespace as3isolib_internal;
-	
+
 	/**
 	 * A base hierachical data structure class.
 	 */
@@ -46,7 +46,7 @@ package as3isolib.data
 		////////////////////////////////////////////////////////////////////////
 		//	CONSTRUCTOR
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Constructor
 		 */
@@ -54,47 +54,45 @@ package as3isolib.data
 		{
 			super();
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	ID
 		////////////////////////////////////////////////////////////////////////
-		
-		static private var _IDCount:uint = 0;
-		
+
+		static private var _IDCount:uint=0;
+
 		/**
 		 * @private
 		 */
-		public const UID:uint = _IDCount++;
-		
+		public const UID:uint=_IDCount++;
+
 		/**
 		 * @private
 		 */
 		protected var setID:String;
-		
+
 		/**
 		 * @private
 		 */
 		public function get id():String
 		{
-			return ( setID == null || setID == "" ) ?
-				"node" + UID.toString() :
-				setID;
+			return (setID == null || setID == "") ? "node" + UID.toString() : setID;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function set id( value:String ):void
+		public function set id(value:String):void
 		{
-			setID = value;
+			setID=value;
 		}
-		
+
 		////////////////////////////////////////////////
 		//	NAME
 		////////////////////////////////////////////////
-		
+
 		private var _name:String;
-		
+
 		/**
 		 * @private
 		 */
@@ -102,21 +100,21 @@ package as3isolib.data
 		{
 			return _name;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function set name( value:String ):void
+		public function set name(value:String):void
 		{
-			_name = value;
+			_name=value;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	DATA
 		////////////////////////////////////////////////////////////////////////
-		
+
 		private var _data:Object;
-		
+
 		/**
 		 * @private
 		 */
@@ -124,21 +122,21 @@ package as3isolib.data
 		{
 			return _data;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function set data( value:Object ):void
+		public function set data(value:Object):void
 		{
-			_data = value;
+			_data=value;
 		}
-		
+
 		//////////////////////////////////////////////////////////////////
 		//	OWNER
 		//////////////////////////////////////////////////////////////////
-		
+
 		as3isolib_internal var ownerObject:Object;
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -146,11 +144,11 @@ package as3isolib.data
 		{
 			return ownerObject ? ownerObject : parentNode;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	PARENT
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -158,106 +156,106 @@ package as3isolib.data
 		{
 			return parentNode ? true : false;
 		}
-		
+
 		/**
 		 * @private
 		 */
 		as3isolib_internal var parentNode:INode;
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		[ClassUtil( ignore="true" )]
+		[ClassUtil(ignore="true")]
 		public function get parent():INode
 		{
 			return parentNode;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	ROOT NODE
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
 		public function getRootNode():INode
 		{
-			var p:INode = this;
-			
-			while ( p.hasParent )
-				p = p.parent;
-			
+			var p:INode=this;
+
+			while (p.hasParent)
+				p=p.parent;
+
 			return p;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function getDescendantNodes( includeBranches:Boolean = false ):Array
+		public function getDescendantNodes(includeBranches:Boolean=false):Array
 		{
-			var descendants:Array = [];
-			
+			var descendants:Array=[];
+
 			var child:INode;
-			
-			for each ( child in childrenArray )
+
+			for each (child in childrenArray)
 			{
-				if ( child.children.length > 0 )
+				if (child.children.length > 0)
 				{
-					descendants = descendants.concat( child.getDescendantNodes( includeBranches ));
-					
-					if ( includeBranches )
-						descendants.push( child );
+					descendants=descendants.concat(child.getDescendantNodes(includeBranches));
+
+					if (includeBranches)
+						descendants.push(child);
 				}
-				
+
 				else
-					descendants.push( child );
+					descendants.push(child);
 			}
-			
+
 			return descendants;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	CHILD METHODS
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function contains( value:INode ):Boolean
+		public function contains(value:INode):Boolean
 		{
-			if ( value.hasParent )
+			if (value.hasParent)
 				return value.parent == this;
-			
+
 			else
 			{
 				var child:INode;
-				
-				for each ( child in childrenArray )
+
+				for each (child in childrenArray)
 				{
-					if ( child == value )
+					if (child == value)
 						return true;
 				}
-				
+
 				return false;
 			}
 		}
-		
-		private var childrenArray:Vector.<INode> = new Vector.<INode>();
-		
+
+		private var childrenArray:Vector.<INode>=new Vector.<INode>();
+
 		/**
 		 * @inheritDoc
 		 */
 		public function get children():Array
 		{
-			var temp:Array = [];
+			var temp:Array=[];
 			var child:Object;
-			
-			for each ( child in childrenArray )
-				temp.push( child );
-			
+
+			for each (child in childrenArray)
+				temp.push(child);
+
 			return temp;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -265,198 +263,197 @@ package as3isolib.data
 		{
 			return childrenArray.length;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function addChild( child:INode ):void
-		{			
-			addChildAt( child, numChildren );
+		public function addChild(child:INode):void
+		{
+			addChildAt(child, numChildren);
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function addChildAt( child:INode, index:uint ):void
+		public function addChildAt(child:INode, index:uint):void
 		{
 			//if it already exists here, do nothing
-			if ( getChildByID( child.id ))
+			if (getChildByID(child.id))
 				return;
-			
+
 			//if it has another parent, then remove it there
-			if ( child.hasParent )
+			if (child.hasParent)
 			{
-				var parent:INode = child.parent;
-				parent.removeChildByID( child.id );
+				var parent:INode=child.parent;
+				parent.removeChildByID(child.id);
 			}
-			
-			Node( child ).parentNode = this;
-			childrenArray.splice( index, 0, child );
-			
-			var evt:IsoEvent = new IsoEvent( IsoEvent.CHILD_ADDED );
-			evt.newValue = child;
-			
-			dispatchEvent( evt );
+
+			Node(child).parentNode=this;
+			childrenArray.splice(index, 0, child);
+
+			var evt:IsoEvent=new IsoEvent(IsoEvent.CHILD_ADDED);
+			evt.newValue=child;
+
+			dispatchEvent(evt);
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function getChildAt( index:uint ):INode
+		public function getChildAt(index:uint):INode
 		{
-			if ( index >= numChildren )
-				throw new Error( "" );
-			
+			if (index >= numChildren)
+				throw new Error("");
+
 			else
-				return INode( childrenArray[ index ]);
+				return INode(childrenArray[index]);
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function getChildIndex( child:INode ):int
+		public function getChildIndex(child:INode):int
 		{
 			var i:int;
-			
-			while ( i < numChildren )
+
+			while (i < numChildren)
 			{
-				if ( child == childrenArray[ i ])
+				if (child == childrenArray[i])
 					return i;
-				
+
 				i++;
 			}
-			
+
 			return -1;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function setChildIndex( child:INode, index:uint ):void
+		public function setChildIndex(child:INode, index:uint):void
 		{
-			var i:int = getChildIndex( child );
-			
+			var i:int=getChildIndex(child);
+
 			// Don't bother if it's already at this index
-			if ( i == index )
+			if (i == index)
 				return;
-			
-			if ( i > -1 )
+
+			if (i > -1)
 			{
-				childrenArray.splice( i, 1 ); //remove it form the array
-				
+				childrenArray.splice(i, 1); //remove it form the array
+
 				//now let's check to see if it really did remove the correct choice - this may not be necessary but I get OCD about crap like this
 				var c:INode;
-				var notRemoved:Boolean = false;
-				
-				for each ( c in childrenArray )
+				var notRemoved:Boolean=false;
+
+				for each (c in childrenArray)
 				{
-					if ( c == child )
-						notRemoved = true;
+					if (c == child)
+						notRemoved=true;
 				}
-				
-				if ( notRemoved )
+
+				if (notRemoved)
 				{
-					throw new Error( "" );
+					throw new Error("");
 					return;
 				}
-				
-				if ( index >= numChildren )
-					childrenArray.push( child );
-				
+
+				if (index >= numChildren)
+					childrenArray.push(child);
+
 				else
-					childrenArray.splice( index, 0, child );
+					childrenArray.splice(index, 0, child);
 			}
-			
+
 			else
-				throw new Error( "" );
+				throw new Error("");
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function removeChild( child:INode ):INode
+		public function removeChild(child:INode):INode
 		{
-			return removeChildByID( child.id );
+			return removeChildByID(child.id);
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function removeChildAt( index:uint ):INode
+		public function removeChildAt(index:uint):INode
 		{
 			var child:INode;
-			
-			if ( index >= numChildren )
+
+			if (index >= numChildren)
 				return null;
-			
+
 			else
-				child = INode( childrenArray[ index ]);
-			
-			return removeChildByID( child.id );
+				child=INode(childrenArray[index]);
+
+			return removeChildByID(child.id);
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function removeChildByID( id:String ):INode
+		public function removeChildByID(id:String):INode
 		{
-			var child:INode = getChildByID( id );
-			
-			if ( child )
+			var child:INode=getChildByID(id);
+
+			if (child)
 			{
 				//remove parent ref
-				Node( child ).parentNode = null;
-				
+				Node(child).parentNode=null;
+
 				//remove from children array
 				var i:uint;
-				
-				for ( i; i < childrenArray.length; i++ )
+
+				for (i; i < childrenArray.length; i++)
 				{
-					if ( child == childrenArray[ i ])
+					if (child == childrenArray[i])
 					{
-						childrenArray.splice( i, 1 );
+						childrenArray.splice(i, 1);
 						break;
 					}
 				}
-				
-				var evt:IsoEvent = new IsoEvent( IsoEvent.CHILD_REMOVED );
-				evt.newValue = child;
-				
-				dispatchEvent( evt );
+
+				var evt:IsoEvent=new IsoEvent(IsoEvent.CHILD_REMOVED);
+				evt.newValue=child;
+				dispatchEvent(evt);
 			}
-			
+
 			return child;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
 		public function removeAllChildren():void
 		{
 			var child:INode;
-			
-			for each ( child in childrenArray )
-				Node( child ).parentNode = null;
-			
-			childrenArray = new Vector.<INode>();
+
+			for each (child in childrenArray)
+				Node(child).parentNode=null;
+
+			childrenArray=new Vector.<INode>();
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function getChildByID( id:String ):INode
+		public function getChildByID(id:String):INode
 		{
 			var childID:String;
 			var child:INode;
-			
-			for each ( child in childrenArray )
+
+			for each (child in childrenArray)
 			{
-				childID = child.id;
-				
-				if ( childID == id )
+				childID=child.id;
+
+				if (childID == id)
 					return child;
 			}
-			
+
 			return null;
 		}
 	}

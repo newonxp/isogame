@@ -30,20 +30,20 @@
 package as3isolib.core
 {
 	import __AS3__.vec.Vector;
-	
+
 	import as3isolib.data.INode;
 	import as3isolib.data.Node;
 	import as3isolib.events.IsoEvent;
-	
+
 	import eDpLib.events.ProxyEvent;
-	
+
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import starling.events.EventDispatcher;	
-	
+	import starling.events.EventDispatcher;
+
 	use namespace as3isolib_internal;
-	
+
 	/**
 	 * IsoContainer is the base class that any isometric object must extend in order to be shown in the display list.
 	 * Developers should not instantiate this class directly but rather extend it.
@@ -53,17 +53,17 @@ package as3isolib.core
 		//////////////////////////////////////////////////////////////////
 		//	INCLUDE IN LAYOUT
 		//////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
-		protected var bIncludeInLayout:Boolean = true;
-		
+		protected var bIncludeInLayout:Boolean=true;
+
 		/**
 		 * @private
 		 */
-		protected var includeInLayoutChanged:Boolean = false;
-		
+		protected var includeInLayoutChanged:Boolean=false;
+
 		/**
 		 * @private
 		 */
@@ -71,213 +71,213 @@ package as3isolib.core
 		{
 			return bIncludeInLayout;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function set includeInLayout( value:Boolean ):void
+		public function set includeInLayout(value:Boolean):void
 		{
-			if ( bIncludeInLayout != value )
+			if (bIncludeInLayout != value)
 			{
-				bIncludeInLayout = value;
-				includeInLayoutChanged = true;
+				bIncludeInLayout=value;
+				includeInLayoutChanged=true;
 			}
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	DISPLAY LIST CHILDREN
 		////////////////////////////////////////////////////////////////////////
-		
-		protected var displayListChildrenArray:Vector.<IIsoContainer> = new Vector.<IIsoContainer>();
-		
+
+		protected var displayListChildrenArray:Vector.<IIsoContainer>=new Vector.<IIsoContainer>();
+
 		/**
 		 * @inheritDoc
 		 */
 		public function get displayListChildren():Array
 		{
-			var temp:Array = [];
+			var temp:Array=[];
 			var child:IIsoContainer;
-			
-			for each ( child in displayListChildrenArray )
-				temp.push( child );
-			
+
+			for each (child in displayListChildrenArray)
+				temp.push(child);
+
 			return temp;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	CHILD METHODS
 		////////////////////////////////////////////////////////////////////////
-		
+
 		//	ADD
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		override public function addChildAt( child:INode, index:uint ):void
-		{			
-			if ( child is IIsoContainer )
+		override public function addChildAt(child:INode, index:uint):void
+		{
+			if (child is IIsoContainer)
 			{
-				super.addChildAt( child, index );
-				
-				if ( IIsoContainer( child ).includeInLayout )
+				super.addChildAt(child, index);
+
+				if (IIsoContainer(child).includeInLayout)
 				{
-					displayListChildrenArray.push( child );
-					
-					if ( index > mainContainer.numChildren )
-						index = mainContainer.numChildren;
-					
+					displayListChildrenArray.push(child);
+
+					if (index > mainContainer.numChildren)
+						index=mainContainer.numChildren;
+
 					//referencing explicit removal of child RTE - http://life.neophi.com/danielr/2007/06/rangeerror_error_2006_the_supp.html
-					var p:DisplayObjectContainer = IIsoContainer( child ).container.parent;
-					
-					if ( p && p != mainContainer )
-						p.removeChild( IIsoContainer( child ).container );
-					
-					mainContainer.addChildAt( IIsoContainer( child ).container, index );
+					var p:DisplayObjectContainer=IIsoContainer(child).container.parent;
+
+					if (p && p != mainContainer)
+						p.removeChild(IIsoContainer(child).container);
+
+					mainContainer.addChildAt(IIsoContainer(child).container, index);
 				}
 			}
-			
+
 			else
-				throw new Error( "parameter child does not implement IContainer." );
+				throw new Error("parameter child does not implement IContainer.");
 		}
-		
+
 		//	SWAP
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		override public function setChildIndex( child:INode, index:uint ):void
+		override public function setChildIndex(child:INode, index:uint):void
 		{
-			if ( !child is IIsoContainer )
-				throw new Error( "parameter child does not implement IContainer." );
-			
-			else if ( !child.hasParent || child.parent != this )
-				throw new Error( "parameter child is not found within node structure." );
-			
+			if (!child is IIsoContainer)
+				throw new Error("parameter child does not implement IContainer.");
+
+			else if (!child.hasParent || child.parent != this)
+				throw new Error("parameter child is not found within node structure.");
+
 			else
-			{				
-				super.setChildIndex( child, index );
-				mainContainer.setChildIndex( IIsoContainer( child ).container, index );
+			{
+				super.setChildIndex(child, index);
+				mainContainer.setChildIndex(IIsoContainer(child).container, index);
 			}
 		}
-		
+
 		//	REMOVE
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		override public function removeChildByID( id:String ):INode
+		override public function removeChildByID(id:String):INode
 		{
-			var child:IIsoContainer = IIsoContainer( super.removeChildByID( id ));
-			
-			if ( child && child.includeInLayout )
+			var child:IIsoContainer=IIsoContainer(super.removeChildByID(id));
+
+			if (child && child.includeInLayout)
 			{
-				var i:int = displayListChildrenArray.indexOf( child );
-				
-				if ( i > -1 )
-					displayListChildrenArray.splice( i, 1 );
-				
-				mainContainer.removeChild( IIsoContainer( child ).container );
+				var i:int=displayListChildrenArray.indexOf(child);
+
+				if (i > -1)
+					displayListChildrenArray.splice(i, 1);
+
+				mainContainer.removeChild(IIsoContainer(child).container);
 			}
-			
+
 			return child;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
 		override public function removeAllChildren():void
 		{
 			var child:IIsoContainer;
-			
-			for each ( child in children )
+
+			for each (child in children)
 			{
-				if ( child.includeInLayout )
-					mainContainer.removeChild( child.container );
+				if (child.includeInLayout)
+					mainContainer.removeChild(child.container);
 			}
-			
-			displayListChildrenArray = new Vector.<IIsoContainer>();
-			
+
+			displayListChildrenArray=new Vector.<IIsoContainer>();
+
 			super.removeAllChildren();
 		}
-		
+
 		//	CREATE
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Initialization method to create the child IContainer objects.
 		 */
 		protected function createChildren():void
 		{
 			//overriden by subclasses
-			mainContainer = new Sprite();
+			mainContainer=new Sprite();
 			attachMainContainerEventListeners();
-		
+
 			//mainContainer.cacheAsBitmap = true;
 		}
-		
+
 		/**
 		 * Attaches certain listener logic for adding and removing the main container from the stage and display list.
 		 * Subclasses of IsoContainer that explicitly set/override the mainContainer (e.g. IsoSprite) should call this class afterwards.
 		 */
 		protected function attachMainContainerEventListeners():void
 		{
-			if ( mainContainer )
+			if (mainContainer)
 			{
 				//starling adapt
-				mainContainer.addEventListener( Event.ADDED, mainContainer_addedHandler/*, false, 0, true */);
-				mainContainer.addEventListener( Event.ADDED_TO_STAGE, mainContainer_addedToStageHandler/*, false, 0, true */);
-				mainContainer.addEventListener( Event.REMOVED, mainContainer_removedHandler/*, false, 0, true */);
-				mainContainer.addEventListener( Event.REMOVED_FROM_STAGE, mainContainer_removedFromStageHandler/*, false, 0, true */);
+				mainContainer.addEventListener(Event.ADDED, mainContainer_addedHandler /*, false, 0, true */);
+				mainContainer.addEventListener(Event.ADDED_TO_STAGE, mainContainer_addedToStageHandler /*, false, 0, true */);
+				mainContainer.addEventListener(Event.REMOVED, mainContainer_removedHandler /*, false, 0, true */);
+				mainContainer.addEventListener(Event.REMOVED_FROM_STAGE, mainContainer_removedFromStageHandler /*, false, 0, true */);
 			}
 		}
-		
+
 		///////////////////////////////////////////////////////////////////////
 		//	DISPLAY LIST & STAGE LOGIC
 		///////////////////////////////////////////////////////////////////////
-		
+
 		private var bAddedToDisplayList:Boolean;
-		
+
 		private var bAddedToStage:Boolean;
-		
+
 		public function get isAddedToDisplay():Boolean
 		{
 			return bAddedToDisplayList;
 		}
-		
+
 		public function get isAddedToStage():Boolean
 		{
 			return bAddedToStage;
 		}
-		
-		private function mainContainer_addedHandler( evt:Event ):void
+
+		private function mainContainer_addedHandler(evt:Event):void
 		{
-			bAddedToDisplayList = true;
+			bAddedToDisplayList=true;
 		}
-		
-		private function mainContainer_addedToStageHandler( evt:Event ):void
+
+		private function mainContainer_addedToStageHandler(evt:Event):void
 		{
-			bAddedToStage = true;
+			bAddedToStage=true;
 		}
-		
-		private function mainContainer_removedHandler( evt:Event ):void
+
+		private function mainContainer_removedHandler(evt:Event):void
 		{
-			bAddedToDisplayList = false;
+			bAddedToDisplayList=false;
 		}
-		
-		private function mainContainer_removedFromStageHandler( evt:Event ):void
+
+		private function mainContainer_removedFromStageHandler(evt:Event):void
 		{
-			bAddedToStage = false;
+			bAddedToStage=false;
 		}
-		
+
 		/////////////////////////////////////////////////////////////////
 		//	IS INVALIDATED
 		/////////////////////////////////////////////////////////////////
-		
+
 		as3isolib_internal var bIsInvalidated:Boolean;
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -285,126 +285,127 @@ package as3isolib.core
 		{
 			return bIsInvalidated;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	RENDER
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		public function render( recursive:Boolean = true ):void
+		public function render(recursive:Boolean=true):void
 		{
 			//log("render", this);
 			preRenderLogic();
-			renderLogic( recursive );
+			renderLogic(recursive);
 			postRenderLogic();
 		}
-		
+
 		/**
 		 * Performs any logic prior to executing actual rendering logic on the IIsoContainer.
 		 */
 		protected function preRenderLogic():void
 		{
-			dispatchEvent( new IsoEvent( IsoEvent.RENDER ));
+			dispatchEvent(new IsoEvent(IsoEvent.RENDER));
 		}
-		
+
 		/**
 		 * Performs actual rendering logic on the IIsoContainer.
 		 *
 		 * @param recursive Flag indicating if child objects render upon validation.  Default value is <code>true</code>.
 		 */
-		protected function renderLogic( recursive:Boolean = true ):void
-		{			
-			if ( includeInLayoutChanged && parentNode )
-			{					
-				var p:IIsoContainer = IIsoContainer( parentNode );
-				var i:int = p.displayListChildren.indexOf( this );
-				
-				if ( bIncludeInLayout )
+		protected function renderLogic(recursive:Boolean=true):void
+		{
+			if (includeInLayoutChanged && parentNode)
+			{
+				var p:IIsoContainer=IIsoContainer(parentNode);
+				var i:int=p.displayListChildren.indexOf(this);
+
+				if (bIncludeInLayout)
 				{
-					if ( i == -1 )
-						p.displayListChildren.push( this );
+					if (i == -1)
+						p.displayListChildren.push(this);
 				}
-				
-				else if ( !bIncludeInLayout )
+
+				else if (!bIncludeInLayout)
 				{
-					if ( i >= 0 )
-						p.displayListChildren.splice( i, 1 );
+					if (i >= 0)
+						p.displayListChildren.splice(i, 1);
 				}
-				
-				mainContainer.visible = bIncludeInLayout; //rather than removing or adding to display list, we leave it be and just leave it to the flash player to maintain
-				
-				includeInLayoutChanged = false;
+
+				mainContainer.visible=bIncludeInLayout; //rather than removing or adding to display list, we leave it be and just leave it to the flash player to maintain
+
+				includeInLayoutChanged=false;
 			}
-			
-			if ( recursive )
+
+			if (recursive)
 			{
 				var child:IIsoContainer;
-				
-				for each ( child in children )
-					renderChild( child );
+
+				for each (child in children)
+					renderChild(child);
 			}
 		}
-		
+
 		/**
 		 * Performs any logic after executing actual rendering logic on the IIsoContainer.
 		 */
 		protected function postRenderLogic():void
 		{
-			dispatchEvent( new IsoEvent( IsoEvent.RENDER_COMPLETE ));
+			dispatchEvent(new IsoEvent(IsoEvent.RENDER_COMPLETE));
 		}
-		
-		protected function renderChild( child:IIsoContainer ):void
-		{			
-			child.render( true );
-		}
-		
-		protected function child_changeHandler( evt:Event ):void
+
+		protected function renderChild(child:IIsoContainer):void
 		{
-			bIsInvalidated = true;
+			child.render(true);
 		}
-		
+
+		protected function child_changeHandler(evt:Event):void
+		{
+			bIsInvalidated=true;
+		}
+
 		////////////////////////////////////////////////////////////////////////
 		//	EVENT DISPATCHER PROXY
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @inheritDoc
 		 */
-		override public function dispatchEvent( event:Event ):Boolean
-		{			
+		override public function dispatchEvent(event:Event):Boolean
+		{
 			//starling adapt
 			//so we can make use of the bubbling events via the display list
-			if (event.bubbles )
+			if (event.bubbles)
 			{
-				/*return */proxyTarget.dispatchEvent( new ProxyEvent( this as EventDispatcher, event ));
+				/*return */
+				proxyTarget.dispatchEvent(new ProxyEvent(this as EventDispatcher, event));
 				return true;
 			}
 			else
-				return super.dispatchEvent( event );
+				return super.dispatchEvent(event);
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	CONTAINER STRUCTURE
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * @private
 		 */
 		protected var mainContainer:Sprite;
-		
+
 		/**
 		 * @inheritDoc
 		 */
 		public function get depth():int
-		{			
-			if ( mainContainer.parent )
-				return mainContainer.parent.getChildIndex( mainContainer );			
+		{
+			if (mainContainer.parent)
+				return mainContainer.parent.getChildIndex(mainContainer);
 			else
 				return -1;
 		}
-		
+
 		/**
 		 * @inheritDoc
 		 */
@@ -412,23 +413,23 @@ package as3isolib.core
 		{
 			return mainContainer;
 		}
-		
+
 		////////////////////////////////////////////////////////////////////////
 		//	CONSTRUCTOR
 		////////////////////////////////////////////////////////////////////////
-		
+
 		/**
 		 * Constructor
 		 */
 		public function IsoContainer()
 		{
 			super();
-			addEventListener( IsoEvent.CHILD_ADDED, child_changeHandler );
-			addEventListener( IsoEvent.CHILD_REMOVED, child_changeHandler );
-			
+			addEventListener(IsoEvent.CHILD_ADDED, child_changeHandler);
+			addEventListener(IsoEvent.CHILD_REMOVED, child_changeHandler);
+
 			createChildren();
-			
-			proxyTarget = mainContainer as EventDispatcher;
+
+			proxyTarget=mainContainer as EventDispatcher;
 		}
 	}
 }
