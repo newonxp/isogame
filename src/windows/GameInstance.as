@@ -29,10 +29,10 @@ package windows
 				Starling.current.showStats=true
 				_scene=Starling.current.root as Level
 				_scene.setLevel(_level)
-				stage.addEventListener(MouseEvent.RIGHT_CLICK, function(e:MouseEvent):void
+			/*	stage.addEventListener(MouseEvent.RIGHT_CLICK, function(e:MouseEvent):void
 				{
 					_scene.rightClick(e)
-				})
+				})*/
 			})
 
 		}
@@ -43,3 +43,5 @@ package windows
 		}
 	}
 }
+
+

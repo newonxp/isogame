@@ -46,7 +46,8 @@ package windows
 
 		private function resourcesLoaded():void
 		{
-			_windowsManager.addGameInstance("level1")
+			//_windowsManager.addGameInstance("level1")
+			_windowsManager.addMainMenu()
 		}
 
 		public static function get resources():ResourceManager

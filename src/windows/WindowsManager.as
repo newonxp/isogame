@@ -6,6 +6,7 @@ package windows
 	{
 		private var _preloader:Preloader
 		private var _gameInstance:GameInstance
+		private var _mainMenu:MainMenu
 
 		public function WindowsManager()
 		{
@@ -15,13 +16,23 @@ package windows
 		public function addPreloader(callback:Function=null):void
 		{
 			_preloader=new Preloader(callback)
-			addChild(_preloader)
+			addWindow(_preloader)
 		}
 
 		public function addGameInstance(level:String):void
 		{
 			_gameInstance=new GameInstance(level)
-			addChild(_gameInstance)
+			addWindow(_gameInstance)
+		}
+
+		public function addMainMenu():void{
+			_mainMenu=new MainMenu()
+			addWindow(_mainMenu)
+		}
+
+		private function addWindow(window:BasicWindow):void
+		{
+			addChild(window)
 		}
 
 		public function removeWindow(window:BasicWindow):void
@@ -41,3 +52,5 @@ package windows
 
 	}
 }
+
+
