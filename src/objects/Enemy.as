@@ -47,13 +47,11 @@ package objects
 
 		private function onTimerComplete(e:TimerEvent):void
 		{
-			trace("onTimerComplete")
 			walkTo()
 		}
 
 		public function walkTo():void
 		{
-			trace("walkTo")
 			_path=Game.windowsManager.gameInstance.scene.getPath(new Point(_startPoint.x, _startPoint.y), new Point(_endPoint.x, _endPoint.y), false)
 			if (_path != null)
 			{
@@ -61,7 +59,6 @@ package objects
 				var path:LinePath2D=new LinePath2D(_path.path);
 				path.addFollower(this);
 				TweenMax.to(path, _path.length * Config.playerSpeed, {progress: 1, ease: com.greensock.easing.Linear.easeNone, onComplete: function():void{
-					trace("test")
 					checkPath()
 				}
 					});
@@ -86,9 +83,7 @@ package objects
 			startWait()
 		}
 		override public function remove():void{
-			_timer.reset()
 			_timer.stop()
-			trace("removing "+_timer.running)
 			_timer.removeEventListener(TimerEvent.TIMER, onTimerComplete)
 			_timer=null
 			super.remove()

@@ -38,6 +38,7 @@ package windows
 
 		}
 		private function onMainMenu(e:MouseEvent):void{
+			Game.windowsManager.removeWindow(this)
 			Game.gameManager.returnToMenu()
 		}
 

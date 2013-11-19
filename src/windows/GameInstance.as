@@ -41,6 +41,9 @@ package windows
 		private function onRemove(e:flash.events.Event):void{
 			/*	stage.removeEventListener(MouseEvent.RIGHT_CLICK, rightClicked)*/
 			_scene.remove()
+			_starling.stop(true)
+			_starling.dispose()
+			_starling=null
 			trace("Меня пытаются удалить, ребзя")
 		}
 		public function get scene():Level

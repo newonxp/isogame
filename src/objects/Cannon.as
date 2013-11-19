@@ -60,8 +60,8 @@ package objects
 			Game.windowsManager.gameInstance.scene.addFireball(Game.windowsManager.gameInstance.scene.getCellAt(cell.x + shiftX, cell.y + shiftY), shiftX, shiftY)
 		}
 		override public function remove():void{
-			_timer.removeEventListener(TimerEvent.TIMER, onTimerComplete)
 			_timer.stop()
+			_timer.removeEventListener(TimerEvent.TIMER, onTimerComplete)
 			_timer=null
 			super.remove()
 		}

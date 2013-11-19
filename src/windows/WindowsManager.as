@@ -22,6 +22,7 @@ package windows
 
 		public function addGameInstance(level:String):void
 		{
+			trace(numChildren)
 			_gameInstance=new GameInstance(level)
 			addWindow(_gameInstance)
 		}

@@ -24,6 +24,9 @@ package objects
 		override public function remove():void
 		{
 			cell.blocked=false
+			super.remove()
 		}
 	}
 }
+
+

@@ -89,7 +89,7 @@ package entities
 			init()
 		}
 
-		private function init():void
+		public function init():void
 		{
 			_objects = new Vector.<BasicObject>
 			_collisionDetector=new CollisionDetector()
@@ -464,9 +464,8 @@ package entities
 			return _shotsManager
 		}
 		public function remove():void{
-			for(var i:int = 0; i<_objects.length;i++){
+			for(var i:int = _objects.length-1; i>=0;i--){
 				_objects[i].remove()
-
 			}
 			_collisionDetector.remove()
 			_shotsManager.remove()
