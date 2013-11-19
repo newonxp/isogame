@@ -3,16 +3,13 @@ package entities
 {
 	import as3isolib.display.IsoSprite;
 	import as3isolib.display.IsoView;
-	import as3isolib.display.primitive.IsoBox;
 	import as3isolib.display.renderers.SimpleSceneLayoutRenderer;
-	import as3isolib.display.scene.IsoGrid;
 	import as3isolib.display.scene.IsoScene;
-	import as3isolib.events.IsoEvent;
+	import as3isolib.geom.IsoMath;
+	import as3isolib.geom.Pt;
 
-	import flash.display.Bitmap;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 
 	import objects.Block;
 	import objects.Cannon;
@@ -27,17 +24,11 @@ package entities
 
 	import starling.core.RenderSupport;
 	import starling.core.Starling;
-	import starling.display.DisplayObject;
-	import starling.display.DisplayObjectContainer;
-	import starling.display.Image;
-	import starling.display.MovieClip;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
-	import starling.textures.Texture;
-	import starling.textures.TextureAtlas;
 
 	import utils.CollisionDetector;
 	import utils.Pathfinder;
@@ -231,7 +222,6 @@ package entities
 
 		public function addFloor(cell:Cell=null):void
 		{
-
 			var spritesPack:SpritesPack=_spritesManager.getPack("floor")
 			var floor:Floor=new Floor(_sceneStatic, spritesPack, cell)
 			addObject(floor, cell)
@@ -342,8 +332,7 @@ package entities
 			addPlayer(getCellAt(4, 4))
 			addEnemy(getCellAt(6, 7), getCellAt(6, 3), 1000)
 			addEnemy(getCellAt(2, 2), getCellAt(10, 2), 1000)
-			//addFireball(getCellAt(4, 6))
-			addCannon(getCellAt(6, 10), 1000)
+			//addCannon(getCellAt(6, 10), 1000)
 			//addEnemy(getCellAt(3, 10), getCellAt(3, 5), 1000)
 		}
 
@@ -430,7 +419,12 @@ package entities
 			Game.windowsManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			Game.windowsManager.stage.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
-
+		public function pan(x,y):void{
+			var pt:Pt = new Pt(x,y,0)
+			pt = IsoMath.isoToScreen(pt)
+			//_view.pivotX=pt.x
+			//_view.pivotY=pt.y
+		}
 		private function viewPan(e:MouseEvent):void
 		{
 			_view.panBy(_panPoint.x - Game.windowsManager.stage.mouseX, _panPoint.y - Game.windowsManager.stage.mouseY);

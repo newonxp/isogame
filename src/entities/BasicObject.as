@@ -298,6 +298,8 @@ package entities
 
 		public function remove():void
 		{
+			//TweenMax.killTweensOf(this)
+			//TweenMax.killDelayedCallsTo(this)
 			TweenMax.killAll(true,true,true)
 			if (_collidable == true)
 			{

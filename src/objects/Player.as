@@ -59,10 +59,12 @@ package objects
 				level.death()
 				remove()
 			}
-
-
 		}
 
+		override public function moveTo(x:Number=0, y:Number=0, z:Number=0):void{
+			Game.windowsManager.gameInstance.scene.pan(x,y)
+			super.moveTo(x,y,z)
+		}
 		override public function remove():void
 		{
 			Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
