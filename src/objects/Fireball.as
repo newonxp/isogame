@@ -2,15 +2,16 @@ package objects
 {
 	import as3isolib.display.scene.IsoScene;
 
+	import entities.BasicObject;
+	import entities.Bounds;
+	import entities.Cell;
+
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 
 	import sprites.SpritesPack;
 
 	import windows.Game;
-	import entities.BasicObject;
-	import entities.Bounds;
-	import entities.Cell;
 
 	public class Fireball extends BasicObject
 	{
@@ -30,7 +31,7 @@ package objects
 
 		public function tick():void
 		{
-			if (this.x > 30 * Config.cell_size)
+			if (this.x > Game.windowsManager.gameInstance.scene.mapHeight * Config.cell_size)
 			{
 				remove()
 			}
@@ -38,9 +39,11 @@ package objects
 
 		override public function collide(target:BasicObject):void
 		{
-
-			Game.windowsManager.gameInstance.scene.addExplosion(x - _shiftX * 5, y - _shiftY * 5)
-			_explosed=true
+			if (target.type != Config.fireball)
+			{
+				Game.windowsManager.gameInstance.scene.addExplosion(x - _shiftX * 5, y - _shiftY * 5)
+				_explosed=true
+			}
 
 			remove()
 		}

@@ -2,12 +2,15 @@ package objects
 {
 	import as3isolib.display.scene.IsoScene;
 
-	import sprites.SpritesPack;
-
-	import windows.Game;
 	import entities.BasicObject;
 	import entities.Bounds;
 	import entities.Cell;
+
+	import sprites.SpritesPack;
+
+	import starling.filters.ColorMatrixFilter;
+
+	import windows.Game;
 
 	public class Floor extends BasicObject
 	{
@@ -20,13 +23,33 @@ package objects
 
 		override public function onLeftClick():void
 		{
+
 			Game.windowsManager.gameInstance.scene.floorClicked(this)
 		}
 
 		override public function onRightClick():void
 		{
-			Game.windowsManager.gameInstance.scene.addBlock(cell)
-			Game.windowsManager.gameInstance.scene.updateCollisionMap()
+			if (Game.windowsManager.gameInstance.scene.isNearPlayer(cell))
+			{
+				Game.windowsManager.gameInstance.scene.addBlock(cell)
+				Game.windowsManager.gameInstance.scene.updateCollisionMap()
+
+			}
+		}
+
+		override public function onMouseOver():void
+		{
+			if (Game.windowsManager.gameInstance.scene.isNearPlayer(cell))
+			{
+				var colorMatrixFilter:ColorMatrixFilter=new ColorMatrixFilter()
+				colorMatrixFilter.adjustBrightness(0.1);
+				colorMatrixFilter.adjustHue(0.3);
+				_sprite.actualSprites[0].filter=colorMatrixFilter;
+			}
+			else
+			{
+				super.onMouseOver()
+			}
 		}
 	}
 }

@@ -44,8 +44,8 @@ package utils
 		{
 			for (var i:int=0; i < _shots.length; i++)
 			{
-				_shots[i].obj.x+=_shots[i].dirX
-				_shots[i].obj.y+=_shots[i].dirY
+				_shots[i].obj.x+=_shots[i].dirX * 2
+				_shots[i].obj.y+=_shots[i].dirY * 2
 				_shots[i].obj.tick()
 			}
 		}
@@ -54,7 +54,9 @@ package utils
 		{
 
 		}
-		public function remove():void{
+
+		public function remove():void
+		{
 			Game.windowsManager.gameInstance.scene.removeEventListener(Event.ENTER_FRAME, onEnterFrame)
 		}
 

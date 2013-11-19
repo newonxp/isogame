@@ -33,22 +33,22 @@ package windows
 		{
 			_windowsManager=new WindowsManager()
 			addChild(_windowsManager)
-			_windowsManager.addPreloader(setResources,resourcesLoaded)
-			_gameManager = new GameManager()
-			//setResources("ru")
+			//	_windowsManager.addPreloader(setResources, resourcesLoaded)
+			_gameManager=new GameManager()
+			setResources("ru")
 		}
 
 		public function setResources(locale:String):void
 		{
 			_resources=new ResourceManager(locale, Config.build_number)
-			_resources.set_host("../resources")
-			_resourcePreloader=new ResourcePreloader()
+			_resources.set_host(Config.host)
+			_resourcePreloader=new ResourcePreloader(resourcesLoaded)
 			_resourcePreloader.load()
 		}
 
 		private function resourcesLoaded():void
 		{
-			_windowsManager.addGameInstance("level1")
+			_windowsManager.addGameInstance("level2")
 			//_windowsManager.addMainMenu()
 			//_windowsManager.addGameoverMenu()
 		}

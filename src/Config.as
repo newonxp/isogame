@@ -5,6 +5,7 @@ package
 	{
 
 		//res
+		public static const host:String="../resources"
 		public static const config_locale:String="config/locale.xml"
 		public static const config_preload:String="config/preload.xml"
 
@@ -26,6 +27,12 @@ package
 		public static const wall:String="wall"
 		public static const block:String="block"
 		public static const fireball:String="fireball"
+		public static const coin:String="coin"
+		public static const escapeZone:String="coin"
+		public static const StartPosition:String="StartPosition"
+		public static const EndPosition:String="EndPosition"
+		public static const Cannon:String="Cannon"
+
 
 		//gameplay
 		public static const playerSpeed:Number=0.2

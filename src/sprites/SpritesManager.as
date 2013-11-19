@@ -82,12 +82,12 @@ package sprites
 				var normalTexture:Vector.<Texture>=_atlas.getTextures(name + "_" + _sides[i])
 				if (normalTexture.length != 0)
 				{
-					statesPack.normal=new BasicMovieClip(normalTexture, 5)
+					statesPack.normal=new BasicMovieClip(normalTexture, 10)
 				}
 				var movingTexture:Vector.<Texture>=_atlas.getTextures(name + "_" + _sides[i] + "_moving")
 				if (movingTexture.length != 0)
 				{
-					statesPack.moving=new BasicMovieClip(movingTexture, 5)
+					statesPack.moving=new BasicMovieClip(movingTexture, 10)
 				}
 				pack[_sides[i]]=statesPack
 			}
@@ -99,7 +99,7 @@ package sprites
 			var normalTexture:Vector.<Texture>=_atlas.getTextures(name)
 			if (normalTexture.length != 0)
 			{
-				pack.effect=new BasicMovieClip(normalTexture, 5)
+				pack.effect=new BasicMovieClip(normalTexture, 10)
 			}
 
 

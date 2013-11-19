@@ -13,7 +13,9 @@ package entities
 
 	import objects.Block;
 	import objects.Cannon;
+	import objects.Coin;
 	import objects.Enemy;
+	import objects.EscapeZone;
 	import objects.Fireball;
 	import objects.Floor;
 	import objects.Player;
@@ -52,12 +54,8 @@ package entities
 
 		private var _panPoint:Point
 		private var _zoom:Number=1
-
 		public var _player:Player
-
-		private var _mouseOverElement:*
-
-
+		private var _mouseOverElement:BasicObject
 		private var _objects:Vector.<BasicObject>
 		private var _spritesManager:SpritesManager
 		private var _tilemap:XML
@@ -66,9 +64,11 @@ package entities
 		private var _pathfinder:utils.Pathfinder
 		private var _render:Boolean=false
 		private var _simpleRenderer:SimpleSceneLayoutRenderer
-
 		private var _collisionDetector:CollisionDetector
 		private var _shotsManager:ShotsManager
+		private var _startPoint:Cell
+		private var _endPoint:Cell
+		private var _block:BasicObject
 
 		public function BasicScene()
 		{
@@ -82,7 +82,7 @@ package entities
 
 		public function init():void
 		{
-			_objects = new Vector.<BasicObject>
+			_objects=new Vector.<BasicObject>
 			_collisionDetector=new CollisionDetector()
 			_shotsManager=new ShotsManager()
 			_pathfinder=new utils.Pathfinder
@@ -234,10 +234,10 @@ package entities
 			addObject(wall, cell)
 		}
 
-		public function addCannon(cell:Cell=null, delay:Number=0):void
+		public function addCannon(cell:Cell=null, rotate:Number=0, delay:Number=0):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("cannon")
-			var cannon:Cannon=new Cannon(_sceneMain, spritesPack, cell, delay)
+			var cannon:Cannon=new Cannon(_sceneMain, spritesPack, cell, rotate, delay)
 			addObject(cannon, cell)
 		}
 
@@ -246,8 +246,13 @@ package entities
 		{
 			if (cell.blocked == false)
 			{
+				if (_block != null)
+				{
+					_block.remove()
+				}
 				var spritesPack:SpritesPack=_spritesManager.getPack("block")
 				var block:Block=new Block(_sceneMain, spritesPack, cell)
+				_block=block
 				addObject(block, cell)
 			}
 		}
@@ -280,15 +285,30 @@ package entities
 			var explosion:Explosion=new Explosion(x, y, 0, _sceneMain, spritesPack)
 		}
 
+		public function addCoin(cell:Cell):void
+		{
+			var spritesPack:SpritesPack=_spritesManager.getPack("coin")
+			var coin:Coin=new Coin(_sceneMain, spritesPack, cell)
+		}
+
+		public function addEscape(cell:Cell):void
+		{
+			var spritesPack:SpritesPack=_spritesManager.getPack("escape")
+			var escapeZone:EscapeZone=new EscapeZone(_sceneMain, spritesPack, cell)
+		}
+
+
 		public function removeObject(object:*):void
 		{
 			if (_mouseOverElement == object)
 			{
 				_mouseOverElement=null
 			}
-			for(var i:int = 0; i<_objects.length;i++){
-				if(object==_objects[i]){
-					_objects.splice(i,1)
+			for (var i:int=0; i < _objects.length; i++)
+			{
+				if (object == _objects[i])
+				{
+					_objects.splice(i, 1)
 				}
 			}
 			object=null
@@ -301,39 +321,89 @@ package entities
 			var yShift:int=0
 			var xShift:int=0
 			var row:Vector.<Cell>=new Vector.<Cell>
+			var layersLength:int=xml.layer.length()
+
 			for (var i:int=0; i < (_mapHeight * _mapWidth); i++)
 			{
 				var cell:Cell=new Cell(xShift, yShift, 0)
 				row.push(cell)
+				if (xShift == 0)
+				{
+					_map.push(row)
+				}
+				for (var b:int=0; b < layersLength; b++)
+				{
+					if (xml.layer[b].data.tile[i].@gid != 0)
+					{
+						//	trace(xml.layer[b].@name + " " + xml.layer[b].data.tile[i].@gid)
+						initObject(xml.layer[b].@name, cell)
+					}
+				}
 				xShift++
 				if (xShift == _mapWidth)
 				{
-					_map.push(row)
+
 					row=new Vector.<Cell>
 					xShift=0
 					yShift++
 				}
 			}
-			xShift=0
-			yShift=0
-			for (var a:int=0; a < (_mapHeight * _mapWidth); a++)
+			for (var a:int=0; a < xml.objectgroup.object.length(); a++)
 			{
-				initObject(xml.layer[0].data.tile[a].@gid, getCellAt(xShift, yShift))
-				xShift++
-				if (xShift == _mapWidth)
+				if (xml.objectgroup.object[a].@type == Config.StartPosition)
 				{
-					xShift=0
-					yShift++
+					_startPoint=getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y)
+				}
+				else if (xml.objectgroup.object[a].@type == Config.EndPosition)
+				{
+					_endPoint=getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y)
+				}
+				else if (xml.objectgroup.object[a].@type == Config.Cannon)
+				{
+					var rotation:Number=0
+					var delay:Number=0
+					trace(xml.objectgroup.object[a].properties.property.length())
+					for (var c:int=0; c < xml.objectgroup.object[a].properties.property.length(); c++)
+					{
+						if (xml.objectgroup.object[a].properties.property[c].@name == "rotation")
+						{
+							rotation=xml.objectgroup.object[a].properties.property[c].@value
+						}
+						if (xml.objectgroup.object[a].properties.property[c].@name == "delay")
+						{
+							delay=xml.objectgroup.object[a].properties.property[c].@value
+						}
+					}
+					trace(rotation)
+					addCannon(getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y), rotation, delay)
 				}
 			}
-			updateCollisionMap()
-			//	addWall(getCellAt(3, 3))
-			//addBlock(getCellAt(4, 4))
-			addPlayer(getCellAt(4, 4))
-			addEnemy(getCellAt(6, 7), getCellAt(6, 3), 1000)
-			addEnemy(getCellAt(2, 2), getCellAt(10, 2), 1000)
-			//addCannon(getCellAt(6, 10), 1000)
+			/*		xShift=0
+					yShift=0
+					for (var a:int=0; a < (_mapHeight * _mapWidth); a++)
+					{
+						initObject(xml.layer[0].data.tile[a].@gid, getCellAt(xShift, yShift))
+						xShift++
+						if (xShift == _mapWidth)
+						{
+							xShift=0
+							yShift++
+						}
+					}
+					updateCollisionMap()*/
+			/*			addPlayer(getCellAt(_startCell.x, _startCell.y))
+						addEnemy(getCellAt(6, 7), getCellAt(6, 3), 1000)*/
+			//addEnemy(getCellAt(2, 2), getCellAt(10, 2), 1000)
+			/*	addCoin(getCellAt(10, 11))
+				addCoin(getCellAt(10, 12))
+				addCoin(getCellAt(10, 13))
+				_winCell=getCellAt(10, 10)
+				addEscape(_winCell)
+				addCannon(getCellAt(6, 10), 1000)*/
 			//addEnemy(getCellAt(3, 10), getCellAt(3, 5), 1000)
+			addPlayer(_startPoint)
+			addEscape(_endPoint)
+			updateCollisionMap()
 		}
 
 
@@ -370,32 +440,14 @@ package entities
 		{
 			switch (id)
 			{
-				case "1":
-				{
-					if (Math.round(1 * Math.random()) == 1)
-					{
-						addBlock(cell)
-					}
-					else
-					{
-						addWall(cell)
-					}
-
-					break;
-				}
-				case "2":
+				case "floor":
 				{
 					addFloor(cell)
 					break;
 				}
-				case "3":
+				case "wall":
 				{
 					addWall(cell)
-					break;
-				}
-				case "0":
-				{
-					addFloor(cell)
 					break;
 				}
 
@@ -419,12 +471,22 @@ package entities
 			Game.windowsManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			Game.windowsManager.stage.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
-		public function pan(x,y):void{
-			var pt:Pt = new Pt(x,y,0)
-			pt = IsoMath.isoToScreen(pt)
-			//_view.pivotX=pt.x
-			//_view.pivotY=pt.y
+
+		public function pan(x:Number, y:Number):void
+		{
+			var pt:Pt=new Pt(x, y, 0)
+			pt=IsoMath.isoToScreen(pt)
 		}
+
+		public function isNearPlayer(cell:Cell):Boolean
+		{
+			if (Math.abs(cell.x - _player.cell.x) <= 1 && Math.abs(cell.y - _player.cell.y) <= 1)
+			{
+				return true
+			}
+			return false
+		}
+
 		private function viewPan(e:MouseEvent):void
 		{
 			_view.panBy(_panPoint.x - Game.windowsManager.stage.mouseX, _panPoint.y - Game.windowsManager.stage.mouseY);
@@ -457,8 +519,31 @@ package entities
 		{
 			return _shotsManager
 		}
-		public function remove():void{
-			for(var i:int = _objects.length-1; i>=0;i--){
+
+		public function get endPoint():Cell
+		{
+			return _endPoint
+		}
+
+		public function get startPoint():Cell
+		{
+			return _startPoint
+		}
+
+		public function get mapWidth():int
+		{
+			return _mapWidth
+		}
+
+		public function get mapHeight():int
+		{
+			return _mapHeight
+		}
+
+		public function remove():void
+		{
+			for (var i:int=_objects.length - 1; i >= 0; i--)
+			{
 				_objects[i].remove()
 			}
 			_collisionDetector.remove()

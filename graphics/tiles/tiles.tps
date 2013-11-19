@@ -74,7 +74,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">NPOT</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
             <false/>
             <key>forceWordAligned</key>
@@ -208,6 +208,76 @@
             <filename>explosion5.png</filename>
             <filename>explosion6.png</filename>
             <filename>explosion7.png</filename>
+            <filename>coin_e_1.png</filename>
+            <filename>coin_e_2.png</filename>
+            <filename>coin_e_3.png</filename>
+            <filename>coin_e_4.png</filename>
+            <filename>coin_e_5.png</filename>
+            <filename>coin_e_6.png</filename>
+            <filename>coin_e_7.png</filename>
+            <filename>coin_e_8.png</filename>
+            <filename>coin_n_1.png</filename>
+            <filename>coin_n_2.png</filename>
+            <filename>coin_n_3.png</filename>
+            <filename>coin_n_4.png</filename>
+            <filename>coin_n_5.png</filename>
+            <filename>coin_n_6.png</filename>
+            <filename>coin_n_7.png</filename>
+            <filename>coin_n_8.png</filename>
+            <filename>coin_s_1.png</filename>
+            <filename>coin_s_2.png</filename>
+            <filename>coin_s_3.png</filename>
+            <filename>coin_s_4.png</filename>
+            <filename>coin_s_5.png</filename>
+            <filename>coin_s_6.png</filename>
+            <filename>coin_s_7.png</filename>
+            <filename>coin_s_8.png</filename>
+            <filename>coin_w_1.png</filename>
+            <filename>coin_w_2.png</filename>
+            <filename>coin_w_3.png</filename>
+            <filename>coin_w_4.png</filename>
+            <filename>coin_w_5.png</filename>
+            <filename>coin_w_6.png</filename>
+            <filename>coin_w_7.png</filename>
+            <filename>coin_w_8.png</filename>
+            <filename>heart.png</filename>
+            <filename>heart_grey.png</filename>
+            <filename>escape_n_3.png</filename>
+            <filename>escape_n_4.png</filename>
+            <filename>escape_n_5.png</filename>
+            <filename>escape_n_6.png</filename>
+            <filename>escape_n_7.png</filename>
+            <filename>escape_n_8.png</filename>
+            <filename>escape_n_9.png</filename>
+            <filename>escape_s_1.png</filename>
+            <filename>escape_s_2.png</filename>
+            <filename>escape_s_3.png</filename>
+            <filename>escape_s_4.png</filename>
+            <filename>escape_s_5.png</filename>
+            <filename>escape_s_6.png</filename>
+            <filename>escape_s_7.png</filename>
+            <filename>escape_s_8.png</filename>
+            <filename>escape_s_9.png</filename>
+            <filename>escape_w_1.png</filename>
+            <filename>escape_w_2.png</filename>
+            <filename>escape_w_3.png</filename>
+            <filename>escape_w_4.png</filename>
+            <filename>escape_w_5.png</filename>
+            <filename>escape_w_6.png</filename>
+            <filename>escape_w_7.png</filename>
+            <filename>escape_w_8.png</filename>
+            <filename>escape_w_9.png</filename>
+            <filename>escape_e_1.png</filename>
+            <filename>escape_e_2.png</filename>
+            <filename>escape_e_3.png</filename>
+            <filename>escape_e_4.png</filename>
+            <filename>escape_e_5.png</filename>
+            <filename>escape_e_6.png</filename>
+            <filename>escape_e_7.png</filename>
+            <filename>escape_e_8.png</filename>
+            <filename>escape_e_9.png</filename>
+            <filename>escape_n_1.png</filename>
+            <filename>escape_n_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

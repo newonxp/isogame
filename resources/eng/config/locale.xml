@@ -1,4 +1,5 @@
 <locale>
 	<img id="ui/buttons.swf"/>
 	<img id="ui/game_over.swf"/>
+		<img id="ui/win_menu.swf"/>
 </locale>

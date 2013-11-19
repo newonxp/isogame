@@ -8,32 +8,41 @@ package windows
 		private var _gameInstance:GameInstance
 		private var _mainMenu:MainMenu
 		private var _gameoverMenu:GameoverMenu
+		private var _winMenu:WinMenu
 
 		public function WindowsManager()
 		{
 
 		}
 
-		public function addPreloader(callback:Function=null,callback2:Function=null):void
+		public function addPreloader(callback:Function=null, callback2:Function=null):void
 		{
-			_preloader=new Preloader(callback,callback2)
+			_preloader=new Preloader(callback, callback2)
 			addWindow(_preloader)
 		}
 
 		public function addGameInstance(level:String):void
 		{
-			trace(numChildren)
 			_gameInstance=new GameInstance(level)
 			addWindow(_gameInstance)
 		}
 
-		public function addMainMenu():void{
+		public function addMainMenu():void
+		{
 			_mainMenu=new MainMenu()
 			addWindow(_mainMenu)
 		}
-		public function addGameoverMenu():void{
+
+		public function addGameoverMenu():void
+		{
 			_gameoverMenu=new GameoverMenu()
 			addWindow(_gameoverMenu)
+		}
+
+		public function addWinMenu():void
+		{
+			_winMenu=new WinMenu()
+			addWindow(_winMenu)
 		}
 
 
@@ -61,6 +70,7 @@ package windows
 		{
 			return _gameInstance
 		}
+
 		public function get gameoverMenu():GameoverMenu
 		{
 			return _gameoverMenu

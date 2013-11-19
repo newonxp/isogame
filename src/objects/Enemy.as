@@ -7,6 +7,10 @@ package objects
 	import com.greensock.easing.Linear;
 	import com.greensock.motionPaths.LinePath2D;
 
+	import entities.BasicObject;
+	import entities.Bounds;
+	import entities.Cell;
+
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -15,9 +19,6 @@ package objects
 	import sprites.SpritesPack;
 
 	import windows.Game;
-	import entities.BasicObject;
-	import entities.Bounds;
-	import entities.Cell;
 
 	public class Enemy extends BasicObject
 	{
@@ -26,7 +27,7 @@ package objects
 		private var _endPoint:Cell
 		private var _there:Boolean=true
 		private var _pathStage:int=0
-		private var _path:Object
+		private var _path:LinePath2D
 
 		public function Enemy(scene:IsoScene=null, spritesPack:SpritesPack=null, cell:Cell=null, endPoint:Cell=null, delay:Number=0)
 		{
@@ -42,39 +43,18 @@ package objects
 
 		private function startWait():void
 		{
+			trace("startWait")
 			_timer.start()
 		}
 
 		private function onTimerComplete(e:TimerEvent):void
 		{
-			walkTo()
+			walkTo(new Point(_startPoint.x, _startPoint.y), new Point(_endPoint.x, _endPoint.y))
 		}
 
-		public function walkTo():void
+		override public function walkFinished():void
 		{
-			_path=Game.windowsManager.gameInstance.scene.getPath(new Point(_startPoint.x, _startPoint.y), new Point(_endPoint.x, _endPoint.y), false)
-			if (_path != null)
-			{
-				cell.blocked=false
-				var path:LinePath2D=new LinePath2D(_path.path);
-				path.addFollower(this);
-				TweenMax.to(path, _path.length * Config.playerSpeed, {progress: 1, ease: com.greensock.easing.Linear.easeNone, onComplete: function():void{
-					checkPath()
-				}
-					});
-			}
-		}
-
-		override public function collide(target:BasicObject):void
-		{
-			if (target.type == Config.fireball)
-			{
-				remove()
-			}
-		}
-
-		private function checkPath():void
-		{
+			trace("walkFinished")
 			cell.blocked=false
 			cell=_endPoint
 			_endPoint=_startPoint
@@ -82,7 +62,18 @@ package objects
 			_pathStage=0
 			startWait()
 		}
-		override public function remove():void{
+
+		override public function collide(target:BasicObject):void
+		{
+			if (target.type == Config.fireball)
+			{
+				trace("Столкнулись с файрболлом")
+				remove()
+			}
+		}
+
+		override public function remove():void
+		{
 			_timer.stop()
 			_timer.removeEventListener(TimerEvent.TIMER, onTimerComplete)
 			_timer=null

@@ -17,7 +17,6 @@ package objects
 		{
 			var bounds:Bounds=new Bounds(Config.cell_size, Config.cell_size, 60)
 			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 0, 0, bounds, cell, scene, spritesPack, false, true, false, true);
-
 			type=Config.block
 		}
 

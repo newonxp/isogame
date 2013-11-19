@@ -52,10 +52,9 @@ package utils
 
 		private function checkCollisions(e:Event):void
 		{
-			var collideObjects:Vector.<BasicObject>=new Vector.<BasicObject>
 			for (var i:int=0; i < _objects.length; i++)
 			{
-
+				var collideObjects:Vector.<Object>=new Vector.<Object>
 				var cObj:Object=_objects[i]
 				var cRect:Rectangle=_objects[i].rect
 				for (var a:int=0; a < _objects.length; a++)
@@ -64,18 +63,23 @@ package utils
 					{
 						if (cRect.intersects(_objects[a].rect))
 						{
-							collideObjects.push(_objects[a].target)
+							var obj:Object=new Object()
+							obj.target1=_objects[i].target
+							obj.target2=_objects[a].target
+							collideObjects.push(obj)
 						}
 					}
 				}
+				for (var b:int=0; b < collideObjects.length; b++)
+				{
+					collideObjects[b].target1.collide(collideObjects[b].target2)
+					collideObjects[b].target2.collide(collideObjects[b].target1)
+				}
 			}
-			for (var b:int=0; b < collideObjects.length; b++)
-			{
-				collideObjects[b].collide(cObj.target)
-			}
-
 		}
-		public function remove():void{
+
+		public function remove():void
+		{
 			Game.windowsManager.removeEventListener(Event.ENTER_FRAME, checkCollisions)
 		}
 

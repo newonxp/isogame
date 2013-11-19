@@ -5,6 +5,8 @@ package entities
 	import as3isolib.display.scene.IsoScene;
 
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Linear;
+	import com.greensock.motionPaths.LinePath2D;
 
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -26,7 +28,7 @@ package entities
 		private var _bounds:Bounds
 
 		private var _cell:Cell
-		private var _sprite:IsoSprite
+		public var _sprite:IsoSprite
 		private var _box:IsoBox
 		public var _converter:AngleUtils
 		private var _spritesArray:Array
@@ -37,7 +39,9 @@ package entities
 		private var _x:Number
 		private var _y:Number
 		private var _z:Number
+		private var _alpha:Number
 		private var _rotation:Number
+		private var _rotationState:String
 
 		private var _oldX:Number
 		private var _oldY:Number
@@ -45,6 +49,9 @@ package entities
 
 		private var _type:String
 		private var _touchable:Boolean
+
+		private var _path:LinePath2D
+		private var _tween:TweenMax
 
 		public function BasicObject(x:Number=0, y:Number=0, z:Number=0, rotation:Number=0, bounds:Bounds=null, cell:Cell=null, scene:IsoScene=null, spritesPack:SpritesPack=null, touchable:Boolean=false, blocking:Boolean=false, movable:Boolean=false, collidable:Boolean=false)
 		{
@@ -78,6 +85,11 @@ package entities
 			_scene.addChild(_sprite);
 			moveTo(_x, _y, _z)
 			rotate(_rotation)
+			addedOnStage()
+		}
+
+		public function addedOnStage():void
+		{
 		}
 
 		public function renderScene():void
@@ -101,14 +113,18 @@ package entities
 		{
 			_rotation=degrees
 			var side:String=_converter.convert(degrees)
-			removeImage()
-			if (_spritesPack[side].normal != null)
+			if (_rotationState != side)
 			{
-				addSprite(_spritesPack[side].normal)
-			}
-			else
-			{
-				rotate(degrees + 45)
+				_rotationState=side
+				removeImage()
+				if (_spritesPack[side].normal != null)
+				{
+					addSprite(_spritesPack[side].normal)
+				}
+				else
+				{
+					rotate(degrees + 45)
+				}
 			}
 		}
 
@@ -146,6 +162,7 @@ package entities
 
 		public function moveTo(x:Number=0, y:Number=0, z:Number=0):void
 		{
+
 			if (_collidable == true)
 			{
 				Game.windowsManager.gameInstance.scene.collisionDetector.updateRect(x, y, this)
@@ -174,6 +191,7 @@ package entities
 				{
 					if (newCell != _cell)
 					{
+						Game.windowsManager.gameInstance.scene.updateCollisionMap()
 						_cell.blocked=false
 						newCell.blocked=true
 						_cell=newCell
@@ -184,11 +202,34 @@ package entities
 					_cell=newCell
 					_cell.blocked=false
 				}
-
 			}
-
 			_sprite.moveTo(x, y, z);
+
 			renderScene()
+		}
+
+		public function walkTo(start:Point, end:Point):void
+		{
+
+			var path:Object=Game.windowsManager.gameInstance.scene.getPath(start, end, false)
+			trace("asdasdas " + path)
+			if (path != null)
+			{
+				TweenMax.killTweensOf(this)
+				if (_path != null)
+				{
+					_path.removeAllFollowers()
+				}
+				cell.blocked=false
+				_path=new LinePath2D(path.path);
+				_path.addFollower(this);
+				_tween=TweenMax.to(_path, path.length * Config.playerSpeed, {progress: 1, ease: com.greensock.easing.Linear.easeNone, onComplete: walkFinished});
+			}
+		}
+
+		public function walkFinished():void
+		{
+
 		}
 
 		public function checkDirection(point1:Point, point2:Point):void
@@ -200,7 +241,7 @@ package entities
 		public function onMouseOver():void
 		{
 			var colorMatrixFilter:ColorMatrixFilter=new ColorMatrixFilter()
-			colorMatrixFilter.adjustBrightness(0.2);
+			colorMatrixFilter.adjustBrightness(0.1);
 			_sprite.actualSprites[0].filter=colorMatrixFilter;
 		}
 
@@ -262,12 +303,6 @@ package entities
 			moveTo(_x, _y, _z)
 		}
 
-		override public function set rotation(val:Number):void
-		{
-			rotate(val)
-
-		}
-
 		public function set z(val:Number):void
 		{
 			_z=val
@@ -275,6 +310,17 @@ package entities
 		}
 
 
+		override public function set alpha(val:Number):void
+		{
+			_alpha=val
+			_sprite.sprites[0].alpha=val
+		}
+
+		override public function set rotation(val:Number):void
+		{
+			rotate(val)
+
+		}
 
 		public function set cell(val:Cell):void
 		{
@@ -296,15 +342,28 @@ package entities
 			return _scene
 		}
 
-		public function remove():void
+		public function removeCollisionRect():void
 		{
-			//TweenMax.killTweensOf(this)
-			//TweenMax.killDelayedCallsTo(this)
-			TweenMax.killAll(true,true,true)
 			if (_collidable == true)
 			{
 				Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
 			}
+		}
+
+		public function remove():void
+		{
+			if (_cell.blocked)
+			{
+				_cell.blocked=false
+			}
+			if (_path != null)
+			{
+				_tween.kill()
+				_path.removeAllFollowers()
+			}
+			TweenMax.killTweensOf(this)
+			TweenMax.killDelayedCallsTo(walkFinished)
+			removeCollisionRect()
 			_scene.removeChild(_sprite)
 			var scene:Level=Starling.current.root as Level
 			scene.removeObject(this)

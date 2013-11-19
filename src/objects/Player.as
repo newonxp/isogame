@@ -4,6 +4,7 @@ package objects
 
 	import com.greensock.TweenLite;
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Bounce;
 	import com.greensock.easing.Linear;
 	import com.greensock.motionPaths.LinePath2D;
 
@@ -24,7 +25,9 @@ package objects
 	public class Player extends BasicObject
 	{
 		private var _pathStage:int=0
-		private var _path:Object
+		private var _path:LinePath2D
+		private var _placed:Boolean=false
+
 
 		public function Player(scene:IsoScene=null, spritesPack:SpritesPack=null, cell:Cell=null)
 		{
@@ -34,37 +37,45 @@ package objects
 			type=Config.player
 		}
 
-		public function walkTo(newCell:Cell):void
+		override public function addedOnStage():void
 		{
-			if (!newCell.blocked)
+			TweenMax.from(this, 1.4, {z: 100, ease: com.greensock.easing.Bounce.easeOut, onComplete: function():void
 			{
-				_path=Game.windowsManager.gameInstance.scene.getPath(new Point(cell.x, cell.y), new Point(newCell.x, newCell.y), false)
-				if (_path != null)
-				{
-					var path:LinePath2D=new LinePath2D(_path.path);
-					path.addFollower(this);
-					TweenMax.killTweensOf(this)
-					TweenMax.to(path, _path.length * Config.playerSpeed, {progress: 1, ease: com.greensock.easing.Linear.easeNone});
-				}
+				_placed=true
+			}})
+		}
+
+		override public function walkTo(start:Point, end:Point):void
+		{
+			if (_placed == true)
+			{
+				super.walkTo(start, end)
 			}
 		}
 
 		override public function collide(target:BasicObject):void
 		{
-			trace("collide")
-			if (target.type == Config.enemy||target.type == Config.fireball)
+			if (target.type == Config.enemy || target.type == Config.fireball)
 			{
-				trace("enemy")
-				var level:Level = Starling.current.root as Level
+				var level:Level=Starling.current.root as Level
 				level.death()
 				remove()
 			}
+			else if (target.type == Config.coin)
+			{
+				var coin:Coin=target as Coin
+				coin.animateOut()
+				Game.windowsManager.gameInstance.scene.addCoinsScore()
+			}
 		}
 
-		override public function moveTo(x:Number=0, y:Number=0, z:Number=0):void{
-			Game.windowsManager.gameInstance.scene.pan(x,y)
-			super.moveTo(x,y,z)
+		override public function moveTo(x:Number=0, y:Number=0, z:Number=0):void
+		{
+			Game.windowsManager.gameInstance.scene.pan(x, y)
+			super.moveTo(x, y, z)
+			Game.windowsManager.gameInstance.scene.checkWinCell(cell)
 		}
+
 		override public function remove():void
 		{
 			Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
