@@ -6,13 +6,11 @@ package utils
 
 	public class ResourcePreloader
 	{
-		private var _onLoad:Function
 		private var _resourcesLoading:int=0
 		private var _resourcesLoaded:int=0
 
-		public function ResourcePreloader(callback:Function=null)
+		public function ResourcePreloader()
 		{
-			_onLoad=callback
 		}
 
 		public function load():void
@@ -47,11 +45,7 @@ package utils
 		private function resourceLoaded(res:Resource):void
 		{
 			_resourcesLoaded++
-			//Game.windowsManager.preloader.setPercents(Math.round(_resourcesLoaded / (_resourcesLoading / 100)))
-			if (_resourcesLoaded == _resourcesLoading)
-			{
-				_onLoad()
-			}
+			Game.windowsManager.preloader.setPercents(Math.round(_resourcesLoaded / (_resourcesLoading / 100)))
 		}
 	}
 }

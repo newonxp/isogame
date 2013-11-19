@@ -14,6 +14,14 @@ package entities
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
+	import objects.Block;
+	import objects.Cannon;
+	import objects.Enemy;
+	import objects.Fireball;
+	import objects.Floor;
+	import objects.Player;
+	import objects.Wall;
+
 	import sprites.SpritesManager;
 	import sprites.SpritesPack;
 
@@ -58,6 +66,8 @@ package entities
 
 		private var _mouseOverElement:*
 
+
+		private var _objects:Vector.<BasicObject>
 		private var _spritesManager:SpritesManager
 		private var _tilemap:XML
 		private var _map:Array
@@ -81,7 +91,7 @@ package entities
 
 		private function init():void
 		{
-
+			_objects = new Vector.<BasicObject>
 			_collisionDetector=new CollisionDetector()
 			_shotsManager=new ShotsManager()
 			_pathfinder=new utils.Pathfinder
@@ -90,7 +100,6 @@ package entities
 			_tilemap=new XML(Game.resources.get_xml(Config.level_specs + _levelName + ".tmx").data)
 			_spritesManager=new SpritesManager()
 			Starling.current.root.addEventListener(TouchEvent.TOUCH, onTouch);
-
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame)
@@ -196,6 +205,7 @@ package entities
 
 		private function addObject(object:BasicObject, cell:Cell=null):void
 		{
+			_objects.push(object)
 			//	object.moveTo(Config.cell_size * cell.x, Config.cell_size * cell.y, Config.cell_size * cell.z)
 		}
 
@@ -285,6 +295,11 @@ package entities
 			if (_mouseOverElement == object)
 			{
 				_mouseOverElement=null
+			}
+			for(var i:int = 0; i<_objects.length;i++){
+				if(object==_objects[i]){
+					_objects.splice(i,1)
+				}
 			}
 			object=null
 		}
@@ -448,7 +463,14 @@ package entities
 		{
 			return _shotsManager
 		}
+		public function remove():void{
+			for(var i:int = 0; i<_objects.length;i++){
+				_objects[i].remove()
 
+			}
+			_collisionDetector.remove()
+			_shotsManager.remove()
+		}
 
 	}
 }

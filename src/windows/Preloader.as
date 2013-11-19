@@ -21,10 +21,12 @@ package windows
 		private var _flag_eng:MovieClip
 		private var _flag_ru:MovieClip
 		private var _callback:Function
+		private var _callback2:Function
 
-		public function Preloader(callback:Function=null)
+		public function Preloader(callback:Function=null,callback2:Function=null)
 		{
 			_callback=callback
+			_callback2=callback2
 			super()
 		}
 
@@ -66,12 +68,12 @@ package windows
 
 		private function onMouseClickEng(e:MouseEvent):void
 		{
-			removeFlags(Config.locale_ru)
+			removeFlags(Config.locale_eng)
 		}
 
 		private function onMouseClickRu(e:MouseEvent):void
 		{
-			removeFlags(Config.locale_eng)
+			removeFlags(Config.locale_ru)
 		}
 
 		private function removeFlags(locale:String=""):void
@@ -106,7 +108,7 @@ package windows
 		public function setPercents(perc:Number=0):void
 		{
 			var targetX:Number=(_preloader_fill.x - _preloader_mask.width) + _preloader_mask.width / 100 * perc
-			TweenLite.to(_preloader_mask, 3, {x: targetX, onComplete: function():void
+			TweenLite.to(_preloader_mask, 1, {x: targetX, onComplete: function():void
 			{
 				checkLoading(perc)
 			}})
@@ -116,6 +118,7 @@ package windows
 		{
 			if (perc == 100)
 			{
+
 				remove()
 			}
 		}
@@ -125,7 +128,9 @@ package windows
 			var preloader:BasicWindow=this
 			TweenLite.to(this, 0.3, {alpha: 0, onComplete: function():void
 			{
+				_callback2()
 				Game.windowsManager.removeWindow(preloader)
+
 			}})
 		}
 	}

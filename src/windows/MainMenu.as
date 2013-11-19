@@ -15,9 +15,10 @@ package windows
 		private var _continue:MySimpleButton
 		private var _newGame:MySimpleButton
 		private var _titles:MySimpleButton
+		private var _assetSrc:String="ui/main_menu.swf@main_menu"
 		public function MainMenu()
 		{
-			super("ui/main_menu.swf@main_menu");
+			super(_assetSrc);
 		}
 		override public function init():void{
 			super.init()
@@ -32,12 +33,13 @@ package windows
 			_continue.addEventListener(MouseEvent.CLICK,onCont)
 			_newGame.addEventListener(MouseEvent.CLICK,onNewGame)
 			_titles.addEventListener(MouseEvent.CLICK,onAbout)
+			_continue.disable(true)
 		}
 		private function onCont(e:MouseEvent):void{
 			trace("onCont")
 		}
 		private function onNewGame(e:MouseEvent):void{
-			trace("on new game")
+			Game.gameManager.newGame()
 		}
 		private function onAbout(e:MouseEvent):void{
 			trace("onAbout")
@@ -48,7 +50,6 @@ package windows
 			TweenLite.from(_newGame,0.3,{x:_newGame.x+300,alpha:0,delay:0.2,ease:com.greensock.easing.Back.easeOut})
 			TweenLite.from(_titles,0.3,{x:_titles.x-300,alpha:0,delay:0.3,ease:com.greensock.easing.Back.easeOut})
 		}
-
 	}
 }
 

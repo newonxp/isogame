@@ -75,6 +75,11 @@ package utils
 			}
 
 		}
+		public function remove():void{
+			Game.windowsManager.removeEventListener(Event.ENTER_FRAME, checkCollisions)
+		}
 
 	}
 }
+
+

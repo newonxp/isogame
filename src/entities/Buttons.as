@@ -18,6 +18,8 @@ package entities
 	  public static const continueB:String = "ui/buttons.swf@continue"
     public static const newGame:String = "ui/buttons.swf@newGame"
 	public static const about:String = "ui/buttons.swf@about"
+	public static const retry:String = "ui/buttons.swf@retry"
+	public static const mainMenu:String = "ui/buttons.swf@mainMenu"
   
     public static function change_btn( container:DisplayObjectContainer, btn_name:String, id:String, text:String = "" ,textStyle:String="") : MySimpleButton
     {

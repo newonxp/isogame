@@ -4,6 +4,8 @@ package entities
 	import as3isolib.display.primitive.IsoBox;
 	import as3isolib.display.scene.IsoScene;
 
+	import com.greensock.TweenMax;
+
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
@@ -296,6 +298,8 @@ package entities
 
 		public function remove():void
 		{
+			TweenMax.killTweensOf(this)
+			TweenMax.killDelayedCallsTo(this);
 			if (_collidable == true)
 			{
 				Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
@@ -306,3 +310,5 @@ package entities
 		}
 	}
 }
+
+

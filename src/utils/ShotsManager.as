@@ -54,6 +54,11 @@ package utils
 		{
 
 		}
+		public function remove():void{
+			Game.windowsManager.gameInstance.scene.removeEventListener(Event.ENTER_FRAME, onEnterFrame)
+		}
 
 	}
 }
+
+
