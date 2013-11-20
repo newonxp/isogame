@@ -31,17 +31,23 @@ package
 
 		public function returnToMenu():void
 		{
-			Game.windowsManager.removeWindow(Game.windowsManager.gameInstance)
-			Game.windowsManager.addMainMenu()
+			function func ():void{
+				Game.windowsManager.removeWindow(Game.windowsManager.gameInstance)
+				Game.windowsManager.addMainMenu()
+			}
+			Game.windowsManager.addTransitionScreen(func)
 		}
 
 		public function nextLevel():void
 		{
 			_currentLevelNumber++
 			saveCurrentLevelNumber()
-			Game.windowsManager.removeWindow(Game.windowsManager.winMenu)
-			Game.windowsManager.removeWindow(Game.windowsManager.gameInstance)
-			Game.windowsManager.addGameInstance("level"+_currentLevelNumber)
+			function func ():void{
+				Game.windowsManager.removeWindow(Game.windowsManager.winMenu)
+				Game.windowsManager.removeWindow(Game.windowsManager.gameInstance)
+				Game.windowsManager.doAddGameInstance("level"+_currentLevelNumber)
+			}
+			Game.windowsManager.addTransitionScreen(func)
 		}
 		private function saveCurrentLevelNumber():void{
 			Game.storage.set_value("currentLevelNumber",_currentLevelNumber)

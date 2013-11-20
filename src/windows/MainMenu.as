@@ -25,6 +25,7 @@ package windows
 			_logo = asset.getChildByName("logo")
 			replaceButtons()
 			animateIn()
+			Game.windowsManager.clearScreen()
 		}
 		private function replaceButtons():void{
 			_continue= Buttons.change_btn(asset,"continueB",Buttons.continueB)

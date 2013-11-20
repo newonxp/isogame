@@ -37,8 +37,12 @@ package windows
 			_scene.setLevel(_level)
 			//stage.addEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, rightClicked)
+			_scene.addEventListener(starling.events.Event.ENTER_FRAME,onEnterFrame)
 		}
-
+		private function onEnterFrame(e:starling.events.Event):void{
+			_scene.removeEventListener(starling.events.Event.ENTER_FRAME,onEnterFrame)
+			Game.windowsManager.clearScreen()
+		}
 		private function rightClicked(e:MouseEvent):void
 		{
 			_scene.rightClick(e)

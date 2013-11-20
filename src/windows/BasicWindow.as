@@ -33,8 +33,10 @@ package windows
 
 		public function remove():void
 		{
-
+			Game.windowsManager.removeWindow(this)
 		}
 
 	}
 }
+
+

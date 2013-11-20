@@ -9,6 +9,7 @@ package windows
 		private var _mainMenu:MainMenu
 		private var _gameoverMenu:GameoverMenu
 		private var _winMenu:WinMenu
+		private var _transitionScreen:TransitionScreen
 
 		public function WindowsManager()
 		{
@@ -23,6 +24,12 @@ package windows
 
 		public function addGameInstance(level:String):void
 		{
+			function func ():void{
+				Game.windowsManager.doAddGameInstance(level)
+			}
+			addTransitionScreen(func)
+		}
+		public function doAddGameInstance(level:String):void{
 			_gameInstance=new GameInstance(level)
 			addWindow(_gameInstance)
 		}
@@ -45,6 +52,16 @@ package windows
 			addWindow(_winMenu)
 		}
 
+		public function addTransitionScreen(callback:Function):void{
+			_transitionScreen = new TransitionScreen(callback)
+			addWindow(_transitionScreen)
+		}
+
+		public function clearScreen():void{
+			if(_transitionScreen!=null){
+				_transitionScreen.remove()
+			}
+		}
 
 		private function addWindow(window:BasicWindow):void
 		{
