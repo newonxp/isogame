@@ -9,12 +9,17 @@ package
 
 		public function GameManager()
 		{
-			_currentLevelNumber=1
+			if(Game.storage.have_value("currentLevelNumber")){
+				_currentLevelNumber = int(Game.storage.get_value("currentLevelNumber"))
+			}else{
+				_currentLevelNumber=1
+			}
 		}
 
 		public function newGame():void
 		{
 			_currentLevelNumber=1
+			saveCurrentLevelNumber()
 			Game.windowsManager.removeWindow(Game.windowsManager.mainMenu)
 			Game.windowsManager.addGameInstance("level"+_currentLevelNumber)
 		}
@@ -33,11 +38,14 @@ package
 		public function nextLevel():void
 		{
 			_currentLevelNumber++
+			saveCurrentLevelNumber()
 			Game.windowsManager.removeWindow(Game.windowsManager.winMenu)
 			Game.windowsManager.removeWindow(Game.windowsManager.gameInstance)
 			Game.windowsManager.addGameInstance("level"+_currentLevelNumber)
 		}
-
+		private function saveCurrentLevelNumber():void{
+			Game.storage.set_value("currentLevelNumber",_currentLevelNumber)
+		}
 		public function get currentLevelNumber():int
 		{
 			return _currentLevelNumber

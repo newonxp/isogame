@@ -13,6 +13,7 @@ package windows
 
 	import starling.core.Starling;
 
+	import utils.LocalStorage;
 	import utils.Popup;
 	import utils.ResourcePreloader;
 
@@ -23,7 +24,7 @@ package windows
 		private static var _resourcePreloader:ResourcePreloader
 		private static var _windowsManager:WindowsManager
 		private static var _gameManager:GameManager
-
+		private static var _storage:LocalStorage
 		public function Game()
 		{
 
@@ -31,6 +32,7 @@ package windows
 
 		override public function init():void
 		{
+			_storage = new LocalStorage("isoGame")
 			_windowsManager=new WindowsManager()
 			addChild(_windowsManager)
 			//	_windowsManager.addPreloader(setResources, resourcesLoaded)
@@ -66,6 +68,10 @@ package windows
 		public static function get gameManager():GameManager
 		{
 			return _gameManager
+		}
+		public static function get storage():LocalStorage
+		{
+			return _storage
 		}
 	}
 }
