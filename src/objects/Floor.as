@@ -23,23 +23,22 @@ package objects
 
 		override public function onLeftClick():void
 		{
-
-			Game.windowsManager.gameInstance.scene.floorClicked(this)
+			Game.gameManager.currentRoot.floorClicked(this)
 		}
 
 		override public function onRightClick():void
 		{
-			if (Game.windowsManager.gameInstance.scene.isNearPlayer(cell))
+			if (Game.gameManager.currentRoot.isNearPlayer(cell))
 			{
-				Game.windowsManager.gameInstance.scene.addBlock(cell)
-				Game.windowsManager.gameInstance.scene.updateCollisionMap()
+				Game.gameManager.currentRoot.addBlock(cell)
+				Game.gameManager.currentRoot.updateCollisionMap()
 
 			}
 		}
 
 		override public function onMouseOver():void
 		{
-			if (Game.windowsManager.gameInstance.scene.isNearPlayer(cell))
+			if (Game.gameManager.currentRoot.isNearPlayer(cell))
 			{
 				var colorMatrixFilter:ColorMatrixFilter=new ColorMatrixFilter()
 				colorMatrixFilter.adjustBrightness(0.1);

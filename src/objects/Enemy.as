@@ -33,9 +33,10 @@ package objects
 		private var _path:LinePath2D
 		private var _newPathPerPoint:Array
 		private var _tween:TweenMax
+
 		public function Enemy(scene:IsoScene=null, spritesPack:SpritesPack=null, cell:Cell=null, endPoint:Cell=null, delay:Number=0)
 		{
-			_pathfinder = new Pathfinder()
+			_pathfinder=new Pathfinder()
 			_timer=new Timer(delay, 1)
 			_timer.addEventListener(TimerEvent.TIMER, onTimerComplete)
 			_startPoint=cell
@@ -54,10 +55,13 @@ package objects
 
 		private function onTimerComplete(e:TimerEvent):void
 		{
-			if(_newPathPerPoint==null){
+			if (_newPathPerPoint == null)
+			{
 				convertPath(new Point(_startPoint.x, _startPoint.y), new Point(_endPoint.x, _endPoint.y))
 				walk()
-			}else{
+			}
+			else
+			{
 				walk()
 			}
 		}
@@ -71,38 +75,52 @@ package objects
 			startWait()
 		}
 
-		private function walk():void{
+		private function walk():void
+		{
 			nextStage()
 		}
 
-		private function nextStage():void{
+		private function nextStage():void
+		{
 			_pathStage++
-			if(_newPathPerPoint[_pathStage].blocked==true&&_newPathPerPoint[_pathStage]!=Game.windowsManager.gameInstance.scene._player.cell){
+			if (_newPathPerPoint[_pathStage].blocked == true && _newPathPerPoint[_pathStage] != Game.gameManager.currentRoot.player.cell)
+			{
 				reverse()
-				_pathStage=_newPathPerPoint.length-_pathStage
+				_pathStage=_newPathPerPoint.length - _pathStage
 				startWait()
-			}else{
-				_tween = TweenMax.to(this,0.5,{x:_newPathPerPoint[_pathStage].x*Config.cell_size,y:_newPathPerPoint[_pathStage].y*Config.cell_size,onComplete:stageCompleted})
+			}
+			else
+			{
+				_tween=TweenMax.to(this, 0.5, {x: _newPathPerPoint[_pathStage].x * Config.cell_size, y: _newPathPerPoint[_pathStage].y * Config.cell_size, onComplete: stageCompleted, ease: com.greensock.easing.Linear.easeNone})
 			}
 
 		}
-		private function stageCompleted():void{
-			if(_pathStage!=_newPathPerPoint.length-1){
+
+		private function stageCompleted():void
+		{
+			if (_pathStage != _newPathPerPoint.length - 1)
+			{
 				nextStage()
-			}else{
+			}
+			else
+			{
 				reverse()
 				_pathStage=0
 				startWait()
 			}
 		}
-		private function reverse():void{
-			_newPathPerPoint = _newPathPerPoint.reverse()
+
+		private function reverse():void
+		{
+			_newPathPerPoint=_newPathPerPoint.reverse()
 		}
-		private function convertPath(start:Point, end:Point):void{
-			var path:Object=Game.windowsManager.gameInstance.scene.getPath(start, end, false)
+
+		private function convertPath(start:Point, end:Point):void
+		{
+			var path:Object=Game.gameManager.currentRoot.getPath(start, end, false)
 			if (path != null)
 			{
-				_newPathPerPoint= _pathfinder.convertVectorPathToCells(path.path)
+				_newPathPerPoint=_pathfinder.convertVectorPathToCells(path.path)
 			}
 		}
 

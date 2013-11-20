@@ -1,6 +1,8 @@
 package entities
 {
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 
 	import starling.core.Starling;
 
@@ -11,6 +13,7 @@ package entities
 		private var _ui:GameUi
 		private var _lives:int=3
 		private var _win:Boolean=false
+		private var _startTimer:Timer
 
 		public function Level()
 		{
@@ -19,6 +22,14 @@ package entities
 
 		override public function init():void
 		{
+			_startTimer=new Timer(2000, 1)
+			_startTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function():void
+			{
+				addPlayer(startPoint)
+				//cameraControl.moveToObject(player, 2)
+			})
+			_startTimer.start()
+
 			_ui=new GameUi(this)
 			super.init()
 		}
@@ -42,7 +53,7 @@ package entities
 		{
 			if (!floor.cell.blocked)
 			{
-				_player.walkTo(new Point(_player.cell.x, _player.cell.y), new Point(floor.cell.x, floor.cell.y))
+				player.walkTo(new Point(player.cell.x, player.cell.y), new Point(floor.cell.x, floor.cell.y))
 			}
 		}
 

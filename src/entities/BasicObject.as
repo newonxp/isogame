@@ -66,6 +66,8 @@ package entities
 			_blocking=blocking
 			_movable=movable
 			_collidable=collidable
+			_oldX=x
+			_oldY=y
 			init()
 		}
 
@@ -79,7 +81,7 @@ package entities
 			_sprite.setSize(_bounds.x, _bounds.y, _bounds.z);
 			if (_collidable == true)
 			{
-				Game.windowsManager.gameInstance.scene.collisionDetector.registerRect(new Rectangle(x, y, _bounds.x, _bounds.y), this)
+				Game.gameManager.currentRoot.collisionDetector.registerRect(new Rectangle(x, y, _bounds.x, _bounds.y), this)
 			}
 			addSprite(_spritesPack.e.normal)
 			_scene.addChild(_sprite);
@@ -94,7 +96,7 @@ package entities
 
 		public function renderScene():void
 		{
-			Game.windowsManager.gameInstance.scene.renderScene(_scene)
+			Game.gameManager.currentRoot.renderScene(_scene)
 		}
 
 		private function addSprite(img:*):void
@@ -112,7 +114,9 @@ package entities
 		public function rotate(degrees:Number=0):void
 		{
 			_rotation=degrees
+			//trace("12312312 " + degrees)
 			var side:String=_converter.convert(degrees)
+			//	trace("side= " + side + " " + degrees)
 			if (_rotationState != side)
 			{
 				_rotationState=side
@@ -165,20 +169,23 @@ package entities
 
 			if (_collidable == true)
 			{
-				Game.windowsManager.gameInstance.scene.collisionDetector.updateRect(x, y, this)
+				Game.gameManager.currentRoot.collisionDetector.updateRect(x, y, this)
 			}
 			if (_movable == true)
 			{
 				if (_oldX != Math.round(x) || _oldY != Math.round(y))
 				{
-					checkDirection(new Point(_oldX, _oldY), new Point(Math.round(x), Math.round(y)))
-					_oldX=Math.floor(x)
-					_oldY=Math.floor(y)
+					if (Math.abs(x - _oldX) > 4 || Math.abs(y - _oldY) > 4)
+					{
+						checkDirection(new Point(_oldX, _oldY), new Point(Math.round(x), Math.round(y)))
+						_oldX=Math.floor(x)
+						_oldY=Math.floor(y)
+					}
 				}
 			}
 			if (_cell == null)
 			{
-				_cell=Game.windowsManager.gameInstance.scene.getCellAtCoords(x, y)
+				_cell=Game.gameManager.currentRoot.getCellAtCoords(x, y)
 				if (_blocking == true)
 				{
 					_cell.blocked=true
@@ -186,16 +193,16 @@ package entities
 			}
 			if (_blocking == true)
 			{
-				var newCell:Cell=Game.windowsManager.gameInstance.scene.getCellAtCoords(x, y)
+				var newCell:Cell=Game.gameManager.currentRoot.getCellAtCoords(x, y)
 				if (_cell)
 				{
-					if (newCell != _cell&&!newCell.blocked)
+					if (newCell != _cell && !newCell.blocked)
 					{
 
 						_cell.blocked=false
 						newCell.blocked=true
 						_cell=newCell
-						Game.windowsManager.gameInstance.scene.updateCollisionMap()
+						Game.gameManager.currentRoot.updateCollisionMap()
 					}
 				}
 				else
@@ -212,7 +219,7 @@ package entities
 		public function walkTo(start:Point, end:Point):void
 		{
 
-			var path:Object=Game.windowsManager.gameInstance.scene.getPath(start, end, false)
+			var path:Object=Game.gameManager.currentRoot.getPath(start, end, false)
 			if (path != null)
 			{
 				TweenMax.killTweensOf(this)
@@ -346,7 +353,7 @@ package entities
 		{
 			if (_collidable == true)
 			{
-				Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
+				Game.gameManager.currentRoot.collisionDetector.removeRect(this)
 			}
 		}
 
@@ -364,9 +371,9 @@ package entities
 			TweenMax.killTweensOf(this)
 			TweenMax.killDelayedCallsTo(walkFinished)
 			removeCollisionRect()
+			_sprite.actualSprites[0].filter=null;
 			_scene.removeChild(_sprite)
-			var scene:Level=Starling.current.root as Level
-			scene.removeObject(this)
+			Game.gameManager.currentRoot.removeObject(this)
 		}
 	}
 }

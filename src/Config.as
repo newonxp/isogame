@@ -35,7 +35,7 @@ package
 
 
 		//gameplay
-		public static const playerSpeed:Number=0.2
+		public static const playerSpeed:Number=0.4
 
 		public function Config()
 		{

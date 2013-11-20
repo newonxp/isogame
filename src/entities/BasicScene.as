@@ -32,6 +32,7 @@ package entities
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 
+	import utils.CameraControl;
 	import utils.CollisionDetector;
 	import utils.Pathfinder;
 	import utils.ShotsManager;
@@ -55,7 +56,7 @@ package entities
 
 		private var _panPoint:Point
 		private var _zoom:Number=1
-		public var _player:Player
+		private var _player:Player
 		private var _mouseOverElement:BasicObject
 		private var _objects:Vector.<BasicObject>
 		private var _spritesManager:SpritesManager
@@ -70,6 +71,8 @@ package entities
 		private var _startPoint:Cell
 		private var _endPoint:Cell
 		private var _block:BasicObject
+		private var _viewOldX:Number
+		private var _cameraControl:CameraControl
 
 		public function BasicScene()
 		{
@@ -91,10 +94,11 @@ package entities
 			_collisionMap=new Array()
 			_tilemap=new XML(Game.resources.get_xml(Config.level_specs + _levelName + ".tmx").data)
 			_spritesManager=new SpritesManager()
-			Starling.current.root.addEventListener(TouchEvent.TOUCH, onTouch);
+			this.addEventListener(TouchEvent.TOUCH, onTouch);
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
-			this.addEventListener(Event.ENTER_FRAME, onEnterFrame)
+
 			_sceneBottom=new IsoScene();
 			_sceneMain=new IsoScene();
 			_sceneTop=new IsoScene();
@@ -106,11 +110,13 @@ package entities
 			_view.clipContent=false;
 			_view.autoUpdate=true
 			addChild(_view)
+			_cameraControl=new CameraControl(_view)
 			_view.render(new RenderSupport, 100)
+			_viewOldX=_view.currentX
 			fillLevel(_tilemap)
 		}
 
-		private function onEnterFrame(e:Event):void
+		private function onEnterFrame():void
 		{
 			_render=false
 		}
@@ -123,30 +129,6 @@ package entities
 				_render=true
 			}
 		}
-
-		public function updateNearestSprites(sprite:IsoSprite, scene:IsoScene):void
-		{
-			var nearest:Vector.<IsoSprite>=new Vector.<IsoSprite>
-			var minDist:Number=3000
-			var delta:Number=sprite.x + sprite.y
-			for (var i:int=0; i < scene.children.length; i++)
-			{
-				if (scene.children[i] != sprite)
-				{
-					var tDelta:Number=scene.children[i].x + scene.children[i].y
-					if (Math.abs(tDelta - delta) < minDist)
-					{
-						nearest.unshift(scene.children[i])
-					}
-				}
-			}
-			nearest=nearest.slice(0, 10)
-			for (var a:int=0; a < nearest.length; a++)
-			{
-				nearest[a].render()
-			}
-		}
-
 
 
 		public function rightClick(e:MouseEvent):void
@@ -164,12 +146,20 @@ package entities
 			if (img == null)
 			{
 				img=e.target as BasicMovieClip
+
 			}
 			if (img != null && img.object != null)
 			{
 				if (e.getTouch(this, TouchPhase.ENDED))
 				{
-					img.object.onLeftClick()
+					if (_viewOldX == _view.currentX)
+					{
+						img.object.onLeftClick()
+					}
+					else
+					{
+						_viewOldX=_view.currentX
+					}
 				}
 				if (e.getTouch(this, TouchPhase.HOVER))
 				{
@@ -190,6 +180,7 @@ package entities
 			}
 			else
 			{
+
 				if (_mouseOverElement != null)
 				{
 					_mouseOverElement.onMouseOut()
@@ -200,7 +191,6 @@ package entities
 		private function addObject(object:BasicObject, cell:Cell=null):void
 		{
 			_objects.push(object)
-			//	object.moveTo(Config.cell_size * cell.x, Config.cell_size * cell.y, Config.cell_size * cell.z)
 		}
 
 		public function getCellAt(x:Number, y:Number):Cell
@@ -222,16 +212,19 @@ package entities
 			}
 			return _map[_y][_x]
 		}
-		private function getOptimalScene(cell:Cell):IsoScene{
-			var scene:IsoScene 
-			if(cell.x==0||cell.y==0){
-				scene=_sceneBottom
-			}else if(cell.x==_mapWidth||cell.y==_mapHeight){
-				scene=_sceneTop
-			}else{
-				scene=_sceneMain
+
+		private function getScene(cell:Cell):IsoScene
+		{
+			if (cell.x == 0 || cell.y == 0)
+			{
+				return _sceneBottom
 			}
-			return scene
+			if (cell.x == _mapWidth || cell.y == _mapHeight)
+			{
+				return _sceneTop
+
+			}
+			return _sceneMain
 		}
 
 		public function addFloor(cell:Cell=null):void
@@ -245,16 +238,17 @@ package entities
 		public function addWall(cell:Cell=null):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("wall")
-
-			var wall:Wall=new Wall(getOptimalScene(cell), spritesPack, cell)
+			var wall:Wall=new Wall(getScene(cell), spritesPack, cell)
 			addObject(wall, cell)
+
 		}
 
 		public function addCannon(cell:Cell=null, rotate:Number=0, delay:Number=0):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("cannon")
-			var cannon:Cannon=new Cannon(getOptimalScene(cell), spritesPack, cell, rotate, delay)
+			var cannon:Cannon=new Cannon(getScene(cell), spritesPack, cell, rotate, delay)
 			addObject(cannon, cell)
+			_sceneBottom.render(false)
 		}
 
 
@@ -304,7 +298,7 @@ package entities
 		public function addCoin(cell:Cell):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("coin")
-			var coin:Coin=new Coin(_sceneMain, spritesPack, cell)
+			var coin:Coin=new Coin(_sceneTop, spritesPack, cell)
 		}
 
 		public function addEscape(cell:Cell):void
@@ -351,7 +345,6 @@ package entities
 				{
 					if (xml.layer[b].data.tile[i].@gid != 0)
 					{
-						//	trace(xml.layer[b].@name + " " + xml.layer[b].data.tile[i].@gid)
 						initObject(xml.layer[b].@name, cell)
 					}
 				}
@@ -401,46 +394,27 @@ package entities
 					var destCell:Cell
 					for (var d:int=0; d < xml.objectgroup.object[a].properties.property.length(); d++)
 					{
-						if (xml.objectgroup.object[a].properties.property[d].@name == "destName"){
-							var obj:XML =getObjectByType(xml,xml.objectgroup.object[a].properties.property[d].@value)
-							destCell=getCellAtCoords(obj.@x,obj.@y)
+						if (xml.objectgroup.object[a].properties.property[d].@name == "destName")
+						{
+							var obj:XML=getObjectByType(xml, xml.objectgroup.object[a].properties.property[d].@value)
+							destCell=getCellAtCoords(obj.@x, obj.@y)
 						}
 					}
-					addEnemy(getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y),destCell,1000)
+					addEnemy(getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y), destCell, 1000)
 
 				}
 			}
-			/*		xShift=0
-					yShift=0
-					for (var a:int=0; a < (_mapHeight * _mapWidth); a++)
-					{
-						initObject(xml.layer[0].data.tile[a].@gid, getCellAt(xShift, yShift))
-						xShift++
-						if (xShift == _mapWidth)
-						{
-							xShift=0
-							yShift++
-						}
-					}
-					updateCollisionMap()*/
-			/*			addPlayer(getCellAt(_startCell.x, _startCell.y))
-						addEnemy(getCellAt(6, 7), getCellAt(6, 3), 1000)*/
-			//addEnemy(getCellAt(2, 2), getCellAt(10, 2), 1000)
-			/*	addCoin(getCellAt(10, 11))
-				addCoin(getCellAt(10, 12))
-				addCoin(getCellAt(10, 13))
-				_winCell=getCellAt(10, 10)
-				addEscape(_winCell)
-				addCannon(getCellAt(6, 10), 1000)*/
-			//addEnemy(getCellAt(3, 10), getCellAt(3, 5), 1000)
-			addPlayer(_startPoint)
 			addEscape(_endPoint)
+			_cameraControl.setTargetPoint(_endPoint.x * Config.cell_size, _endPoint.y * Config.cell_size)
 			updateCollisionMap()
 		}
-		private function getObjectByType(xml:XML,type:String):XML{
+
+		private function getObjectByType(xml:XML, type:String):XML
+		{
 			for (var i:int=0; i < xml.objectgroup.object.length(); i++)
 			{
-				if(xml.objectgroup.object[i].@type == type){
+				if (xml.objectgroup.object[i].@type == type)
+				{
 					return xml.objectgroup.object[i]
 				}
 			}
@@ -491,8 +465,6 @@ package entities
 					addWall(cell)
 					break;
 				}
-
-
 				default:
 				{
 					break;
@@ -502,6 +474,7 @@ package entities
 
 		private function viewMouseDown(e:MouseEvent):void
 		{
+			this.removeEventListener(TouchEvent.TOUCH, onTouch);
 			_panPoint=new Point(Game.windowsManager.stage.mouseX, Game.windowsManager.stage.mouseY);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
@@ -509,6 +482,8 @@ package entities
 
 		private function viewMouseUp(e:MouseEvent):void
 		{
+
+			this.addEventListener(TouchEvent.TOUCH, onTouch);
 			Game.windowsManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE, viewPan);
 			Game.windowsManager.stage.removeEventListener(MouseEvent.MOUSE_UP, viewMouseUp);
 		}
@@ -530,7 +505,12 @@ package entities
 
 		private function viewPan(e:MouseEvent):void
 		{
-			_view.panBy(_panPoint.x - Game.windowsManager.stage.mouseX, _panPoint.y - Game.windowsManager.stage.mouseY);
+			var tx:Number=_panPoint.x - Game.windowsManager.stage.mouseX
+			var ty:Number=_panPoint.y - Game.windowsManager.stage.mouseY
+			_view.panBy(tx, ty);
+			var pt:Pt=new Pt(_view.currentX, _view.currentY, 0)
+			pt=IsoMath.screenToIso(pt)
+			cameraControl.setTargetCoords(pt.x, pt.y)
 			_panPoint.x=Game.windowsManager.stage.mouseX;
 			_panPoint.y=Game.windowsManager.stage.mouseY;
 		}
@@ -571,6 +551,11 @@ package entities
 			return _startPoint
 		}
 
+		public function get player():BasicObject
+		{
+			return _player
+		}
+
 		public function get mapWidth():int
 		{
 			return _mapWidth
@@ -579,6 +564,16 @@ package entities
 		public function get mapHeight():int
 		{
 			return _mapHeight
+		}
+
+		public function get cameraControl():CameraControl
+		{
+			return _cameraControl
+		}
+
+		public function set oldX(val:Number):void
+		{
+			_viewOldX=val
 		}
 
 		public function remove():void

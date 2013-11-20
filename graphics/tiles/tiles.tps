@@ -278,6 +278,10 @@
             <filename>escape_e_9.png</filename>
             <filename>escape_n_1.png</filename>
             <filename>escape_n_2.png</filename>
+            <filename>enemy_ne.png</filename>
+            <filename>enemy_nw.png</filename>
+            <filename>enemy_se.png</filename>
+            <filename>enemy_sw.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

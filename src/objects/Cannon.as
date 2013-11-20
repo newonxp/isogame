@@ -58,7 +58,7 @@ package objects
 				shiftX=0
 				shiftY=-1
 			}
-			Game.windowsManager.gameInstance.scene.addFireball(Game.windowsManager.gameInstance.scene.getCellAt(cell.x + shiftX, cell.y + shiftY), shiftX, shiftY)
+			Game.gameManager.currentRoot.addFireball(Game.gameManager.currentRoot.getCellAt(cell.x + shiftX, cell.y + shiftY), shiftX, shiftY)
 		}
 
 		override public function remove():void

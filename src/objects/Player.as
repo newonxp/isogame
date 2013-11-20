@@ -31,7 +31,7 @@ package objects
 
 		public function Player(scene:IsoScene=null, spritesPack:SpritesPack=null, cell:Cell=null)
 		{
-			var bounds:Bounds=new Bounds(Config.cell_size, Config.cell_size, 1)
+			var bounds:Bounds=new Bounds(Config.cell_size, Config.cell_size, 100)
 			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 0, 0, bounds, cell, scene, spritesPack, false, true, true, true);
 
 			type=Config.player
@@ -39,7 +39,7 @@ package objects
 
 		override public function addedOnStage():void
 		{
-			TweenMax.from(this, 1.4, {z: 100, ease: com.greensock.easing.Bounce.easeOut, onComplete: function():void
+			TweenMax.from(this, 1.4, {z: 100, alpha: 0, ease: com.greensock.easing.Bounce.easeOut, onComplete: function():void
 			{
 				_placed=true
 			}})
@@ -57,28 +57,27 @@ package objects
 		{
 			if (target.type == Config.enemy || target.type == Config.fireball)
 			{
-				var level:Level=Starling.current.root as Level
-				level.death()
+				Game.gameManager.currentRoot.death()
 				remove()
 			}
 			else if (target.type == Config.coin)
 			{
 				var coin:Coin=target as Coin
 				coin.animateOut()
-				Game.windowsManager.gameInstance.scene.addCoinsScore()
+				Game.gameManager.currentRoot.addCoinsScore()
 			}
 		}
 
 		override public function moveTo(x:Number=0, y:Number=0, z:Number=0):void
 		{
-			Game.windowsManager.gameInstance.scene.pan(x, y)
+			Game.gameManager.currentRoot.cameraControl.moveToObject(this, 1)
 			super.moveTo(x, y, z)
-			Game.windowsManager.gameInstance.scene.checkWinCell(cell)
+			Game.gameManager.currentRoot.checkWinCell(cell)
 		}
 
 		override public function remove():void
 		{
-			Game.windowsManager.gameInstance.scene.collisionDetector.removeRect(this)
+			Game.gameManager.currentRoot.collisionDetector.removeRect(this)
 			super.remove()
 		}
 

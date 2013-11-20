@@ -26,12 +26,12 @@ package objects
 			type=Config.fireball
 			var bounds:Bounds=new Bounds(Config.cell_size * 0.1, Config.cell_size * 0.1, 10)
 			super(cell.x * Config.cell_size + Config.cell_size / 2, cell.y * Config.cell_size + Config.cell_size / 2, 20, 0, bounds, cell, scene, spritesPack, false, false, true, true);
-			Game.windowsManager.gameInstance.scene.shotsManager.addShot(this, shiftX, shiftY)
+			Game.gameManager.currentRoot.shotsManager.addShot(this, shiftX, shiftY)
 		}
 
 		public function tick():void
 		{
-			if (this.x > Game.windowsManager.gameInstance.scene.mapHeight * Config.cell_size)
+			if (this.x > Game.gameManager.currentRoot.mapHeight * Config.cell_size)
 			{
 				remove()
 			}
@@ -41,7 +41,7 @@ package objects
 		{
 			if (target.type != Config.fireball)
 			{
-				Game.windowsManager.gameInstance.scene.addExplosion(x - _shiftX * 5, y - _shiftY * 5)
+				Game.gameManager.currentRoot.addExplosion(x - _shiftX * 5, y - _shiftY * 5)
 				_explosed=true
 			}
 
@@ -50,7 +50,7 @@ package objects
 
 		override public function remove():void
 		{
-			Game.windowsManager.gameInstance.scene.shotsManager.removeShot(this)
+			Game.gameManager.currentRoot.shotsManager.removeShot(this)
 			super.remove()
 		}
 

@@ -1,140 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://texturepacker.com-->
-<!-- $TexturePacker:SmartUpdate:5ab0e55fd7e9c3b2886858c5209c56ef$ -->
+<!-- $TexturePacker:SmartUpdate:1fb44ea69eef064a4db21e144774754f$ -->
 <TextureAtlas imagePath="spritesheet.png">
-    <SubTexture name="block_e_0" x="84" y="304" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_e_1" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_e_2" x="166" y="588" width="80" height="100"/>
-    <SubTexture name="block_e_3" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_e_4" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_0" x="84" y="304" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_1" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_2" x="166" y="588" width="80" height="100"/>
-    <SubTexture name="block_n_3" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_n_4" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_0" x="84" y="304" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_1" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_2" x="166" y="588" width="80" height="100"/>
-    <SubTexture name="block_s_3" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_s_4" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_0" x="84" y="304" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_1" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_2" x="166" y="588" width="80" height="100"/>
-    <SubTexture name="block_w_3" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="block_w_4" x="166" y="304" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="cannon_e" x="84" y="588" width="80" height="100"/>
-    <SubTexture name="cannon_n" x="2" y="690" width="80" height="100"/>
-    <SubTexture name="cannon_s" x="166" y="690" width="80" height="100"/>
-    <SubTexture name="cannon_w" x="84" y="792" width="80" height="100"/>
-    <SubTexture name="coin_e_1" x="2" y="44" width="37" height="40"/>
-    <SubTexture name="coin_e_2" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_e_3" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_e_4" x="41" y="44" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_e_5" x="186" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_e_6" x="195" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_e_7" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_e_8" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_1" x="2" y="44" width="37" height="40"/>
-    <SubTexture name="coin_n_2" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_3" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_4" x="41" y="44" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_5" x="186" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_6" x="195" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_7" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_n_8" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_1" x="2" y="44" width="37" height="40"/>
-    <SubTexture name="coin_s_2" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_3" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_4" x="41" y="44" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_5" x="186" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_6" x="195" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_7" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_s_8" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_1" x="2" y="44" width="37" height="40"/>
-    <SubTexture name="coin_w_2" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_3" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_4" x="41" y="44" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_5" x="186" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_6" x="195" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_7" x="210" y="2" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="coin_w_8" x="56" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
-    <SubTexture name="enemy_e" x="48" y="90" width="80" height="49"/>
-    <SubTexture name="enemy_n" x="48" y="90" width="80" height="49"/>
-    <SubTexture name="enemy_s" x="48" y="90" width="80" height="49"/>
-    <SubTexture name="enemy_w" x="48" y="90" width="80" height="49"/>
-    <SubTexture name="escape_e_1" x="166" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_2" x="166" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_3" x="84" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_4" x="2" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_5" x="2" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_6" x="2" y="588" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_7" x="84" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_e_8" x="2" y="792" width="80" height="100"/>
-    <SubTexture name="escape_e_9" x="84" y="690" width="80" height="100"/>
-    <SubTexture name="escape_n_1" x="166" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_2" x="166" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_3" x="84" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_4" x="2" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_5" x="2" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_6" x="2" y="588" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_7" x="84" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_n_8" x="2" y="792" width="80" height="100"/>
-    <SubTexture name="escape_n_9" x="84" y="690" width="80" height="100"/>
-    <SubTexture name="escape_s_1" x="166" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_2" x="166" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_3" x="84" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_4" x="2" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_5" x="2" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_6" x="2" y="588" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_7" x="84" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_s_8" x="2" y="792" width="80" height="100"/>
-    <SubTexture name="escape_s_9" x="84" y="690" width="80" height="100"/>
-    <SubTexture name="escape_w_1" x="166" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_2" x="166" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_3" x="84" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_4" x="2" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_5" x="2" y="396" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_6" x="2" y="588" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_7" x="84" y="492" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
-    <SubTexture name="escape_w_8" x="2" y="792" width="80" height="100"/>
-    <SubTexture name="escape_w_9" x="84" y="690" width="80" height="100"/>
+    <SubTexture name="block_e_0" x="2" y="504" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_e_1" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_e_2" x="2" y="973" width="80" height="100"/>
+    <SubTexture name="block_e_3" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_e_4" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_0" x="2" y="504" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_1" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_2" x="2" y="973" width="80" height="100"/>
+    <SubTexture name="block_n_3" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_n_4" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_0" x="2" y="504" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_1" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_2" x="2" y="973" width="80" height="100"/>
+    <SubTexture name="block_s_3" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_s_4" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_0" x="2" y="504" width="80" height="80" frameX="0" frameY="-20" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_1" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_2" x="2" y="973" width="80" height="100"/>
+    <SubTexture name="block_w_3" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="block_w_4" x="128" y="587" width="80" height="90" frameX="0" frameY="-10" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="cannon_e" x="166" y="871" width="80" height="100"/>
+    <SubTexture name="cannon_n" x="84" y="871" width="80" height="100"/>
+    <SubTexture name="cannon_s" x="166" y="973" width="80" height="100"/>
+    <SubTexture name="cannon_w" x="84" y="1075" width="80" height="100"/>
+    <SubTexture name="coin_e_1" x="58" y="44" width="37" height="40"/>
+    <SubTexture name="coin_e_2" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_e_3" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_e_4" x="210" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_e_5" x="201" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_e_6" x="186" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_e_7" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_e_8" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_1" x="58" y="44" width="37" height="40"/>
+    <SubTexture name="coin_n_2" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_3" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_4" x="210" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_5" x="201" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_6" x="186" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_7" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_n_8" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_1" x="58" y="44" width="37" height="40"/>
+    <SubTexture name="coin_s_2" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_3" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_4" x="210" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_5" x="201" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_6" x="186" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_7" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_s_8" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_1" x="58" y="44" width="37" height="40"/>
+    <SubTexture name="coin_w_2" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_3" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_4" x="210" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_5" x="201" y="2" width="7" height="40" frameX="-15" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_6" x="186" y="2" width="13" height="40" frameX="-11" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_7" x="35" y="44" width="21" height="40" frameX="-8" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="coin_w_8" x="2" y="44" width="31" height="40" frameX="-3" frameY="0" frameWidth="37" frameHeight="40"/>
+    <SubTexture name="enemy_e" x="2" y="196" width="89" height="74" frameX="-8" frameY="-4" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_n" x="2" y="348" width="89" height="74" frameX="-8" frameY="-4" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_ne" x="93" y="196" width="89" height="74" frameX="-8" frameY="-4" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_nw" x="93" y="424" width="89" height="78" frameX="-8" frameY="0" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_s" x="2" y="272" width="89" height="74" frameX="-8" frameY="-4" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_se" x="2" y="424" width="89" height="76" frameX="-8" frameY="-2" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_sw" x="93" y="272" width="89" height="74" frameX="-8" frameY="-4" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="enemy_w" x="93" y="348" width="89" height="74" frameX="-8" frameY="-4" frameWidth="97" frameHeight="78"/>
+    <SubTexture name="escape_e_1" x="166" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_2" x="84" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_3" x="166" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_4" x="2" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_5" x="2" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_6" x="2" y="871" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_7" x="84" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_e_8" x="84" y="973" width="80" height="100"/>
+    <SubTexture name="escape_e_9" x="166" y="1075" width="80" height="100"/>
+    <SubTexture name="escape_n_1" x="166" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_2" x="84" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_3" x="166" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_4" x="2" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_5" x="2" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_6" x="2" y="871" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_7" x="84" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_n_8" x="84" y="973" width="80" height="100"/>
+    <SubTexture name="escape_n_9" x="166" y="1075" width="80" height="100"/>
+    <SubTexture name="escape_s_1" x="166" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_2" x="84" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_3" x="166" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_4" x="2" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_5" x="2" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_6" x="2" y="871" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_7" x="84" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_s_8" x="84" y="973" width="80" height="100"/>
+    <SubTexture name="escape_s_9" x="166" y="1075" width="80" height="100"/>
+    <SubTexture name="escape_w_1" x="166" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_2" x="84" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_3" x="166" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_4" x="2" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_5" x="2" y="679" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_6" x="2" y="871" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_7" x="84" y="775" width="80" height="94" frameX="0" frameY="-6" frameWidth="80" frameHeight="100"/>
+    <SubTexture name="escape_w_8" x="84" y="973" width="80" height="100"/>
+    <SubTexture name="escape_w_9" x="166" y="1075" width="80" height="100"/>
     <SubTexture name="explosion1" x="2" y="2" width="12" height="12" frameX="-18" frameY="-19" frameWidth="50" frameHeight="50"/>
     <SubTexture name="explosion2" x="150" y="2" width="34" height="36" frameX="-9" frameY="-8" frameWidth="50" frameHeight="50"/>
     <SubTexture name="explosion3" x="2" y="90" width="44" height="46" frameX="-3" frameY="-2" frameWidth="50" frameHeight="50"/>
-    <SubTexture name="explosion4" x="176" y="90" width="48" height="50" frameX="0" frameY="0" frameWidth="50" frameHeight="50"/>
-    <SubTexture name="explosion5" x="2" y="142" width="50" height="50"/>
-    <SubTexture name="explosion6" x="130" y="90" width="44" height="50" frameX="-3" frameY="0" frameWidth="50" frameHeight="50"/>
-    <SubTexture name="explosion7" x="181" y="44" width="38" height="44" frameX="-6" frameY="-1" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion4" x="94" y="90" width="48" height="50" frameX="0" frameY="0" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion5" x="144" y="90" width="50" height="50"/>
+    <SubTexture name="explosion6" x="48" y="90" width="44" height="50" frameX="-3" frameY="0" frameWidth="50" frameHeight="50"/>
+    <SubTexture name="explosion7" x="189" y="44" width="38" height="44" frameX="-6" frameY="-1" frameWidth="50" frameHeight="50"/>
     <SubTexture name="explosion8" x="116" y="2" width="32" height="26" frameX="-9" frameY="-12" frameWidth="50" frameHeight="50"/>
-    <SubTexture name="fireball_e_1" x="91" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_e_2" x="41" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_e_3" x="16" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_e_4" x="66" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_n_1" x="91" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_n_2" x="41" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_n_3" x="16" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_n_4" x="66" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_s_1" x="91" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_s_2" x="41" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_s_3" x="16" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_s_4" x="66" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_w_1" x="91" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_w_2" x="41" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_w_3" x="16" y="2" width="23" height="23"/>
-    <SubTexture name="fireball_w_4" x="66" y="2" width="23" height="23"/>
-    <SubTexture name="floor_blocked" x="2" y="304" width="80" height="52"/>
-    <SubTexture name="floor_e" x="2" y="250" width="80" height="52"/>
-    <SubTexture name="floor_n" x="84" y="196" width="80" height="52"/>
-    <SubTexture name="floor_s" x="136" y="142" width="80" height="52"/>
-    <SubTexture name="floor_w" x="84" y="250" width="80" height="52"/>
-    <SubTexture name="heart" x="89" y="44" width="44" height="42"/>
-    <SubTexture name="heart_grey" x="135" y="44" width="44" height="42"/>
-    <SubTexture name="player_e" x="166" y="250" width="80" height="52"/>
-    <SubTexture name="player_n" x="166" y="196" width="80" height="52"/>
-    <SubTexture name="player_s" x="2" y="196" width="80" height="52"/>
-    <SubTexture name="player_w" x="54" y="142" width="80" height="52"/>
-    <SubTexture name="wall_e" x="166" y="792" width="80" height="100"/>
-    <SubTexture name="wall_n" x="166" y="792" width="80" height="100"/>
-    <SubTexture name="wall_s" x="166" y="792" width="80" height="100"/>
-    <SubTexture name="wall_w" x="166" y="792" width="80" height="100"/>
+    <SubTexture name="fireball_e_1" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_e_2" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_e_3" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_e_4" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_1" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_2" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_3" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_n_4" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_1" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_2" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_3" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_s_4" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_1" x="41" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_2" x="66" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_3" x="91" y="2" width="23" height="23"/>
+    <SubTexture name="fireball_w_4" x="16" y="2" width="23" height="23"/>
+    <SubTexture name="floor_blocked" x="2" y="142" width="80" height="52"/>
+    <SubTexture name="floor_e" x="84" y="142" width="80" height="52"/>
+    <SubTexture name="floor_n" x="84" y="142" width="80" height="52"/>
+    <SubTexture name="floor_s" x="84" y="142" width="80" height="52"/>
+    <SubTexture name="floor_w" x="84" y="142" width="80" height="52"/>
+    <SubTexture name="heart" x="97" y="44" width="44" height="42"/>
+    <SubTexture name="heart_grey" x="143" y="44" width="44" height="42"/>
+    <SubTexture name="player_e" x="84" y="504" width="61" height="81"/>
+    <SubTexture name="player_n" x="2" y="587" width="61" height="81"/>
+    <SubTexture name="player_s" x="65" y="587" width="61" height="81"/>
+    <SubTexture name="player_w" x="147" y="504" width="61" height="81"/>
+    <SubTexture name="wall_e" x="2" y="1075" width="80" height="100"/>
+    <SubTexture name="wall_n" x="2" y="1075" width="80" height="100"/>
+    <SubTexture name="wall_s" x="2" y="1075" width="80" height="100"/>
+    <SubTexture name="wall_w" x="2" y="1075" width="80" height="100"/>
 </TextureAtlas>

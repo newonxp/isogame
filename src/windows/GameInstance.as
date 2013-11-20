@@ -9,11 +9,11 @@ package windows
 	import starling.core.Starling;
 	import starling.events.Event;
 
+
 	public class GameInstance extends BasicWindow
 	{
 		private var _level:String
 		private static var _starling:Starling;
-		private var _scene:Level
 
 		public function GameInstance(level:String="")
 		{
@@ -33,35 +33,33 @@ package windows
 		{
 			_starling.removeEventListeners(starling.events.Event.ROOT_CREATED)
 			Starling.current.showStats=true
-			_scene=Starling.current.root as Level
-			_scene.setLevel(_level)
-			//stage.addEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
-			stage.addEventListener(MouseEvent.MOUSE_WHEEL, rightClicked)
-			_scene.addEventListener(starling.events.Event.ENTER_FRAME,onEnterFrame)
+			Game.gameManager.currentRoot=Starling.current.root as Level
+			Game.gameManager.currentRoot.setLevel(_level)
+			stage.addEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
+			Game.gameManager.currentRoot.addEventListener(starling.events.Event.ENTER_FRAME, onEnterFrame)
 		}
-		private function onEnterFrame(e:starling.events.Event):void{
-			_scene.removeEventListener(starling.events.Event.ENTER_FRAME,onEnterFrame)
+
+		private function onEnterFrame(e:starling.events.Event):void
+		{
+			Game.gameManager.currentRoot.removeEventListener(starling.events.Event.ENTER_FRAME, onEnterFrame)
 			Game.windowsManager.clearScreen()
 		}
+
+
 		private function rightClicked(e:MouseEvent):void
 		{
-			_scene.rightClick(e)
+			Game.gameManager.currentRoot.rightClick(e)
 		}
 
 		private function onRemove(e:flash.events.Event):void
 		{
-			//stage.removeEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
-			_scene.remove()
+			stage.removeEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
+			Game.gameManager.currentRoot.remove()
 			_starling.stop(true)
 			_starling.dispose()
 			_starling=null
-			trace("Меня пытаются удалить, ребзя")
 		}
 
-		public function get scene():Level
-		{
-			return _scene
-		}
 	}
 }
 

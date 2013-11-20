@@ -196,26 +196,11 @@
  </layer>
  <objectgroup name="Objects" width="9" height="10">
   <object type="startPosition" x="160" y="360" width="40" height="40"/>
-  <object type="endPosition" x="162" y="198" width="40" height="40"/>
+  <object type="endPosition" x="160" y="40" width="40" height="40"/>
   <object type="coin" x="158" y="120" width="40" height="40"/>
-  <object type="coin" x="77" y="117" width="40" height="40"/>
-  <object type="coin" x="238" y="200" width="40" height="40"/>
   <object type="coin" x="239" y="119" width="40" height="40"/>
-  <object type="coin" x="79" y="201" width="40" height="40"/>
-  <object type="coin" x="78" y="280" width="40" height="40"/>
   <object type="coin" x="159" y="279" width="40" height="40"/>
   <object type="coin" x="239" y="279" width="40" height="40"/>
-  <object type="enemy" x="320" y="38" width="40" height="40">
-   <properties>
-    <property name="destName" value="enemyDest"/>
-   </properties>
-  </object>
-  <object type="enemyDest" x="40" y="116" width="40" height="40"/>
-  <object type="enemy" x="40" y="40" width="40" height="40">
-   <properties>
-    <property name="destName" value="enemyDest2"/>
-   </properties>
-  </object>
-  <object type="enemyDest2" x="320" y="278" width="40" height="40"/>
+  <object type="coin" x="240" y="200" width="40" height="40"/>
  </objectgroup>
 </map>

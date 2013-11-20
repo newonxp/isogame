@@ -41,7 +41,7 @@ package windows
 
 		private function onRetry(e:MouseEvent):void
 		{
-
+			Game.gameManager.retry()
 		}
 
 		private function onMainMenu(e:MouseEvent):void

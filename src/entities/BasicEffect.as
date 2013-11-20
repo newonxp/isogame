@@ -10,6 +10,8 @@ package entities
 
 	import utils.AngleUtils;
 
+	import windows.Game;
+
 	public class BasicEffect
 	{
 		private var _scene:IsoScene
@@ -84,8 +86,7 @@ package entities
 		public function remove():void
 		{
 			_scene.removeChild(_sprite)
-			var scene:Level=Starling.current.root as Level
-			scene.removeObject(this)
+			Game.gameManager.currentRoot.removeObject(this)
 		}
 	}
 }

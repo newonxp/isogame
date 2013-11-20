@@ -1216,7 +1216,7 @@
  </layer>
  <objectgroup name="Objects" width="20" height="30">
   <object type="startPosition" x="280" y="1160" width="40" height="40"/>
-  <object type="endPosition" x="283" y="1077" width="40" height="40"/>
+  <object type="endPosition" x="40" y="80" width="40" height="40"/>
   <object type="cannon" x="40" y="120" width="40" height="40">
    <properties>
     <property name="delay" value="2000"/>
