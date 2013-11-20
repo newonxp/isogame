@@ -45,7 +45,7 @@ package windows
 
 		private function onNextLevel(e:MouseEvent):void
 		{
-
+			Game.gameManager.nextLevel()
 		}
 
 		private function onMainMenu(e:MouseEvent):void

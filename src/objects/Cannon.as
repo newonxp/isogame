@@ -25,7 +25,7 @@ package objects
 			_timer.start()
 			var bounds:Bounds=new Bounds(Config.cell_size, Config.cell_size, 60)
 			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 0, rotate, bounds, cell, scene, spritesPack, false, true);
-			type=Config.block
+			type=Config.cannon
 		}
 
 		private function onTimerComplete(e:TimerEvent):void

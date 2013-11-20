@@ -43,7 +43,6 @@ package objects
 
 		private function startWait():void
 		{
-			trace("startWait")
 			_timer.start()
 		}
 
@@ -54,14 +53,81 @@ package objects
 
 		override public function walkFinished():void
 		{
-			trace("walkFinished")
-			cell.blocked=false
 			cell=_endPoint
 			_endPoint=_startPoint
 			_startPoint=cell
 			_pathStage=0
 			startWait()
 		}
+
+		override public function walkTo(start:Point, end:Point):void{
+
+
+			var path:Object=Game.windowsManager.gameInstance.scene.getPath(start, end, false)
+			if (path != null)
+			{
+				var newPath:Array = convertPathToCells(path.path)
+				var xArray:Array
+				var yArray:Array
+				//trace(newPath)
+				//var newPath:Array = new Array()
+				for(var i:int=0;i<newPath.length-1;i++){
+					xArray = getArrayFromKeyPoints(newPath[i].x,newPath[i+1].x)
+					yArray	= getArrayFromKeyPoints(newPath[i].y,newPath[i+1].y)
+					if(xArray.length==yArray.length){
+						trace("Orient both")
+						createCellArray(xArray,yArray,true)
+					}
+					else if(xArray.length>yArray.length){
+						trace("Orient x")
+						createCellArray(xArray,yArray)
+					}
+					else if(yArray.length>xArray.length){
+						trace("Orient y")
+						createCellArray(yArray,xArray,false,true)
+					}
+				}
+			}
+		}
+		private function createCellArray(long:Array,short:Array,similar:Boolean = false,reverse:Boolean=false){
+			var myArray:Array = new Array()
+			for(var i:int=0;i<long.length;i++)
+			{
+				if(!similar){
+					if(!reverse){
+						myArray.push([long[i],short[0]])
+					}else{
+						myArray.push([short[0],long[i]])
+					}
+				}else{
+					myArray.push([long[i],short[i]])
+				}
+			}
+			trace(myArray)
+		}
+		private function getArrayFromKeyPoints(first:int,second:int):Array{
+			var delta:int= second-first
+			var myArray:Array = new Array()
+			myArray.push(first)
+			for(var i:int=0;i<Math.abs(delta)-1;i++)
+			{
+				if(delta<0){
+					myArray.push(first-=1)
+				}else{
+					myArray.push(first+=1)
+				}
+			}
+			myArray.push(second)
+			return myArray
+		}
+		private function convertPathToCells(path:Array):Array{
+			var newPath:Array = new Array()
+			for(var i:int = 0;i<path.length;i++){
+				newPath.push(Game.windowsManager.gameInstance.scene.getCellAtCoords(path[i].x,path[i].y))
+			}
+			return newPath
+		}
+
 
 		override public function collide(target:BasicObject):void
 		{

@@ -2,10 +2,11 @@
 	<img id="img/spritesheet.png"/>
 	<xml id="xml/levels/level1.tmx"/>
 	<xml id="xml/levels/level2.tmx"/>
+	<xml id="xml/levels/level3.tmx"/>
 	<xml id="xml/spritesheet.xml"/>
 
 	<img id="ui/main_menu.swf"/>
 	<img id="ui/buttons.swf"/>
 	<img id="ui/game_over.swf"/>
-		<img id="ui/win_menu.swf"/>
+	<img id="ui/win_menu.swf"/>
 </preload>

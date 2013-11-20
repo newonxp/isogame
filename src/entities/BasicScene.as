@@ -43,8 +43,9 @@ package entities
 
 		public var _levelName:String
 
-		private var _sceneStatic:IsoScene
+		private var _sceneBottom:IsoScene
 		private var _sceneMain:IsoScene
+		private var _sceneTop:IsoScene
 		private var _view:IsoView
 
 		private var _mapWidth:int
@@ -94,12 +95,14 @@ package entities
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_DOWN, viewMouseDown);
 			Game.windowsManager.stage.addEventListener(MouseEvent.MOUSE_WHEEL, viewZoom);
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame)
-			_sceneStatic=new IsoScene();
+			_sceneBottom=new IsoScene();
 			_sceneMain=new IsoScene();
+			_sceneTop=new IsoScene();
 			_view=new IsoView();
 			_view.setSize(1024, 768);
-			_view.addScene(_sceneStatic);
+			_view.addScene(_sceneBottom);
 			_view.addScene(_sceneMain);
+			_view.addScene(_sceneTop);
 			_view.clipContent=false;
 			_view.autoUpdate=true
 			addChild(_view)
@@ -219,25 +222,38 @@ package entities
 			}
 			return _map[_y][_x]
 		}
+		private function getOptimalScene(cell:Cell):IsoScene{
+			var scene:IsoScene 
+			if(cell.x==0||cell.y==0){
+				scene=_sceneBottom
+			}else if(cell.x==_mapWidth||cell.y==_mapHeight){
+				scene=_sceneTop
+			}else{
+				scene=_sceneMain
+			}
+			return scene
+		}
 
 		public function addFloor(cell:Cell=null):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("floor")
-			var floor:Floor=new Floor(_sceneStatic, spritesPack, cell)
+			var floor:Floor=new Floor(_sceneBottom, spritesPack, cell)
 			addObject(floor, cell)
 		}
+
 
 		public function addWall(cell:Cell=null):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("wall")
-			var wall:Wall=new Wall(_sceneMain, spritesPack, cell)
+
+			var wall:Wall=new Wall(getOptimalScene(cell), spritesPack, cell)
 			addObject(wall, cell)
 		}
 
 		public function addCannon(cell:Cell=null, rotate:Number=0, delay:Number=0):void
 		{
 			var spritesPack:SpritesPack=_spritesManager.getPack("cannon")
-			var cannon:Cannon=new Cannon(_sceneMain, spritesPack, cell, rotate, delay)
+			var cannon:Cannon=new Cannon(getOptimalScene(cell), spritesPack, cell, rotate, delay)
 			addObject(cannon, cell)
 		}
 
@@ -350,19 +366,18 @@ package entities
 			}
 			for (var a:int=0; a < xml.objectgroup.object.length(); a++)
 			{
-				if (xml.objectgroup.object[a].@type == Config.StartPosition)
+				if (xml.objectgroup.object[a].@type == Config.startPosition)
 				{
 					_startPoint=getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y)
 				}
-				else if (xml.objectgroup.object[a].@type == Config.EndPosition)
+				else if (xml.objectgroup.object[a].@type == Config.endPosition)
 				{
 					_endPoint=getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y)
 				}
-				else if (xml.objectgroup.object[a].@type == Config.Cannon)
+				else if (xml.objectgroup.object[a].@type == Config.cannon)
 				{
 					var rotation:Number=0
 					var delay:Number=0
-					trace(xml.objectgroup.object[a].properties.property.length())
 					for (var c:int=0; c < xml.objectgroup.object[a].properties.property.length(); c++)
 					{
 						if (xml.objectgroup.object[a].properties.property[c].@name == "rotation")
@@ -374,8 +389,25 @@ package entities
 							delay=xml.objectgroup.object[a].properties.property[c].@value
 						}
 					}
-					trace(rotation)
 					addCannon(getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y), rotation, delay)
+				}
+				else if (xml.objectgroup.object[a].@type == Config.coin)
+				{
+					addCoin(getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y))
+
+				}
+				else if (xml.objectgroup.object[a].@type == Config.enemy)
+				{
+					var destCell:Cell
+					for (var d:int=0; d < xml.objectgroup.object[a].properties.property.length(); d++)
+					{
+						if (xml.objectgroup.object[a].properties.property[d].@name == "destName"){
+							var obj:XML =getObjectByType(xml,xml.objectgroup.object[a].properties.property[d].@value)
+							destCell=getCellAtCoords(obj.@x,obj.@y)
+						}
+					}
+					addEnemy(getCellAtCoords(xml.objectgroup.object[a].@x, xml.objectgroup.object[a].@y),destCell,1000)
+
 				}
 			}
 			/*		xShift=0
@@ -404,6 +436,15 @@ package entities
 			addPlayer(_startPoint)
 			addEscape(_endPoint)
 			updateCollisionMap()
+		}
+		private function getObjectByType(xml:XML,type:String):XML{
+			for (var i:int=0; i < xml.objectgroup.object.length(); i++)
+			{
+				if(xml.objectgroup.object[i].@type == type){
+					return xml.objectgroup.object[i]
+				}
+			}
+			return null
 		}
 
 

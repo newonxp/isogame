@@ -17,7 +17,7 @@ package objects
 		{
 			type=Config.coin
 			var bounds:Bounds=new Bounds(Config.cell_size, Config.cell_size, 60)
-			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 10, 0, bounds, cell, scene, spritesPack, false, false, false, true);
+			super(cell.x * Config.cell_size, cell.y * Config.cell_size, 25, 0, bounds, cell, scene, spritesPack, false, false, false, true);
 		}
 
 		public function animateOut():void
@@ -30,3 +30,5 @@ package objects
 		}
 	}
 }
+
+

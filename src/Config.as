@@ -28,10 +28,10 @@ package
 		public static const block:String="block"
 		public static const fireball:String="fireball"
 		public static const coin:String="coin"
+		public static const cannon:String="cannon"
 		public static const escapeZone:String="coin"
-		public static const StartPosition:String="StartPosition"
-		public static const EndPosition:String="EndPosition"
-		public static const Cannon:String="Cannon"
+		public static const startPosition:String="startPosition"
+		public static const endPosition:String="endPosition"
 
 
 		//gameplay

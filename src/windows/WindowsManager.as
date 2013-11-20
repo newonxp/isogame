@@ -53,7 +53,10 @@ package windows
 
 		public function removeWindow(window:BasicWindow):void
 		{
-			removeChild(window)
+			if(window!=null){
+				removeChild(window)
+				window=null
+			}
 		}
 
 		public function get preloader():Preloader
@@ -74,6 +77,10 @@ package windows
 		public function get gameoverMenu():GameoverMenu
 		{
 			return _gameoverMenu
+		}
+		public function get winMenu():WinMenu
+		{
+			return _winMenu
 		}
 	}
 }

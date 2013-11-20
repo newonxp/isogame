@@ -987,7 +987,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="2"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1215,29 +1215,227 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="20" height="30">
-  <object type="StartPosition" x="280" y="1160" width="40" height="40"/>
-  <object type="EndPosition" x="40" y="80" width="40" height="40"/>
-  <object type="Cannon" x="40" y="120" width="40" height="40">
+  <object type="startPosition" x="280" y="1160" width="40" height="40"/>
+  <object type="endPosition" x="283" y="1077" width="40" height="40"/>
+  <object type="cannon" x="40" y="120" width="40" height="40">
    <properties>
-    <property name="delay" value="1000"/>
+    <property name="delay" value="2000"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object type="Cannon" x="40" y="40" width="40" height="40">
+  <object type="cannon" x="40" y="40" width="40" height="40">
    <properties>
-    <property name="delay" value="1000"/>
+    <property name="delay" value="2000"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>
-  <object type="Cannon" x="240" y="0" width="40" height="40">
+  <object type="cannon" x="240" y="0" width="40" height="40">
    <properties>
-    <property name="delay" value="1000"/>
+    <property name="delay" value="2000"/>
     <property name="rotation" value="90"/>
    </properties>
   </object>
-  <object type="Cannon" x="0" y="800" width="40" height="40">
+  <object type="cannon" x="0" y="800" width="40" height="40">
    <properties>
-    <property name="delay" value="1000"/>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="cannon" x="599" y="721" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="180"/>
+   </properties>
+  </object>
+  <object type="coin" x="280" y="1001" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="201" y="997" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="118" y="1000" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="122" y="918" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="119" y="839" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="120" y="762" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="119" y="683" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="119" y="601" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="199" y="599" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="278" y="600" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="357" y="601" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="440" y="600" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="519" y="603" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="519" y="519" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="521" y="437" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="440" y="440" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="356" y="438" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="278" y="440" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="198" y="438" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="118" y="440" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="116" y="358" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="118" y="282" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="202" y="238" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="281" y="239" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="364" y="240" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="441" y="239" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="439" y="159" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="441" y="79" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="358" y="80" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="200" y="80" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="278" y="76" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
+    <property name="rotation" value="0"/>
+   </properties>
+  </object>
+  <object type="coin" x="120" y="78" width="40" height="40">
+   <properties>
+    <property name="delay" value="2000"/>
     <property name="rotation" value="0"/>
    </properties>
   </object>

@@ -3,18 +3,22 @@ package utils
 	import entities.BasicObject;
 
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
+	import flash.utils.Timer;
 
 	import windows.Game;
 
 	public class CollisionDetector
 	{
 		private var _objects:Vector.<Object>
-
+		private var _timer:Timer
 		public function CollisionDetector()
 		{
 			_objects=new Vector.<Object>
-			Game.windowsManager.addEventListener(Event.ENTER_FRAME, checkCollisions)
+			_timer = new Timer(100,0)
+			_timer.addEventListener(TimerEvent.TIMER,checkCollisions)
+			_timer.start()
 		}
 
 		public function registerRect(rect:Rectangle, object:BasicObject):void
@@ -50,7 +54,7 @@ package utils
 			}
 		}
 
-		private function checkCollisions(e:Event):void
+		private function checkCollisions(e:TimerEvent):void
 		{
 			for (var i:int=0; i < _objects.length; i++)
 			{
@@ -80,7 +84,9 @@ package utils
 
 		public function remove():void
 		{
-			Game.windowsManager.removeEventListener(Event.ENTER_FRAME, checkCollisions)
+			_timer.stop()
+			_timer.removeEventListener(TimerEvent.TIMER,checkCollisions)
+			_timer = null
 		}
 
 	}

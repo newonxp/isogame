@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" width="9" height="10" tilewidth="80" tileheight="40">
  <tileset firstgid="1" name="floor_e" tilewidth="80" tileheight="40">
-  <image source="D:/Works/Gameinsight/isogame/graphics/tiles/floor_e.png" width="80" height="52"/>
+  <image source="../../../../graphics/tiles/floor_e.png" width="80" height="52"/>
  </tileset>
  <tileset firstgid="2" name="wall_n" tilewidth="80" tileheight="100">
-  <image source="D:/Works/Gameinsight/isogame/graphics/tiles/wall_n.png" width="80" height="100"/>
+  <image source="../../../../graphics/tiles/wall_n.png" width="80" height="100"/>
  </tileset>
  <layer name="floor" width="9" height="10">
   <data>
@@ -195,7 +195,21 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="9" height="10">
-  <object type="StartPosition" x="160" y="360" width="40" height="40"/>
-  <object type="EndPosition" x="160" y="40" width="40" height="40"/>
+  <object type="startPosition" x="160" y="360" width="40" height="40"/>
+  <object type="endPosition" x="162" y="198" width="40" height="40"/>
+  <object type="coin" x="158" y="120" width="40" height="40"/>
+  <object type="coin" x="77" y="117" width="40" height="40"/>
+  <object type="coin" x="238" y="200" width="40" height="40"/>
+  <object type="coin" x="239" y="119" width="40" height="40"/>
+  <object type="coin" x="79" y="201" width="40" height="40"/>
+  <object type="coin" x="78" y="280" width="40" height="40"/>
+  <object type="coin" x="159" y="279" width="40" height="40"/>
+  <object type="coin" x="239" y="279" width="40" height="40"/>
+  <object type="enemy" x="320" y="38" width="40" height="40">
+   <properties>
+    <property name="destName" value="enemyDest"/>
+   </properties>
+  </object>
+  <object type="enemyDest" x="40" y="116" width="40" height="40"/>
  </objectgroup>
 </map>

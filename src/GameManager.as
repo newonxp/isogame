@@ -4,17 +4,24 @@ package
 
 	public class GameManager
 	{
-		private var _currentLevelNumber:int=3
+		private var _currentLevelNumber:int=1
 		private var _totalLevels:int=3
 
 		public function GameManager()
 		{
+			_currentLevelNumber=1
 		}
 
 		public function newGame():void
 		{
+			_currentLevelNumber=1
 			Game.windowsManager.removeWindow(Game.windowsManager.mainMenu)
-			Game.windowsManager.addGameInstance("level1")
+			Game.windowsManager.addGameInstance("level"+_currentLevelNumber)
+		}
+
+		public function continueGame():void{
+			Game.windowsManager.removeWindow(Game.windowsManager.mainMenu)
+			Game.windowsManager.addGameInstance("level"+_currentLevelNumber)
 		}
 
 		public function returnToMenu():void
@@ -26,7 +33,9 @@ package
 		public function nextLevel():void
 		{
 			_currentLevelNumber++
-
+			Game.windowsManager.removeWindow(Game.windowsManager.winMenu)
+			Game.windowsManager.removeWindow(Game.windowsManager.gameInstance)
+			Game.windowsManager.addGameInstance("level"+_currentLevelNumber)
 		}
 
 		public function get currentLevelNumber():int

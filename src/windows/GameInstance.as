@@ -35,7 +35,7 @@ package windows
 			Starling.current.showStats=true
 			_scene=Starling.current.root as Level
 			_scene.setLevel(_level)
-			stage.addEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
+			//stage.addEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
 		}
 
 		private function rightClicked(e:MouseEvent):void
@@ -45,7 +45,7 @@ package windows
 
 		private function onRemove(e:flash.events.Event):void
 		{
-			stage.removeEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
+			//stage.removeEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
 			_scene.remove()
 			_starling.stop(true)
 			_starling.dispose()

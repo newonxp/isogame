@@ -189,12 +189,13 @@ package entities
 				var newCell:Cell=Game.windowsManager.gameInstance.scene.getCellAtCoords(x, y)
 				if (_cell)
 				{
-					if (newCell != _cell)
+					if (newCell != _cell&&!newCell.blocked)
 					{
-						Game.windowsManager.gameInstance.scene.updateCollisionMap()
+
 						_cell.blocked=false
 						newCell.blocked=true
 						_cell=newCell
+						Game.windowsManager.gameInstance.scene.updateCollisionMap()
 					}
 				}
 				else
@@ -212,7 +213,6 @@ package entities
 		{
 
 			var path:Object=Game.windowsManager.gameInstance.scene.getPath(start, end, false)
-			trace("asdasdas " + path)
 			if (path != null)
 			{
 				TweenMax.killTweensOf(this)

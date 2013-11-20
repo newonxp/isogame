@@ -33,10 +33,12 @@ package windows
 			_continue.addEventListener(MouseEvent.CLICK,onCont)
 			_newGame.addEventListener(MouseEvent.CLICK,onNewGame)
 			_titles.addEventListener(MouseEvent.CLICK,onAbout)
-			_continue.disable(true)
+			if(Game.gameManager.currentLevelNumber==1){
+				_continue.disable(true)
+			}
 		}
 		private function onCont(e:MouseEvent):void{
-			trace("onCont")
+			Game.gameManager.continueGame()
 		}
 		private function onNewGame(e:MouseEvent):void{
 			Game.gameManager.newGame()

@@ -48,8 +48,8 @@ package windows
 
 		private function resourcesLoaded():void
 		{
-			_windowsManager.addGameInstance("level2")
-			//_windowsManager.addMainMenu()
+			//_windowsManager.addGameInstance("level2")
+			_windowsManager.addMainMenu()
 			//_windowsManager.addGameoverMenu()
 		}
 

@@ -2,6 +2,9 @@ package utils
 {
 	import entities.BasicObject;
 
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+
 	import starling.display.Sprite;
 	import starling.events.Event;
 
@@ -10,11 +13,13 @@ package utils
 	public class ShotsManager extends Sprite
 	{
 		private var _shots:Vector.<Object>
-
+		private var _timer:Timer
 		public function ShotsManager()
 		{
 			_shots=new Vector.<Object>
-			Game.windowsManager.gameInstance.scene.addEventListener(Event.ENTER_FRAME, onEnterFrame)
+			_timer = new Timer(50,0)
+			_timer.addEventListener(TimerEvent.TIMER,onTick)
+			_timer.start()
 		}
 
 		public function addShot(obj:BasicObject, directionX:Number, directionY:Number):void
@@ -40,12 +45,12 @@ package utils
 			}
 		}
 
-		private function onEnterFrame(e:Event):void
+		private function onTick(e:TimerEvent):void
 		{
 			for (var i:int=0; i < _shots.length; i++)
 			{
-				_shots[i].obj.x+=_shots[i].dirX * 2
-				_shots[i].obj.y+=_shots[i].dirY * 2
+				_shots[i].obj.x+=_shots[i].dirX * 4
+				_shots[i].obj.y+=_shots[i].dirY * 4
 				_shots[i].obj.tick()
 			}
 		}
@@ -57,7 +62,9 @@ package utils
 
 		public function remove():void
 		{
-			Game.windowsManager.gameInstance.scene.removeEventListener(Event.ENTER_FRAME, onEnterFrame)
+			_timer.stop()
+			_timer.removeEventListener(TimerEvent.TIMER,onTick)
+			_timer = null
 		}
 
 	}
