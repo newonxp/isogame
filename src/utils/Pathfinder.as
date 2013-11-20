@@ -2,12 +2,16 @@ package utils
 {
 
 
+	import entities.Cell;
+
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
 	import pathfinding.Grid;
 	import pathfinding.Path;
 	import pathfinding.Pathfinder;
+
+	import windows.Game;
 
 	public class Pathfinder
 	{
@@ -52,6 +56,69 @@ package utils
 			return obj
 		}
 
+		public function convertVectorPathToCells(path:Array):Array{
+			var newPath:Array = convertPathToCells(path)
+			var xArray:Array
+			var yArray:Array
+			//trace(newPath)
+			var newPathPerPoint:Array = new Array()
+			for(var i:int=0;i<newPath.length-1;i++){
+				xArray = getArrayFromKeyPoints(newPath[i].x,newPath[i+1].x,i)
+				yArray	= getArrayFromKeyPoints(newPath[i].y,newPath[i+1].y,i)
+				if(xArray.length==yArray.length){
+					newPathPerPoint=newPathPerPoint.concat(createCellArray(xArray,yArray,true))
+				}
+				else if(xArray.length>yArray.length){
+					newPathPerPoint=newPathPerPoint.concat(createCellArray(xArray,yArray))
+				}
+				else if(yArray.length>xArray.length){
+					newPathPerPoint=newPathPerPoint.concat(createCellArray(yArray,xArray,false,true))
+				}
+			}
+			return newPathPerPoint
+		}
+		private function convertPathToCells(path:Array):Array{
+			var newPath:Array = new Array()
+			for(var i:int = 0;i<path.length;i++){
+				newPath.push(Game.windowsManager.gameInstance.scene.getCellAtCoords(path[i].x,path[i].y))
+			}
+			return newPath
+		}	
+		private function getArrayFromKeyPoints(first:int,second:int,stepNo:int=0):Array{
+			var delta:int= second-first
+			var myArray:Array = new Array()
+			if(stepNo==0){
+				myArray.push(first)
+			}
+			for(var i:int=0;i<Math.abs(delta)-1;i++)
+			{
+				if(delta<0){
+					myArray.push(first-=1)
+				}else{
+					myArray.push(first+=1)
+				}
+			}
+			myArray.push(second)
+			return myArray
+		}
+		private function createCellArray(long:Array,short:Array,similar:Boolean = false,reverse:Boolean=false):Array{
+			var myArray:Array = new Array()
+			for(var i:int=0;i<long.length;i++)
+			{
+				if(!similar){
+					if(!reverse){
+						myArray.push(Game.windowsManager.gameInstance.scene.getCellAt(long[i],short[0]))
+					}else{
+						myArray.push(Game.windowsManager.gameInstance.scene.getCellAt(short[0],long[i]))
+					}
+				}else{
+					myArray.push(Game.windowsManager.gameInstance.scene.getCellAt(long[i],short[i]))
+				}
+			}
+			return myArray
+		}
 
 	}
 }
+
+

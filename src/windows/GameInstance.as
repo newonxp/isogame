@@ -36,6 +36,7 @@ package windows
 			_scene=Starling.current.root as Level
 			_scene.setLevel(_level)
 			//stage.addEventListener(MouseEvent.RIGHT_CLICK, rightClicked)
+			stage.addEventListener(MouseEvent.MOUSE_WHEEL, rightClicked)
 		}
 
 		private function rightClicked(e:MouseEvent):void
